@@ -2,6 +2,8 @@
 
 鉴枢（AuthNexus）的视觉体系与交互组件，抽离为可跨项目复用的设计系统资产。
 
+> Cross-project design system: CSS design tokens + custom-built UI components (light/dark themes, liquid-glass overlays). Vue 3 components included; React reuses the CSS and follows the behavior spec.
+
 - **风格**：明亮纸白画布 + 墨黑文字 + 1px 描边分层；液态玻璃浮层；酸橙绿只做强调与品牌时刻
 - **技术**：纯 CSS 令牌 + 自绘组件（零 UI 库依赖）；Vue3 项目直接复用组件源码，React 项目复用 CSS 资产 + 按规范实现组件
 - **保真**：跨框架一致性由 `docs/BEHAVIOR.md`（交互规范）+ `audit/`（浏览器黑盒审计）保障
@@ -10,9 +12,9 @@
 
 | 平台 | 地址 |
 |---|---|
-| GitHub | 待填 |
-| Codeberg | 待填 |
-| Gitee | 待填 |
+| GitHub | https://github.com/yimolab/authnexus-design |
+| Codeberg | https://codeberg.org/yimolab/authnexus-design |
+| Gitee | https://gitee.com/yimolab/authnexus-design |
 
 ## 结构
 

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AuthNexus Design · React 接线骨架</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('authnexus.theme')
+        if (t !== 'dark' && t !== 'light') t = 'light'
+        document.documentElement.setAttribute('data-theme', t)
+      } catch (e) {}
+    })()
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- 浮层与通知的 Teleport 目标容器（实现浮层组件时需要；见 docs/ADOPT.md §0 接线） -->
+  <div id="overlay-layer" class="overlay-layer"></div>
+  <div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
+
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

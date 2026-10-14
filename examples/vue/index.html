@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AuthNexus Design · Vue 接线示例</title>
+  <script>
+    /* 主题预置：必须在首帧前执行，键名与 lib/theme.ts 一致（authnexus.theme） */
+    (function () {
+      try {
+        var t = localStorage.getItem('authnexus.theme')
+        if (t !== 'dark' && t !== 'light') t = 'light'
+        document.documentElement.setAttribute('data-theme', t)
+      } catch (e) {}
+    })()
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- 浮层与通知的 Teleport 目标容器（必需；缺了它们浮层与 Toast 不会显示） -->
+  <div id="overlay-layer" class="overlay-layer"></div>
+  <div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

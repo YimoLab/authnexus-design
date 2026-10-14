@@ -22,8 +22,16 @@
    ```
 
 3. **index.html**：加字体 preload + 主题预置脚本（见 §3）；
-4. **接线**：应用根挂载 `<OverlayHost />` 与 `<ToastHost />` 各一次；复制需要的组件，
-   改 import 别名（组件间引用全部是相对路径，同结构复制可零改动）；
+4. **接线**：两件事缺一不可——
+   a. `index.html` 的 `<body>` 里提供两个 **Teleport 目标容器**（缺了浮层与 Toast 不会显示，且无报错）：
+
+      ```html
+      <div id="overlay-layer" class="overlay-layer"></div>
+      <div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
+      ```
+
+   b. 应用根挂载 `<OverlayHost />` 与 `<ToastHost />` 各一次；
+   复制需要的组件，改 import 别名（组件间引用全部是相对路径，同结构复制可零改动）；
 5. **验收**：跑 `audit/`（配置 `audit.config.json` 指向你的路由），对照 `gallery/` 检查观感。
 
 ## 1. 复制清单
@@ -70,6 +78,14 @@
     } catch (e) {}
   })()
 </script>
+```
+
+页面结构（`<body>` 末尾）需要两个浮层容器（见 §0 第 4 步）：
+
+```html
+<!-- 浮层与通知的 Teleport 目标容器（必需） -->
+<div id="overlay-layer" class="overlay-layer"></div>
+<div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
 ```
 
 ## 4. Vue 用法示例
@@ -152,6 +168,7 @@ Design system: authnexus-design v0.1.0（复制于 2026-10-DD，三平台同名�
 
 | 坑 | 规则 |
 |---|---|
+| **浮层 / Toast 完全不显示且无报错** | 检查 index.html 是否有 `#overlay-layer` / `#toast-layer` 容器（§0 第 4 步） |
 | 浮层挂在玻璃祖先里，磨砂失效 | Teleport 挂 body + fixed + JS 坐标（BEHAVIOR §1.1） |
 | 下拉面板向右溢出 | 先设 min-width 再测量（§1.3） |
 | 只给 tbody 加 transform → 出横向滚动条 | 整块滑动 + `.paged-clip`（§4） |

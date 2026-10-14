@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>样式画廊 · AuthNexus Design</title>
+<link rel="preload" href="../fonts/albert-sans-500-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../fonts/fonts.css" />
+<link rel="stylesheet" href="../css/tokens.css" />
+<link rel="stylesheet" href="../css/brand.css" />
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/motion.css" />
+<link rel="stylesheet" href="gallery.css" />
+<script>
+  /* 主题预置（与 docs/ADOPT.md 模板一致；键 authnexus.theme） */
+  (function () {
+    try {
+      var t = localStorage.getItem('authnexus.theme')
+      if (t !== 'dark' && t !== 'light') t = 'light'
+      document.documentElement.setAttribute('data-theme', t)
+    } catch (e) {}
+  })()
+</script>
+</head>
+<body>
+<div class="g-wrap">
+
+  <header class="g-head">
+    <h1>AuthNexus Design</h1>
+    <span class="g-sub">样式画廊 · gallery</span>
+    <button class="btn btn--sm btn--ghost push" id="theme-toggle" type="button">切到深色</button>
+  </header>
+  <p class="g-note">本页平铺设计系统的组件与状态（零框架依赖），用于与鉴枢页面截图对照、以及组件级审计取样。交互为演示简化版，完整行为（键盘 / ARIA）以 vue/ 实现与 docs/BEHAVIOR.md 为准。</p>
+
+  <!-- ============================ 1. 排版 ============================ -->
+  <section class="g-sec">
+    <h2>排版刻度<code>base.css §2</code></h2>
+    <div class="g-cell g-stack">
+      <span class="t-display">Display 32 · 鉴枢 AuthNexus</span>
+      <span class="t-h1">H1 28 · 统一授权中心</span>
+      <span class="t-h2">H2 20 · 应用管理</span>
+      <span class="t-h3">H3 16 · 已授权应用</span>
+      <span class="t-body">Body 16 · 正文内容示例文本</span>
+      <span class="t-sm">SM 14 · 次要文本</span>
+      <span class="t-xs">XS 13 · 辅助说明</span>
+      <span class="t-mono">MONO 13 · anx_3a5e91b7c204</span>
+      <span class="t-sm t-muted">muted 次级文字色</span>
+    </div>
+  </section>
+
+  <!-- ============================ 2. 按钮 ============================ -->
+  <section class="g-sec">
+    <h2>按钮<code>base.css §6 · §6b</code></h2>
+    <div class="g-cell g-stack">
+      <div class="g-row">
+        <button class="btn btn--primary" type="button">主行动</button>
+        <button class="btn btn--ghost" type="button">幽灵按钮</button>
+        <button class="btn btn--quiet" type="button">安静按钮</button>
+        <button class="btn btn--danger" type="button">危险操作</button>
+        <button class="btn btn--danger-quiet" type="button">危险描边</button>
+        <button class="btn btn--acid" type="button">品牌时刻</button>
+      </div>
+      <div class="g-row">
+        <button class="btn btn--primary btn--lg" type="button">大号按钮</button>
+        <button class="btn btn--primary btn--sm" type="button">小号按钮</button>
+        <button class="btn btn--primary" type="button" disabled>禁用</button>
+        <button class="btn btn--primary" type="button"><span class="btn__spinner"></span>加载中</button>
+      </div>
+      <div class="g-row" style="width:100%">
+        <button class="iconbtn" type="button" aria-label="更多">···</button>
+        <button class="iconbtn" type="button" aria-label="关闭" disabled>✕</button>
+        <button class="btn btn--ghost" type="button" style="flex:1">块级弹性按钮</button>
+      </div>
+      <p class="g-note">图标按钮在真机上使用 Icon 组件（SVG，17px）；此处用字符占位展示盒模型。主行动按钮是墨黑底白字，酸橙绿只留给品牌时刻。</p>
+    </div>
+  </section>
+
+  <!-- ============================ 3. 表单 ============================ -->
+  <section class="g-sec">
+    <h2>表单<code>base.css §7</code></h2>
+    <div class="g-cells g-cells--2">
+      <div class="g-cell g-stack">
+        <span class="g-label">.field / .input 基本与校验态</span>
+        <div class="field od-field">
+          <label class="field__label" for="g-in-1">应用名称<span class="req">*</span></label>
+          <input class="input" id="g-in-1" placeholder="例如：云枢笔记" />
+          <span class="field__hint">2–20 个字符</span>
+        </div>
+        <div class="field od-field">
+          <label class="field__label" for="g-in-2">回调地址</label>
+          <input class="input" id="g-in-2" value="https://example.com/callback" aria-invalid="true" />
+          <span class="field__error">必须为 https 开头的完整地址</span>
+        </div>
+        <div class="field od-field">
+          <label class="field__label" for="g-in-3">禁用状态</label>
+          <input class="input" id="g-in-3" value="只读内容" disabled />
+        </div>
+        <div class="field od-field">
+          <label class="field__label" for="g-in-4">等宽输入</label>
+          <input class="input input--mono" id="g-in-4" value="anx_3a5e91b7c204" />
+        </div>
+        <span class="g-label">textarea / select（演示样式；正式下拉用 SelectMenu）</span>
+        <textarea class="textarea" placeholder="描述这个应用的用途…"></textarea>
+        <select class="select">
+          <option>一级权限</option>
+          <option>二级权限</option>
+        </select>
+      </div>
+      <div class="g-cell g-stack">
+        <span class="g-label">带动作的输入框 + 密码强度</span>
+        <div class="input-wrap">
+          <input class="input" type="password" value="demo1234" />
+          <button class="input-wrap__action" type="button" aria-label="显示密码">◉</button>
+        </div>
+        <div class="strength">
+          <span class="strength__bar is-on-1"></span>
+          <span class="strength__bar is-on-2"></span>
+          <span class="strength__bar is-on-3"></span>
+        </div>
+        <span class="g-label">checkline / switch</span>
+        <label class="checkline">
+          <input type="checkbox" checked />
+          <span class="checkline__text">我已阅读并同意 <strong>接入服务条款</strong></span>
+        </label>
+        <label class="checkline">
+          <input type="checkbox" />
+          <span class="checkline__text">未勾选态</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" checked />
+          <span class="switch__track"></span>
+          <span class="t-sm">启用双因素认证</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="switch__track"></span>
+          <span class="t-sm">关闭态</span>
+        </label>
+        <span class="g-label">fieldset / radio</span>
+        <fieldset class="fieldset">
+          <legend class="fieldset__legend">回调方式</legend>
+          <div class="g-stack">
+            <label class="checkline"><input type="radio" name="g-cb" checked /><span class="checkline__text">授权码模式（推荐）</span></label>
+            <label class="checkline"><input type="radio" name="g-cb" /><span class="checkline__text">隐式模式</span></label>
+          </div>
+        </fieldset>
+        <div class="form-actions">
+          <button class="btn btn--primary" type="button">保存</button>
+          <button class="btn btn--ghost" type="button">取消</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 4. 表格与分页 ============================ -->
+  <section class="g-sec">
+    <h2>表格与分页<code>base.css §8 · components.css §29</code></h2>
+    <div class="g-cell">
+      <div class="table-wrap">
+        <table class="table table--clickable">
+          <thead>
+            <tr><th>应用</th><th>归属</th><th class="is-num">调用数</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="cell-main">
+                  <span class="appicon appicon--letter">云</span>
+                  <div><div class="cell-title">云枢笔记</div><div class="cell-sub">app_yunshu</div></div>
+                </div>
+              </td>
+              <td>林知远</td>
+              <td class="is-num">1,284</td>
+              <td><div class="cell-actions"><button class="btn btn--sm btn--ghost" type="button">查看</button></div></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cell-main">
+                  <span class="appicon appicon--letter">F</span>
+                  <div><div class="cell-title">Figma</div><div class="cell-sub">app_figma</div></div>
+                </div>
+              </td>
+              <td>何叙</td>
+              <td class="is-num">872</td>
+              <td><div class="cell-actions"><button class="btn btn--sm btn--ghost" type="button">查看</button></div></td>
+            </tr>
+            <tr class="is-retired">
+              <td>
+                <div class="cell-main">
+                  <span class="appicon appicon--letter">G</span>
+                  <div><div class="cell-title">Google 日历</div><div class="cell-sub">app_gcal（已停用）</div></div>
+                </div>
+              </td>
+              <td>苏晚宁</td>
+              <td class="is-num">0</td>
+              <td><div class="cell-actions"><button class="btn btn--sm btn--quiet" type="button" disabled>查看</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pager">
+        <span class="pager__total">共 128 条</span>
+        <div class="pager__nav">
+          <span class="pager__size">每页
+            <span class="fsel fsel--sm pager__select g-fsel">
+              <button class="fsel__btn" type="button"><span class="fsel__value">10</span><span class="fsel__caret">▾</span></button>
+              <div class="fsel__panel fsel__panel--sm g-hidden">
+                <div class="fsel__opt is-selected"><span class="fsel__optlabel">10</span><span class="fsel__check">✓</span></div>
+                <div class="fsel__opt"><span class="fsel__optlabel">20</span><span class="fsel__check">✓</span></div>
+                <div class="fsel__opt"><span class="fsel__optlabel">50</span><span class="fsel__check">✓</span></div>
+              </div>
+            </span>
+          条</span>
+          <button class="pager__btn" type="button" disabled aria-label="上一页">‹</button>
+          <button class="pager__btn pager__btn--num is-current" type="button" aria-current="page">1</button>
+          <button class="pager__btn pager__btn--num" type="button">2</button>
+          <button class="pager__btn pager__btn--num" type="button">3</button>
+          <span class="pager__gap">…</span>
+          <button class="pager__btn pager__btn--num" type="button">13</button>
+          <button class="pager__btn" type="button" aria-label="下一页">›</button>
+        </div>
+      </div>
+      <p class="g-note">「每页条数」是 SelectMenu 紧凑形态，可直接在本页展开验证定位与样式。</p>
+    </div>
+  </section>
+
+  <!-- ============================ 5. 标签 / 徽记 ============================ -->
+  <section class="g-sec">
+    <h2>标签 / 徽记 / 状态点<code>base.css §9</code></h2>
+    <div class="g-cell g-stack">
+      <div class="g-row">
+        <span class="badge badge--ok">已上线</span>
+        <span class="badge badge--warn">待审核</span>
+        <span class="badge badge--danger">已拒绝</span>
+        <span class="badge badge--brand">强标记</span>
+        <span class="badge badge--neutral">中性</span>
+        <span class="badge badge--outline">描边</span>
+      </div>
+      <div class="g-row">
+        <span class="tag">profile:read</span>
+        <span class="tag tag--brand">品牌实底</span>
+        <span class="tag tag--warn">谨慎</span>
+        <span class="tag tag--scope">读取个人资料<span class="tag__key">profile:read</span></span>
+      </div>
+      <div class="g-row">
+        <span class="dot dot--ok"></span><span class="t-sm">正常</span>
+        <span class="dot dot--warn"></span><span class="t-sm">警告</span>
+        <span class="dot dot--danger"></span><span class="t-sm">异常</span>
+        <span class="dot dot--idle"></span><span class="t-sm">空闲</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 6. 头像 / 应用图标 ============================ -->
+  <section class="g-sec">
+    <h2>头像 / 应用图标<code>base.css §10 · components.css §28</code></h2>
+    <div class="g-cell g-stack">
+      <div class="g-row">
+        <span class="avatar">林</span>
+        <span class="avatar avatar--sm">何</span>
+        <span class="avatar avatar--lg">江</span>
+        <span class="avatar" style="background: var(--ink); color: var(--paper)">苏</span>
+        <span class="avatar" style="background: var(--acid); color: var(--on-acid)">晚</span>
+      </div>
+      <div class="g-row">
+        <span class="appicon appicon--sm appicon--letter">A</span>
+        <span class="appicon appicon--letter">F</span>
+        <span class="appicon appicon--lg appicon--letter">N</span>
+        <span class="appicon appicon--xl appicon--letter">云</span>
+      </div>
+      <p class="g-note">字母色板只取品牌三档（ink / acid / surface-2），按名称索引轮换；图片型由 ImagePicker 产出 dataURL 后填入 .avatar__img / .appicon__img。</p>
+    </div>
+  </section>
+
+  <!-- ============================ 7. 提示条 ============================ -->
+  <section class="g-sec">
+    <h2>提示条<code>base.css §11</code></h2>
+    <div class="g-cells g-cells--2">
+      <div class="g-cell">
+        <div class="alert alert--info">
+          <div class="alert__body">
+            <div class="alert__title">信息提示</div>
+            <div class="alert__text">中性面 + 链接蓝图标，不扩色相。</div>
+          </div>
+        </div>
+      </div>
+      <div class="g-cell">
+        <div class="alert alert--ok">
+          <div class="alert__body">
+            <div class="alert__title">操作成功</div>
+            <div class="alert__text">应用已提交审核，通常 1 个工作日内完成。</div>
+          </div>
+        </div>
+      </div>
+      <div class="g-cell">
+        <div class="alert alert--warn">
+          <div class="alert__body">
+            <div class="alert__title">注意</div>
+            <div class="alert__text">下架后回调地址将被立即停用。</div>
+          </div>
+        </div>
+      </div>
+      <div class="g-cell">
+        <div class="alert alert--danger">
+          <div class="alert__body">
+            <div class="alert__title">已拒绝</div>
+            <div class="alert__text">回调地址未通过校验：<code>http://</code> 必须为 https。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 8. 代码 / 凭证 ============================ -->
+  <section class="g-sec">
+    <h2>代码 / 凭证 / KV<code>base.css §12</code></h2>
+    <div class="g-cells g-cells--2">
+      <div class="g-cell g-stack">
+        <span class="g-label">.code / .codeblock + 复制按钮</span>
+        <div class="codeblock">
+          <pre class="code">GET /oauth/authorize?client_id=anx_3a5e91b7c204
+  &amp;redirect_uri=https%3A%2F%2Fexample.com%2Fcb
+  &amp;response_type=code&amp;scope=profile%3Aread</pre>
+          <button class="copybtn codeblock__copy" type="button">复制</button>
+        </div>
+        <pre class="code code--wrap">长内容换行形态：postMessage 携带 { code, state }，请核验 state 后再兑换令牌。</pre>
+        <span class="g-label">secret-reveal（隐藏 / 显示）</span>
+        <div class="secret-reveal is-hidden"><code>anx_secret_9f2c7b41e6d8b0a3</code><button class="copybtn" type="button">显示</button></div>
+      </div>
+      <div class="g-cell g-stack">
+        <span class="g-label">.kv 描述列表</span>
+        <dl class="kv">
+          <div class="kv__row"><dt>应用 ID</dt><dd>app_yunshu</dd></div>
+          <div class="kv__row"><dt>已授权用户</dt><dd>12 位</dd></div>
+          <div class="kv__row"><dt>最近调用</dt><dd>2026-10-14 16:02:11</dd></div>
+        </dl>
+        <dl class="kv kv--tight">
+          <div class="kv__row"><dt>紧凑形态</dt><dd>kv--tight</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 9. 统计块 ============================ -->
+  <section class="g-sec">
+    <h2>统计块<code>base.css §13</code></h2>
+    <div class="g-cells g-cells--3">
+      <div class="g-cell">
+        <div class="stat">
+          <div class="stat__label">已授权应用</div>
+          <div class="stat__num">24<span class="stat__unit">个</span></div>
+          <div class="stat__delta stat__delta--up">本月 +3</div>
+        </div>
+      </div>
+      <div class="g-cell">
+        <div class="stat">
+          <div class="stat__label">今日调用</div>
+          <div class="stat__num">1,284</div>
+          <div class="stat__delta stat__delta--down">较昨日 -12%</div>
+        </div>
+      </div>
+      <div class="g-cell">
+        <div class="stat">
+          <div class="stat__label">待处理审核</div>
+          <div class="stat__num">2</div>
+          <div class="stat__delta">无需操作即可自动通过</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 10. 标签页（TabBar） ============================ -->
+  <section class="g-sec">
+    <h2>标签栏（滑动指示条）<code>components.css §34 · motion.css §32</code></h2>
+    <div class="g-cell">
+      <div class="tabs" data-demo role="tablist">
+        <span class="tabs__ink" aria-hidden="true"></span>
+        <button class="tab" role="tab" aria-selected="true" type="button">全部 <span class="tab__count">24</span></button>
+        <button class="tab" role="tab" aria-selected="false" type="button">已上线 <span class="tab__count">12</span></button>
+        <button class="tab" role="tab" aria-selected="false" type="button">待审核 <span class="tab__count">6</span></button>
+        <button class="tab" role="tab" aria-selected="false" type="button">已下架 <span class="tab__count">3</span></button>
+      </div>
+      <p class="g-note">指示条按选中项几何测量（与 TabBar 组件同算法）；点标签可切换验证平移。</p>
+    </div>
+  </section>
+
+  <!-- ============================ 11. 空状态 / 骨架 ============================ -->
+  <section class="g-sec">
+    <h2>空状态 / 骨架<code>base.css §15 · components.css §30</code></h2>
+    <div class="g-cells g-cells--2">
+      <div class="g-cell">
+        <div class="empty" style="padding: 32px 16px">
+          <span class="empty__icon">◇</span>
+          <span class="empty__title">还没有已授权的应用</span>
+          <span class="empty__text">当你在第三方应用中使用鉴枢登录并授权后，它们会出现在这里。</span>
+          <div class="empty__actions"><button class="btn btn--ghost" type="button">查看接入指南</button></div>
+        </div>
+      </div>
+      <div class="g-cell g-stack">
+        <span class="g-label">.skeleton（行内条）</span>
+        <span class="skeleton" style="display:block; width:60%; height:14px"></span>
+        <span class="skeleton" style="display:block; width:40%; height:14px"></span>
+        <span class="g-label">.sk 系列（RouteSkeleton 的构成块）</span>
+        <div class="sk-page">
+          <div class="sk-head"><span class="sk sk--title"></span><span class="sk sk--sub"></span></div>
+          <div class="sk-cards"><span class="sk sk--card"></span><span class="sk sk--card"></span><span class="sk sk--card"></span></div>
+          <div class="sk-panel"><span class="sk sk--row"></span><span class="sk sk--row"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 12. 时间线 ============================ -->
+  <section class="g-sec">
+    <h2>时间线<code>base.css §19（TimelineList）</code></h2>
+    <div class="g-cell">
+      <div class="timeline">
+        <div class="timeline__item">
+          <span class="timeline__dot timeline__dot--ok"></span>
+          <div class="timeline__title">授权通过</div>
+          <div class="timeline__meta">2026-10-14 16:02 · 林知远</div>
+        </div>
+        <div class="timeline__item">
+          <span class="timeline__dot"></span>
+          <div class="timeline__title">提交审核</div>
+          <div class="timeline__meta">2026-10-13 09:41 · 江余</div>
+        </div>
+        <div class="timeline__item">
+          <span class="timeline__dot timeline__dot--warn"></span>
+          <div class="timeline__title">要求补充回调说明</div>
+          <div class="timeline__meta">2026-10-12 18:20 · 何叙</div>
+        </div>
+        <div class="timeline__item">
+          <span class="timeline__dot timeline__dot--danger"></span>
+          <div class="timeline__title">曾因地址校验失败被驳回</div>
+          <div class="timeline__meta">2026-10-11 10:03</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 13. 浮层演示 ============================ -->
+  <section class="g-sec">
+    <h2>浮层（弹窗 / 抽屉）<code>components.css §16</code></h2>
+    <div class="g-cell g-stack">
+      <div class="g-row">
+        <button class="btn btn--primary" data-overlay="g-modal" type="button">打开弹窗</button>
+        <button class="btn btn--ghost" data-overlay="g-drawer" type="button">打开抽屉</button>
+      </div>
+      <p class="g-note">真实形态（Teleport 到 body + fixed + 液态玻璃）：打开后滚动页面可观察 backdrop 采样；关闭走 is-closing 动画。scrim 只压暗不模糊（BEHAVIOR §1.4）。</p>
+    </div>
+  </section>
+
+  <!-- ============================ 14. Toast ============================ -->
+  <section class="g-sec">
+    <h2>Toast<code>components.css §16</code></h2>
+    <div class="g-cell">
+      <div class="g-row">
+        <button class="btn btn--ghost" type="button" data-toast="ok" data-title="已保存" data-text="回调地址已更新。">成功 Toast</button>
+        <button class="btn btn--ghost" type="button" data-toast="danger" data-title="保存失败" data-text="回调地址必须为 https。">危险 Toast</button>
+        <button class="btn btn--ghost" type="button" data-toast="info" data-title="已切换到深色主题">信息 Toast</button>
+      </div>
+      <p class="g-note">右下角玻璃通知，4.2 秒自动消失，关闭走 is-closing（与 toast.ts 同一节奏）。</p>
+    </div>
+  </section>
+
+  <!-- ============================ 15. 下拉选择 / 分段开关 ============================ -->
+  <section class="g-sec">
+    <h2>下拉选择 / 分段开关<code>components.css §33 §20 · motion.css §32.1</code></h2>
+    <div class="g-cells g-cells--2">
+      <div class="g-cell g-stack">
+        <span class="g-label">SelectMenu 完整形态（可展开，定位算法与组件一致）</span>
+        <span class="fsel g-fsel">
+          <button class="fsel__btn" type="button">
+            <span class="fsel__value">二级 · 需要审核</span>
+            <span class="fsel__caret">▾</span>
+          </button>
+          <div class="fsel__panel g-hidden">
+            <div class="fsel__opt"><span class="fsel__optlabel">一级 · 开放申请</span><span class="fsel__check">✓</span></div>
+            <div class="fsel__opt is-selected"><span class="fsel__optlabel">二级 · 需要审核</span><span class="fsel__check">✓</span></div>
+            <div class="fsel__opt"><span class="fsel__optlabel">三级 · 限制开放</span><span class="fsel__check">✓</span></div>
+            <div class="fsel__opt"><span class="fsel__optlabel">四级 · 内部专用</span><span class="fsel__check">✓</span></div>
+          </div>
+        </span>
+        <span class="fsel g-fsel">
+          <button class="fsel__btn" type="button">
+            <span class="fsel__value fsel__value--empty">空值占位（placeholder）</span>
+            <span class="fsel__caret">▾</span>
+          </button>
+          <div class="fsel__panel g-hidden">
+            <div class="fsel__opt"><span class="fsel__optlabel">选项 A</span><span class="fsel__check">✓</span></div>
+            <div class="fsel__opt"><span class="fsel__optlabel">选项 B</span><span class="fsel__check">✓</span></div>
+          </div>
+        </span>
+        <span class="fsel">
+          <button class="fsel__btn" type="button" disabled>
+            <span class="fsel__value">禁用态</span>
+            <span class="fsel__caret">▾</span>
+          </button>
+        </span>
+        <span class="fsel fsel--sm g-fsel">
+          <button class="fsel__btn" type="button">
+            <span class="fsel__value">紧凑形态</span>
+            <span class="fsel__caret">▾</span>
+          </button>
+          <div class="fsel__panel fsel__panel--sm g-hidden">
+            <div class="fsel__opt"><span class="fsel__optlabel">紧凑 A</span><span class="fsel__check">✓</span></div>
+            <div class="fsel__opt"><span class="fsel__optlabel">紧凑 B</span><span class="fsel__check">✓</span></div>
+          </div>
+        </span>
+        <p class="g-note">面板为 fixed + 先设 min-width 再测量；靠近视口底部打开会向上翻转（data-up）。</p>
+      </div>
+      <div class="g-cell g-stack">
+        <span class="g-label">分段开关（滑块平移）</span>
+        <div class="segmented" data-demo role="group" style="align-self:flex-start">
+          <span class="segmented__thumb" aria-hidden="true"></span>
+          <button class="segmented__opt" type="button" aria-pressed="false">全部</button>
+          <button class="segmented__opt" type="button" aria-pressed="true">已上线</button>
+          <button class="segmented__opt" type="button" aria-pressed="false">已下架</button>
+        </div>
+        <p class="g-note">滑块按选中项几何测量（与 SegmentedControl 同算法）；点选项验证平移；首帧仅定位不播动画（is-ready 后才有过渡）。</p>
+        <span class="g-label">按钮组（普通按钮排列）</span>
+        <div class="g-row">
+          <button class="btn btn--sm btn--primary" type="button">主按钮</button>
+          <button class="btn btn--sm btn--ghost" type="button">次按钮</button>
+          <button class="btn btn--sm btn--quiet" type="button">弱按钮</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="g-sec">
+    <p class="g-note">
+      AuthNexus Design · gallery —— 组件清单与依赖见 vue/README.md；交互规范见 docs/BEHAVIOR.md；
+      接入步骤见 docs/ADOPT.md。本页与鉴枢页面截图对照使用，也是组件级审计的取样靶子。
+    </p>
+  </footer>
+
+</div>
+
+<!-- ============ 浮层实体（真实 fixed 形态，挂 body；由 gallery.js 开关） ============ -->
+<div class="scrim g-hidden" id="g-modal-scrim" data-close-self="g-modal"></div>
+<div class="modal g-hidden" id="g-modal" role="dialog" aria-modal="true" aria-label="演示弹窗">
+  <div class="modal__head">
+    <div class="modal__head-text">
+      <div class="modal__title">确认下架应用？</div>
+      <div class="modal__desc">下架后回调地址将被立即停用，已授权的用户需要重新走授权流程。</div>
+    </div>
+    <button class="iconbtn modal__close" data-close="g-modal" type="button" aria-label="关闭">✕</button>
+  </div>
+  <div class="modal__body">
+    <div class="alert alert--warn">
+      <div class="alert__body">
+        <div class="alert__text">此操作将影响 12 位已授权用户，且不可自动恢复。</div>
+      </div>
+    </div>
+  </div>
+  <div class="modal__foot">
+    <button class="btn btn--ghost" data-close="g-modal" type="button">取消</button>
+    <button class="btn btn--danger" data-close="g-modal" type="button">确认下架</button>
+  </div>
+</div>
+
+<div class="scrim g-hidden" id="g-drawer-scrim" data-close-self="g-drawer"></div>
+<div class="drawer g-hidden" id="g-drawer" role="dialog" aria-modal="true" aria-label="演示抽屉">
+  <div class="drawer__head">
+    <div class="drawer__title">应用详情</div>
+    <button class="iconbtn" style="margin-left:auto" data-close="g-drawer" type="button" aria-label="关闭">✕</button>
+  </div>
+  <div class="drawer__body">
+    <dl class="kv">
+      <div class="kv__row"><dt>应用名称</dt><dd>云枢笔记</dd></div>
+      <div class="kv__row"><dt>应用 ID</dt><dd>app_yunshu</dd></div>
+      <div class="kv__row"><dt>状态</dt><dd><span class="badge badge--ok">已上线</span></dd></div>
+      <div class="kv__row"><dt>回调地址</dt><dd>https://note.example.com/oauth/cb</dd></div>
+    </dl>
+  </div>
+  <div class="drawer__foot">
+    <button class="btn btn--primary" data-close="g-drawer" type="button">完成</button>
+  </div>
+</div>
+
+<script src="gallery.js"></script>
+</body>
+</html>

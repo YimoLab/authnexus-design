@@ -19,7 +19,7 @@
 ## 结构
 
 ```
-css/       L1-L3'  设计令牌 / 品牌覆盖 / 基础样式 / 组件配方 / 动效
+css/       L1-L3'  设计令牌 / 品牌覆盖 / 基础样式 / 组件配方 / 动效 / 中后台外壳（shell.css）
 fonts/     L7      自托管字体（SIL OFL 1.1）+ @font-face
 vue/       L4      A 档通用组件 + 工具（usePager / theme / appActions / 浮层管理器）
 audit/     L6      浏览器黑盒审计（组件级 + 页面级，配置驱动）

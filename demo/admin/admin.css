@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Nexus Admin · demo 专属样式（不覆盖资产；壳布局来自 css/shell.css）
+   ========================================================================== */
+
+/* 浮层默认隐藏（与 gallery 同一约定） */
+.g-hidden { display: none !important; }
+
+/* 侧栏遮罩：仅窄屏（≤1023px）侧栏打开时显示；桌面上隐藏 */
+.shell__scrim { display: none; border: 0; padding: 0; }
+.shell.is-side-open .shell__scrim { display: block; }
+
+/* 视图切换 */
+.view { display: none; }
+.view.is-active { display: block; animation: view-in .24s var(--ease); }
+@keyframes view-in { from { opacity: 0; transform: translateY(8px); } }
+
+/* 顶栏搜索 / 列表搜索 */
+.topbar-search { width: 220px; }
+.topbar-search .input { height: 38px; font-size: 14px; }
+.list-search { width: 180px; }
+.list-search .input { height: 36px; font-size: 13px; }
+@media (max-width: 1023px) { .topbar-search { display: none; } }
+@media (max-width: 640px) { .list-search { display: none; } }
+
+/* 图表（纯 SVG 手绘，无图表库） */
+.chart { display: block; width: 100%; height: 190px; }
+.chart__grid { stroke: var(--border); stroke-width: 1; }
+.chart__line { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.chart__point { fill: var(--acid); stroke: var(--ink); stroke-width: 2; }
+.chart__axis {
+  display: flex; justify-content: space-between;
+  margin-top: 10px; padding: 0 12px;
+  font-size: 12px; color: var(--muted-text);
+}
+
+/* 表单纵向排列 */
+.form-col { display: grid; gap: 18px; align-content: start; }
+
+/* 侧栏底部账号 */
+.side-user { display: flex; align-items: center; gap: 10px; }
+.side-user__meta { min-width: 0; }
+.side-user__name { font-size: 14px; font-weight: 600; }
+.side-user__mail {
+  font-size: 12px; color: var(--muted-text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* 表格翻页的整块滑动（与 motion.css 的 paged-* 同一意图；静态页用 keyframes 实现） */
+.paged-anim { animation: demo-page-in .22s var(--ease); }
+@keyframes demo-page-in { from { opacity: 0; transform: translateX(24px); } }

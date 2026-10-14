@@ -19,6 +19,7 @@
    import './design/css/base.css'         // 4. 元素与基础组件
    import './design/css/components.css'   // 5. 浮层与交互组件
    import './design/css/motion.css'       // 6. 动效（含「减少动效」全局压缩）
+   import './design/css/shell.css'        // 7. 中后台外壳（用到侧栏 + 顶栏布局时）
    ```
 
 3. **index.html**：加字体 preload + 主题预置脚本（见 §3）；
@@ -48,6 +49,7 @@
 | 文件 | 用途 |
 |---|---|
 | `css/components.css` `css/motion.css` | 浮层 / 下拉 / 分页 / 标签栏 / 过渡 |
+| `css/shell.css` | 中后台外壳：玻璃侧栏 + 顶栏 + 内容区（含窄屏侧栏抽屉），见 `demo/admin/` 的完整用法 |
 | `vue/overlay/*` + `vue/ui/Icon.vue` + `vue/lib/icons.ts` | 弹窗 / 抽屉 / Toast 体系 |
 | 按需组件 | 见 `vue/README.md` 的组件清单（含各自依赖） |
 
@@ -55,7 +57,7 @@
 
 ## 2. 引入顺序与覆盖边界
 
-- 顺序：**fonts → tokens → brand → base → components → motion**。
+- 顺序：**fonts → tokens → brand → base → components → motion → shell**。
   顺序错误的表现：brand 覆盖不生效（放在 tokens 前）、动效压缩失效（motion 未引入）。
 - 冲突高发区：`base.css` 里有**元素级选择器**（`body / a / button / input` 的重置）。
   项目自有样式请用具体类名，避免再写全局元素覆盖；确需覆盖时，把项目样式放在六件套**之后**引入。

@@ -17,6 +17,9 @@ dist/
 # 审计产物
 audit/.out/
 
+# 站点构建产物
+_site/
+
 # 本地环境
 .env
 .env.local

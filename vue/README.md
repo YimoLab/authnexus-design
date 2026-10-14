@@ -39,5 +39,5 @@
 
 ## 样式依赖
 
-本目录不含样式：需配套本级仓库的 `css/`（引入顺序 `fonts → tokens → brand → base → components → motion`）。
+本目录不含样式：需配套本级仓库的 `css/`（引入顺序 `fonts → tokens → brand → base → components → motion → shell`）。
 交互铁律（浮层 Teleport / 层级 / 键盘 / 动效）见 `docs/BEHAVIOR.md`。

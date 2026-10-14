@@ -1,0 +1,123 @@
+/* ==========================================================================
+   AuthNexus Design · motion.css — L3' 过渡动效
+   --------------------------------------------------------------------------
+   来源：authnexus-design v0.1.0（三平台地址见仓库 README）
+   摘离自：鉴枢 AuthNexus app/src/styles/app.css（§32 过渡动效 · §35 主题切换
+          涟漪 · §21 的 prefers-reduced-motion 全局压缩）
+   说明：全部沿用 --t / --ease 两个动效令牌；「减少动效」由本文件末尾的全局
+         媒体查询统一压缩到近似瞬时，新增过渡无需逐条再写。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   32. 过渡动效（Vue 实现补充）：分段开关滑块 / 弹窗内容 / 翻页列表 / 路由
+   全部沿用 --t 与 --ease 两个动效令牌；「减少动效」由响应式一节的全局
+   prefers-reduced-motion 媒体查询统一压缩到近似瞬时，无需逐条再写。
+   -------------------------------------------------------------------------- */
+
+/* 32.1 分段开关（SegmentedControl.vue）：选中态从「瞬间换色」改为滑块平移。
+   滑块几何由组件测量（选项文案长度不一，不能用等分宽度），首帧只定位不播动画。 */
+.segmented { position: relative; }
+.segmented__thumb {
+  position: absolute; top: 4px; bottom: 4px; left: 0;
+  border-radius: var(--r-xs);
+  background: var(--ink);
+  opacity: 0; pointer-events: none;
+}
+/* 就位前（首帧）：选中项先按普通文字色，避免反白字先闪在浅底上；
+   滑块就位与文字反白发生在同一帧，之后移动（transform/width）才走过渡 */
+.segmented:not(.is-ready) .segmented__opt[aria-pressed="true"] { color: var(--ink); }
+.segmented.is-ready .segmented__thumb {
+  opacity: 1;
+  transition: transform .24s var(--ease), width .24s var(--ease);
+}
+.segmented__opt { position: relative; z-index: 1; }
+/* 选中实底改由滑块承担，按钮只负责文字反白 */
+.segmented__opt[aria-pressed="true"] { background: transparent; }
+
+/* 32.2 弹窗内容切换（MfaModal.vue）：扫码 ↔ 手动按切换方向左右滑动 */
+.mfa-fwd-enter-active, .mfa-back-enter-active { transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.mfa-fwd-leave-active, .mfa-back-leave-active {
+  transition: opacity .13s var(--ease), transform .13s var(--ease);
+  pointer-events: none; /* 离开中的旧内容不可再交互 */
+}
+.mfa-fwd-enter-from { opacity: 0; transform: translateX(26px); }
+.mfa-fwd-leave-to   { opacity: 0; transform: translateX(-26px); }
+.mfa-back-enter-from { opacity: 0; transform: translateX(-26px); }
+.mfa-back-leave-to   { opacity: 0; transform: translateX(26px); }
+
+/* 32.3 分页列表：翻页时整块左右滑动（方向由 usePager 的 direction 决定）。
+   六个分页视图（审计 / 审核 / 授权 / 令牌 / 用户 / 应用）共用同一组类名：
+   表格用 <tbody :key="page">、div 行列表用 keyed 容器包住行区域。 */
+/* 裁剪容器：滑动中的内容不越出面板边界。表格用「整块滑动」而不是只动 tbody——
+   实测 tbody 位移会撑大 .table-wrap 的滚动范围、闪出横向滚动条。 */
+.paged-clip { overflow: hidden; }
+
+.paged-fwd-enter-active, .paged-back-enter-active { transition: opacity .18s var(--ease), transform .18s var(--ease); }
+.paged-fwd-leave-active, .paged-back-leave-active {
+  transition: opacity .13s var(--ease), transform .13s var(--ease);
+  pointer-events: none; /* 离开中的旧行不可点击 */
+}
+.paged-fwd-enter-from { opacity: 0; transform: translateX(28px); }
+.paged-fwd-leave-to   { opacity: 0; transform: translateX(-28px); }
+.paged-back-enter-from { opacity: 0; transform: translateX(-28px); }
+.paged-back-leave-to   { opacity: 0; transform: translateX(28px); }
+
+/* 32.4 路由内容进出场（components/shell/RouteFade.vue，三个外壳统一启用） */
+.routefade-enter-active { transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.routefade-enter-from { opacity: 0; transform: translateY(10px); }
+.routefade-leave-active { transition: opacity .1s var(--ease); pointer-events: none; }
+.routefade-leave-to { opacity: 0; }
+
+/* 32.5 分页按钮的按压反馈 */
+.pager__btn {
+  transition: background-color var(--t) var(--ease), color var(--t) var(--ease), transform .12s var(--ease);
+}
+.pager__btn:active:not(:disabled) { transform: scale(.92); }
+
+
+/* --------------------------------------------------------------------------
+   35. 主题切换的涟漪过渡（lib/theme.ts）
+   圆盘只负责铺色与层叠，扩散 / 收缩由 Web Animations 的 clip-path 关键帧驱动，
+   因此这里不需要过渡规则（也不受「减少动效」的媒体查询影响——那种情况 JS 直接跳过动画）。
+   -------------------------------------------------------------------------- */
+
+.theme-ripple {
+  position: fixed; inset: 0;
+  z-index: 300;                 /* 高于浮层(100)与 toast(200) */
+  pointer-events: none;
+  will-change: clip-path;
+}
+
+/* 35.1 视图过渡（主题切换的主方案，Chromium 111+）
+   浏览器把真实界面拍成快照，我们裁剪的是「界面本身」而不是一块平色圆饼——
+   这是浅→深不再出现整屏黑屏的关键（圆盘只作为不支持时的兜底）。
+   两层快照默认会交叉淡入淡出，这里关掉，改由 clip-path 单独驱动。 */
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+/* 展开（浅→深）：新快照在上、由按钮向外扩散；旧快照完整垫在下面 */
+html[data-vt-mode="expand"]::view-transition-new(root) { z-index: 2; }
+html[data-vt-mode="expand"]::view-transition-old(root) { z-index: 1; }
+/* 收缩（深→浅）：旧快照在上、向按钮收走；下方是已经切好的浅色界面 */
+html[data-vt-mode="shrink"]::view-transition-old(root) { z-index: 2; }
+html[data-vt-mode="shrink"]::view-transition-new(root) { z-index: 1; }
+
+
+/* --------------------------------------------------------------------------
+   全局「减少动效」压缩（源文件 §21）：所有动画 / 过渡压到近似瞬时。
+   新增过渡无需逐条适配；JS 驱动的动画（如主题涟漪）由 JS 自行跳过。
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+

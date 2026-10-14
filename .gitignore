@@ -1,0 +1,20 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node（examples / audit 用）
+node_modules/
+dist/
+*.log
+
+# 本地环境
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,38 @@
+/* ==========================================================================
+   AuthNexus Design · brand.css — 品牌覆盖入口
+   --------------------------------------------------------------------------
+   来源：authnexus-design v0.1.0（三平台地址见仓库 README）
+   用法：**新项目只改这个文件。** 其余令牌（tokens.css）与样式（base /
+         components / motion.css）不含品牌决策，可原样冻结——
+         改样式不动品牌，改品牌不动样式。
+   可改项：① 品牌强调色 --acid（及配套 --on-acid）
+           ② 品牌标识双色 --logo-*
+           ③ 字体族 --font-sans / --font-mono（自托管字体见 fonts/）
+   注意：--focus / --ok / --ok-ink 与品牌绿同源（见 tokens.css），更换品牌色时
+         需一并核对对比度；.btn--acid 的两档 hover（#69CC4B / #58B63F / #8CF26E）
+         目前是字面值，跟随品牌色修改时需同步更新。
+   ========================================================================== */
+
+:root {
+  /* ① 品牌强调色：酸橙绿（只做强调与品牌时刻——主行动按钮是墨黑底白字） */
+  --acid:     #78EA57;
+  /* 落在 --acid 实底上的文字色（两种模式下都取深色，保证亮绿上的对比度） */
+  --on-acid:  #262626;
+
+  /* ② 品牌标识双色（随主题反转，保证两种模式下都清晰） */
+  --logo-bg: #262626;
+  --logo-fg: #FFFFFF;
+
+  /* ③ 字体族（中文走系统字体栈，不随包） */
+  --font-sans: "Albert Sans", "PingFang SC", "HarmonyOS Sans SC", "Source Han Sans SC", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+[data-theme="dark"] {
+  /* 品牌绿明暗同值；仅文字色反转 */
+  --acid:    #78EA57;
+  --on-acid: #1A1A1A;
+
+  --logo-bg: #F5F5F5;
+  --logo-fg: #1A1A1A;
+}

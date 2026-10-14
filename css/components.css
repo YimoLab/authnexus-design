@@ -1,0 +1,454 @@
+/* ==========================================================================
+   AuthNexus Design · components.css — L3 交互组件配方
+   --------------------------------------------------------------------------
+   来源：authnexus-design v0.1.0（三平台地址见仓库 README）
+   摘离自：鉴枢 AuthNexus app/src/styles/app.css（§16 浮层 · §20 分段开关 ·
+          §20b 下拉菜单 · §28 图片选择器 · §29 分页条 · §30 骨架屏 ·
+          §33 SelectMenu · §34 TabBar）
+   说明：组件结构与静态样式（浮层玻璃配方依赖 tokens.css 的 --glass-*）。
+         组件配套的过渡动效类见 motion.css；定位与交互铁律见 docs/BEHAVIOR.md。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   16. 浮层：弹窗 / 抽屉 / Toast
+   -------------------------------------------------------------------------- */
+
+.overlay-layer { position: fixed; inset: 0; z-index: 100; pointer-events: none; }
+.overlay-layer > * { pointer-events: auto; }
+
+.scrim {
+  position: fixed; inset: 0;
+  background: rgba(38, 38, 38, .38);
+  /* 液态玻璃（Vue 实现补充）：遮罩只压暗、不模糊——与导航同构的液态机制是
+     「背景清晰可见 + 玻璃自身磨砂」，模糊交给面板的 backdrop-filter 一级完成；
+     之前遮罩先糊一层会把透出内容抹平，玻璃反而失去「液态」的层次 */
+  animation: fade-in var(--t) var(--ease);
+}
+[data-theme="dark"] .scrim { background: rgba(0, 0, 0, .58); }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+.scrim.is-closing { animation: fade-out calc(var(--t) * .7) var(--ease) forwards; }
+
+.modal {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, calc(100vw - 32px));
+  max-height: calc(100dvh - 64px);
+  display: flex; flex-direction: column;
+  /* 液态玻璃（Vue 实现补充）：与导航同一套配方（--glass-*），
+     底面用更实的 --glass-panel-bg 保住表单与正文的对比度 */
+  background-color: var(--glass-panel-bg);
+  background-image: var(--glass-panel-sheen);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  border: 1px solid var(--glass-line);
+  border-radius: var(--glass-radius); box-shadow: var(--glass-shadow);
+  animation: modal-in var(--t) var(--ease);
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 8px)); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+@keyframes modal-out {
+  from { opacity: 1; transform: translate(-50%, -50%); }
+  to   { opacity: 0; transform: translate(-50%, calc(-50% + 6px)); }
+}
+.modal.is-closing { animation: modal-out calc(var(--t) * .7) var(--ease) forwards; }
+
+.modal__head {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 24px 24px 0; flex: none;
+}
+.modal__head-text { min-width: 0; }
+.modal__title { font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+.modal__desc { font-size: 14px; color: var(--muted-text); margin-top: 8px; line-height: 1.6; }
+.modal__close { margin-left: auto; }
+.modal__body { padding: 24px; overflow-y: auto; flex: 1; }
+.modal__foot {
+  display: flex; align-items: center; gap: 12px; justify-content: flex-end;
+  padding: 20px 24px 24px; flex: none;
+}
+.modal--sm { width: min(460px, calc(100vw - 32px)); }
+.modal--lg { width: min(760px, calc(100vw - 32px)); }
+
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(600px, 100vw);
+  display: flex; flex-direction: column;
+  /* 液态玻璃（Vue 实现补充）：贴边抽屉只保留左侧圆角与高光描边 */
+  background-color: var(--glass-panel-bg);
+  background-image: var(--glass-panel-sheen);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  border-left: 1px solid var(--glass-line);
+  border-radius: var(--glass-radius) 0 0 var(--glass-radius);
+  box-shadow: var(--glass-shadow);
+  animation: drawer-in var(--t) var(--ease);
+}
+@keyframes drawer-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes drawer-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
+.drawer.is-closing { animation: drawer-out calc(var(--t) * .7) var(--ease) forwards; }
+.drawer__head {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px; border-bottom: 1px solid var(--border); flex: none;
+}
+.drawer__title { font-size: 18px; font-weight: 600; letter-spacing: -.018em; }
+.drawer__body { flex: 1; overflow-y: auto; padding: 24px; }
+.drawer__foot {
+  display: flex; align-items: center; gap: 12px;
+  padding: 20px 24px; border-top: 1px solid var(--border); flex: none;
+}
+
+.toast-layer {
+  position: fixed; z-index: 200;
+  right: 24px; bottom: 24px;
+  display: flex; flex-direction: column-reverse; gap: 12px;
+  pointer-events: none;
+  max-width: min(420px, calc(100vw - 48px));
+}
+.toast {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px;
+  /* 液态玻璃（Vue 实现补充）：与其他浮层统一 */
+  background-color: var(--glass-panel-bg);
+  background-image: var(--glass-panel-sheen);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  border: 1px solid var(--glass-line);
+  border-radius: var(--glass-radius); box-shadow: var(--glass-shadow);
+  font-size: 14px; pointer-events: auto;
+  animation: toast-in var(--t) var(--ease);
+}
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes toast-out { from { opacity: 1; } to { opacity: 0; transform: translateY(6px); } }
+.toast.is-closing { animation: toast-out calc(var(--t) * .7) var(--ease) forwards; }
+.toast__icon { margin-top: 1px; }
+.toast__icon svg { width: 18px; height: 18px; }
+.toast--ok .toast__icon { color: var(--ok); }
+.toast--danger .toast__icon { color: var(--danger); }
+.toast--info .toast__icon { color: var(--ink); }
+.toast__body { min-width: 0; }
+.toast__title { font-weight: 600; }
+.toast__text { font-size: 13px; color: var(--muted-text); margin-top: 4px; }
+.toast__close {
+  margin-left: auto; background: none; border: 0; cursor: pointer;
+  color: var(--muted-text); padding: 4px; border-radius: var(--r-xs); line-height: 0;
+}
+.toast__close:hover { color: var(--ink); background: var(--surface-2); }
+
+@media (max-width: 560px) {
+  .toast-layer { left: 16px; right: 16px; bottom: 16px; max-width: none; }
+}
+
+
+/* --------------------------------------------------------------------------
+   20. 分段开关（SegmentedControl）：本体样式在源文件「调试台」节内；
+   滑块平移的动效补充见 motion.css §32.1。
+   -------------------------------------------------------------------------- */
+
+.segmented {
+  display: inline-flex; padding: 4px; gap: 4px;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r);
+}
+.segmented__opt {
+  padding: 7px 14px; border: 0; border-radius: var(--r-xs);
+  background: transparent; color: var(--muted-text);
+  font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap;
+  transition: background-color var(--t) var(--ease), color var(--t) var(--ease);
+}
+.segmented__opt:hover { color: var(--ink); }
+.segmented__opt[aria-pressed="true"] {
+  background: var(--ink); color: var(--on-dark); font-weight: 600;
+}
+
+
+/* --------------------------------------------------------------------------
+   20b. 下拉菜单（浮层菜单模式，AccountMenu / SideFootMenu 等在用）
+   -------------------------------------------------------------------------- */
+
+.menu { position: relative; }
+
+.menu__panel {
+  /* 定位由 JS 计算（fixed + Teleport 挂 body，见 AccountMenu.vue）：
+     不能挂在 .topbar 内部——顶栏有 backdrop-filter，会成为后代的 backdrop root，
+     弹层的磨砂只能采样顶栏内部内容（等于没有模糊），只剩半透明底透出清晰的页面。 */
+  position: fixed;
+  z-index: 60;
+  min-width: 252px; padding: 8px;
+  /* 液态玻璃（Vue 实现补充） */
+  background-color: var(--glass-panel-bg);
+  background-image: var(--glass-panel-sheen);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  border: 1px solid var(--glass-line);
+  border-radius: var(--glass-radius);
+  box-shadow: var(--glass-shadow);
+  animation: menu-in var(--t) var(--ease);
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+.menu__head { padding: 12px 12px 14px; }
+.menu__sep { height: 1px; background: var(--border); margin: 6px 8px; }
+
+.menu__item {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; padding: 10px 12px;
+  border: 0; border-radius: var(--r-xs);
+  background: none; color: var(--ink);
+  font-size: 14px; font-weight: 500; text-align: left;
+  cursor: pointer; text-decoration: none;
+  transition: background-color var(--t) var(--ease);
+}
+.menu__item:hover { background: var(--surface-2); text-decoration: none; }
+.menu__item svg { color: var(--muted-text); }
+.menu__item:hover svg { color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   28. 图片选择器与图片型头像 / 图标（Vue 实现补充）
+   ImagePicker（components/ui/ImagePicker.vue）用于用户头像与应用图标上传；
+   UserAvatar / AppMark 在有图片时渲染 <img>，无图回退首字母 / 品牌图标。
+   -------------------------------------------------------------------------- */
+
+.imgpick { display: flex; align-items: flex-start; gap: 14px; }
+.imgpick__preview {
+  position: relative; flex: none;
+  width: 72px; height: 72px; padding: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--border); border-radius: var(--r);
+  background: var(--surface-2); cursor: pointer; overflow: hidden;
+  transition: border-color var(--t) var(--ease);
+}
+.imgpick__preview:hover { border-color: var(--ink-3, var(--muted-text)); }
+.imgpick--avatar .imgpick__preview { border-radius: 50%; }
+.imgpick--icon .imgpick__preview { border-radius: 16px; width: 64px; height: 64px; }
+.imgpick__preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.imgpick__ph { display: grid; place-items: center; color: var(--muted-text); }
+.imgpick__ph.is-busy svg { animation: spin 1s linear infinite; }
+.imgpick__mask {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: rgba(38, 38, 38, .46); color: #FFFFFF;
+  opacity: 0; transition: opacity var(--t) var(--ease);
+}
+.imgpick__preview:hover .imgpick__mask { opacity: 1; }
+.imgpick__input { display: none; }
+.imgpick__meta { min-width: 0; padding-top: 2px; }
+.imgpick__hint { margin-top: 6px; }
+
+/* 图片型头像与应用图标 */
+.avatar { overflow: hidden; }
+.avatar__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.appicon { overflow: hidden; }
+.appicon__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+
+/* --------------------------------------------------------------------------
+   29. 表格分页条（Vue 实现补充）
+   TablePager（components/ui/TablePager.vue）：左侧总数，右侧每页条数与页码。
+   当前页用墨黑实底（深色主题下自动反转为浅色实底，文字色走 --on-dark）。
+   -------------------------------------------------------------------------- */
+
+.pager {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 16px; padding: 13px 24px 14px;
+  border-top: 1px solid var(--border);
+}
+.pager__total { font-size: 13px; color: var(--muted-text); font-variant-numeric: tabular-nums; }
+.pager__nav { display: flex; align-items: center; gap: 5px; }
+.pager__size {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-right: 10px; font-size: 13px; color: var(--muted-text);
+}
+/* 每页条数：class 落在自定义下拉的包装层上（盒样式由 .fsel--sm 负责，这里只定宽）。
+   选择器带上 .pager__size 提高特异度——否则会被后文同特异度的 .fsel { width: 100% } 覆盖，
+   导致紧凑下拉在行内被拉满宽度。 */
+.pager__size .pager__select { width: 62px; }
+.pager__btn {
+  min-width: 30px; height: 30px; padding: 0 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: var(--r-xs);
+  background: transparent; color: var(--ink);
+  font-size: 13px; font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background-color var(--t) var(--ease), color var(--t) var(--ease);
+}
+.pager__btn svg { display: block; }
+.pager__btn:hover:not(:disabled):not(.is-current) { background: var(--surface-2); }
+.pager__btn:disabled { opacity: .45; cursor: not-allowed; }
+.pager__btn--num.is-current {
+  background: var(--ink); border-color: var(--ink); color: var(--on-dark); font-weight: 600;
+}
+.pager__gap { color: var(--muted-text); padding: 0 2px; user-select: none; }
+
+
+/* --------------------------------------------------------------------------
+   30. 骨架屏（Vue 实现补充）
+   RouteSkeleton（components/ui/RouteSkeleton.vue）作为路由懒加载 chunk 的
+   loadingComponent：页面头 + 三张统计卡 + 六行列表的占位结构，微光扫过。
+   -------------------------------------------------------------------------- */
+
+.sk {
+  position: relative; overflow: hidden; display: block;
+  background: var(--surface-2); border-radius: var(--r-sm);
+}
+.sk::after {
+  content: ''; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+  animation: sk-sweep 1.4s ease-in-out infinite;
+}
+[data-theme="dark"] .sk::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent);
+}
+@keyframes sk-sweep { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .sk::after { animation: none; } }
+
+.sk-page { display: grid; gap: 24px; padding: 8px 0 24px; }
+.sk-head { display: grid; gap: 10px; }
+.sk--title { width: 180px; height: 22px; border-radius: var(--r-xs); }
+.sk--sub { width: 320px; height: 13px; }
+.sk-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.sk--card { height: 92px; }
+.sk-panel {
+  border: 1px solid var(--border); border-radius: var(--r);
+  background: var(--surface); padding: 8px 16px;
+  display: grid; gap: 10px;
+}
+.sk--row { height: 44px; }
+@media (max-width: 767px) {
+  .sk-cards { grid-template-columns: 1fr; }
+  .sk--sub { width: 240px; }
+}
+
+
+/* --------------------------------------------------------------------------
+   33. 下拉选择（SelectMenu.vue）：自绘 listbox 取代原生 <select>
+   面板锚定策略沿用 .menu__panel / .sidepop：Teleport 挂 body + fixed +
+   JS 计算坐标（挂在有 backdrop-filter 的祖先里，磨砂会退化成「背景透明」）。
+   -------------------------------------------------------------------------- */
+
+/* 33.1 触发器：盒模型与 .input / .select 保持一致（高度 44px、bone 底、r 圆角） */
+.fsel { position: relative; width: 100%; }
+.fsel__btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  width: 100%; height: 44px; padding: 0 14px;
+  background: var(--bone); color: var(--ink);
+  border: 1px solid var(--border); border-radius: var(--r);
+  font-size: 15px; text-align: left; cursor: pointer;
+  transition: border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+.fsel__btn:hover { border-color: var(--hairline-hover); }
+.fsel__btn:focus {
+  outline: 2px solid var(--focus); outline-offset: 1px;
+  border-color: var(--ink);
+}
+.fsel__btn:disabled {
+  background: var(--surface-2); color: var(--muted-text); cursor: not-allowed;
+}
+.fsel__value {
+  flex: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.fsel__value--empty { color: var(--muted); }
+.fsel__caret {
+  flex: none; color: var(--muted-text);
+  transition: transform var(--t) var(--ease), color var(--t) var(--ease);
+}
+.fsel__btn:hover .fsel__caret { color: var(--ink); }
+.fsel__btn[aria-expanded="true"] .fsel__caret { transform: rotate(180deg); color: var(--ink); }
+
+/* 紧凑变体（分页条的「每页条数」） */
+.fsel--sm .fsel__btn { height: 30px; padding: 0 8px; gap: 4px; font-size: 13px; }
+
+/* 33.2 面板：液态玻璃配方与其他浮层统一；z-index 高于 .overlay-layer(100)，
+   低于 toast(200)——弹窗内的下拉（权限目录表单的「敏感级别」）要盖住弹窗。 */
+.fsel__panel {
+  position: fixed; z-index: 160;
+  width: max-content;
+  max-width: min(440px, calc(100vw - 16px));
+  max-height: min(340px, 60vh);
+  overflow: auto; overscroll-behavior: contain;
+  padding: 6px;
+  background-color: var(--glass-panel-bg);
+  background-image: var(--glass-panel-sheen);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate)) brightness(var(--glass-panel-brightness));
+  border: 1px solid var(--glass-line);
+  border-radius: var(--glass-radius);
+  box-shadow: var(--glass-shadow);
+}
+.fsel__panel--sm { padding: 4px; }
+
+/* 33.3 选项：入场错峰（逐项 16ms，封顶 8 项），勾选由缩放 + 淡入浮现 */
+.fsel__opt {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 9px 10px; border-radius: var(--r-xs);
+  font-size: 14px; color: var(--ink); cursor: pointer;
+  transition: background-color var(--t) var(--ease);
+  animation: fsel-opt-in .22s var(--ease) backwards;
+}
+.fsel__optlabel {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.fsel__opt:hover, .fsel__opt.is-active { background: var(--surface-2); }
+.fsel__opt.is-selected { font-weight: 600; }
+.fsel__check {
+  flex: none; display: grid; place-items: center;
+  color: var(--ink); opacity: 0; transform: scale(.6);
+  transition: opacity var(--t) var(--ease), transform .2s var(--ease);
+}
+.fsel__opt.is-selected .fsel__check { opacity: 1; transform: none; }
+.fsel__panel--sm .fsel__opt { padding: 6px 10px; font-size: 13px; }
+@keyframes fsel-opt-in { from { opacity: 0; transform: translateY(-3px); } }
+
+/* 33.4 面板进出场：方向感知（data-up 时位移方向与 transform-origin 翻转） */
+.fsel-pop-enter-active { transition: opacity .18s var(--ease), transform .18s var(--ease); }
+.fsel-pop-leave-active { transition: opacity .12s var(--ease), transform .12s var(--ease); pointer-events: none; }
+.fsel-pop-enter-from { opacity: 0; transform: translateY(-6px) scale(.985); }
+.fsel-pop-enter-to { opacity: 1; transform: none; }
+.fsel-pop-leave-to { opacity: 0; transform: translateY(-4px) scale(.99); }
+.fsel__panel[data-up="true"].fsel-pop-enter-from { transform: translateY(6px) scale(.985); }
+.fsel__panel[data-up="true"].fsel-pop-leave-to { transform: translateY(4px) scale(.99); }
+
+/* 33.5 搜索框：没有右侧动作按钮时不再预留 48px 空位
+   （原样式为 .input-wrap 内的「显示/隐藏密码」按钮留位，搜索框没有按钮却被挤窄，
+   placeholder 显示不全）。登录 / 注册页的密码框有按钮，不受影响。 */
+.input-wrap:not(:has(.input-wrap__action)) .input { padding-right: 14px; }
+
+
+/* --------------------------------------------------------------------------
+   34. 标签栏（TabBar.vue）：下划线改为可滑动的指示条 + 面板内容左右滑动
+   -------------------------------------------------------------------------- */
+
+/* 34.1 指示条：按选中项几何测量定位（TabBar.vue），切换时平移。
+   容器底部分隔线从 border 改成伪元素——指示条需要「盖住」这条线，而 .tabs 是横向
+   滚动容器（overflow-x: auto 会让 overflow-y 计算为 auto），绝对定位元素伸出内容盒
+   哪怕 1px 也会被裁掉。 */
+.tabs { position: relative; border-bottom: 0; }
+.tabs::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: var(--border);
+}
+.tabs__ink {
+  position: absolute; left: 0; bottom: 0; height: 2px;
+  border-radius: 2px; background: var(--ink);
+  opacity: 0; pointer-events: none;
+}
+/* 就位前（首帧）选中项继续用 border 下划线，指示条就位后再撤掉，避免两者并存的重影 */
+.tabs.is-ready .tabs__ink {
+  opacity: 1;
+  transition: transform .26s var(--ease), width .26s var(--ease);
+}
+.tabs.is-ready .tab[aria-selected="true"] { border-bottom-color: transparent; }
+
+/* 34.2 面板内容按切换方向左右滑动（方向 = 目标 tab 序号 − 原序号） */
+.tabpane-fwd-enter-active, .tabpane-back-enter-active { transition: opacity .18s var(--ease), transform .18s var(--ease); }
+.tabpane-fwd-leave-active, .tabpane-back-leave-active {
+  transition: opacity .13s var(--ease), transform .13s var(--ease);
+  pointer-events: none; /* 离开中的旧面板不可点击 */
+}
+.tabpane-fwd-enter-from { opacity: 0; transform: translateX(28px); }
+.tabpane-fwd-leave-to   { opacity: 0; transform: translateX(-28px); }
+.tabpane-back-enter-from { opacity: 0; transform: translateX(-28px); }
+.tabpane-back-leave-to   { opacity: 0; transform: translateX(28px); }
+
+

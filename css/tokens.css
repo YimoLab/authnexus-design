@@ -1,0 +1,210 @@
+/* ==========================================================================
+   AuthNexus Design · tokens.css — L1 设计令牌
+   --------------------------------------------------------------------------
+   来源：authnexus-design v0.1.0（三平台地址见仓库 README）
+   摘离自：鉴枢 AuthNexus app/src/styles/app.css §1 · §20d（逐字）
+   已知差异：品牌项（--acid / --on-acid / --logo-* / 字体族）移入 brand.css；
+             无引用的兼容别名不随资产（仅保留 --ink-3 / --r-sm）
+   引入顺序：tokens → brand → base → components → motion
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 设计令牌 · OpenDesign
+   -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* --- 调色板（品牌强调色 --acid 与字体族见 brand.css，本文件不含品牌决策） --- */
+  --paper:    #FAFAFA;
+  --bone:     #FFFFFF;
+  --ink:      #262626;
+  --muted:    #8C8C8C;
+  --hairline: #D9D9D9;
+  --link:     #1A74FF;
+
+  /* --- 语义扩展（品牌色板之外的最小化功能补充，仅用于界面状态） --- */
+  --ink-hover:      #434343;
+  --ink-press:      #1A1A1A;
+  --muted-text:     #6F6F6F;   /* 次级正文：原 #737373 仅对纸白 #FAFAFA 达标（4.54:1），
+                                  落在 --surface-2 #F5F5F5 上会掉到 4.35:1，此处统一下调到 4.6:1 */
+  --hairline-hover: #BFBFBF;
+  --link-text:      #0F5BD8;   /* 链接蓝校正到 4.5:1，用于可点击文字 */
+  --focus:          #218C00;
+  --danger:         #A02010;
+  --danger-hover:   #8A1B0D;
+  --danger-soft:    #FFF1EC;
+  --danger-line:    #FFD5C9;
+  --ok:             #218C00;
+  --ok-soft:        #F0F7E8;
+  --ok-ink:         #1A6E00;
+  --warn:           #7A5200;
+  --warn-soft:      #FFF8E6;
+  --warn-ink:       #6B4700;
+
+  /* --- 面（纸白 → 骨白只差一档明度，分层靠 1px 描边） --- */
+  --shell:      var(--bone);    /* 侧栏与顶栏 */
+  --page:       var(--paper);   /* 内容区底 */
+  --surface:    var(--bone);    /* 卡片、面板 */
+  --surface-2:  #F5F5F5;        /* 次级填充 */
+  --surface-3:  #EBEBEB;        /* 三级填充 */
+  --border:     var(--hairline);
+  --border-strong: var(--ink);
+
+  --on-dark:  #FFFFFF;
+
+  --code-bg:     #FAFAFA;
+  --code-border: #D9D9D9;
+  --code-ink:    #262626;
+
+  /* --- 兼容别名（仅保留资产内被引用的两条；其余鉴枢内部别名不随资产） --- */
+  --ink-3:        var(--muted-text);
+  --r-sm:         var(--r);
+
+  /* --- 8px 基线网格 --- */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-6: 24px;  --sp-8: 32px;  --sp-12: 48px; --sp-16: 64px;
+  --sp-24: 96px;
+
+  /* --- 圆角：统一 8px，胶囊 999px --- */
+  --r: 8px;
+  --r-xs: 6px;
+  --r-pill: 999px;
+
+  /* --- 高程：默认无投影，只有浮层用阴影 --- */
+  --shadow-pop: 0 30px 60px -30px rgba(38, 38, 38, .16);
+  --shadow-1: none;
+  --shadow-2: var(--shadow-pop);
+  --shadow-3: var(--shadow-pop);
+
+  /* --- 动效 --- */
+  --t: .18s;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+
+  /* --- 液态玻璃导航 ---
+     底面压到 42%，通透感由模糊与亮度补偿换回来：模糊把背景细节抹平，
+     亮度把透上来的底色推向白，两者合力顶住文字对比度。 */
+  --glass-bg: rgba(255, 255, 255, .42);
+  /* 浮层（弹窗 / 抽屉 / 通知）：与导航同构的液态配方——底面压得很低，
+     亮度补偿比导航更强（scrim 压暗了背后的页面，需要多补回来）。
+     可读性由「亮度补偿 + 高饱和」而不是「加白」保证。 */
+  --glass-panel-bg: rgba(255, 255, 255, .50);
+  --glass-panel-brightness: 1.44;
+  /* 受光渐变：玻璃片的「光泽」——顶部受光、中段通透、底部反光，
+     打破低透底在浅色页面上趋于均匀的观感，是「液态」的立体感来源 */
+  --glass-panel-sheen: linear-gradient(
+    172deg,
+    rgba(255, 255, 255, .62) 0%,
+    rgba(255, 255, 255, .16) 22%,
+    rgba(255, 255, 255, 0) 52%,
+    rgba(255, 255, 255, .22) 100%
+  );
+  --glass-line: rgba(255, 255, 255, .85);
+  --glass-blur: 32px;
+  --glass-saturate: 200%;
+  --glass-brightness: 1.15;
+  --glass-radius: 20px;
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .95),
+    inset 0 -1px 0 rgba(255, 255, 255, .35),
+    0 1px 3px rgba(38, 38, 38, .06),
+    0 16px 40px -18px rgba(38, 38, 38, .22);
+
+  /* --- 结构 --- */
+  --sidebar-w: 264px;
+  --sidebar-w-min: 80px;
+  --nav-h: 64px;
+  /* 导航浮动间隙，以及它加上导航高度后的总占位 */
+  --nav-gap: 12px;
+  --nav-total: calc(var(--nav-h) + var(--nav-gap));
+  --container: 1360px;
+  --gutter: clamp(24px, 3.125vw, 32px);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper:    #1A1A1A;
+  --bone:     #242424;
+  --ink:      #F5F5F5;
+  --muted:    #A6A6A6;
+  --hairline: #3D3D3D;
+  --link:     #5B9DFF;
+
+  --ink-hover:      #D4D4D4;
+  --ink-press:      #FFFFFF;
+  --muted-text:     #B8B8B8;
+  --hairline-hover: #575757;
+  --link-text:      #8FBBFF;
+  --focus:          #8DE86A;
+  --danger:         #FF8A73;
+  --danger-hover:   #FFA48F;
+  --danger-soft:    #3A1C15;
+  --danger-line:    #6B3024;
+  --ok:             #8DE86A;
+  --ok-soft:        #23301B;
+  --ok-ink:         #A5EE8A;
+  --warn:           #E8B44A;
+  --warn-soft:      #332912;
+  --warn-ink:       #F0CB7E;
+
+  --shell:     var(--bone);
+  --page:      var(--paper);
+  --surface:   var(--bone);
+  --surface-2: #2E2E2E;
+  --surface-3: #383838;
+
+  /* 深色模式下 --ink 反转为浅色实底：落在实底上的文字色必须一并反转为深色，
+     否则 .btn--primary / .tag--brand / .method--post / .segmented 选中项等
+     会出现「浅底白字」而无法阅读（对比度约 1.1:1）。 */
+  --on-dark: #1A1A1A;
+
+  --code-bg:     #1A1A1A;
+  --code-border: #3D3D3D;
+  --code-ink:    #E8E8E8;
+
+  --shadow-pop: 0 30px 60px -30px rgba(0, 0, 0, .72);
+
+  /* 深色下的玻璃：同样压到 34%，用亮度下压代替叠加黑，保住透过来的色相 */
+  --glass-bg: rgba(26, 26, 26, .34);
+  /* 浮层（弹窗 / 抽屉 / 通知）：与导航同构，亮度下压 + 低透底，
+     透出来的内容被「洗」成深色雾面；受光渐变在深色下只留顶部微光 */
+  --glass-panel-bg: rgba(26, 26, 26, .44);
+  --glass-panel-brightness: .56;
+  --glass-panel-sheen: linear-gradient(
+    172deg,
+    rgba(255, 255, 255, .12) 0%,
+    rgba(255, 255, 255, 0) 46%,
+    rgba(255, 255, 255, .05) 100%
+  );
+  --glass-line: rgba(255, 255, 255, .16);
+  --glass-saturate: 160%;
+  --glass-brightness: .68;
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .14),
+    0 1px 3px rgba(0, 0, 0, .40),
+    0 16px 40px -18px rgba(0, 0, 0, .68);
+}
+
+
+/* --------------------------------------------------------------------------
+   20d. 玻璃降级
+   不支持背景模糊、或用户要求降低透明度时，玻璃退回不透明面并撤掉模糊，
+   保证导航文字始终落在可读的底色上。
+   -------------------------------------------------------------------------- */
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root { --glass-bg: var(--surface); --glass-panel-bg: var(--surface); --glass-panel-sheen: none; --glass-line: var(--border); }
+  [data-theme="dark"] { --glass-bg: var(--surface); --glass-panel-bg: var(--surface); --glass-panel-sheen: none; --glass-line: var(--border); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass-bg: var(--surface); --glass-panel-bg: var(--surface); --glass-panel-sheen: none; --glass-line: var(--border); }
+  [data-theme="dark"] { --glass-bg: var(--surface); --glass-panel-bg: var(--surface); --glass-panel-sheen: none; --glass-line: var(--border); }
+  .topbar, .userbar, .modal, .drawer, .toast, .menu__panel, .sidepop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+

@@ -410,34 +410,40 @@
   </div>
 </div>
 
-<!-- ============ 浮层（真实形态，挂 body；JS 开关） ============ -->
-<div class="scrim g-hidden" id="demo-modal-scrim" data-close-self="demo-modal"></div>
-<div class="modal g-hidden" id="demo-modal" role="dialog" aria-modal="true" aria-label="确认操作">
-  <div class="modal__head">
-    <div class="modal__head-text">
-      <div class="modal__title" id="demo-modal-title">确认操作？</div>
-      <div class="modal__desc" id="demo-modal-desc">此操作需要确认。</div>
+<!-- ============ 浮层（真实形态：挂 body 的 .overlay-layer 承载层；JS 开关）
+     承载层提供 z-index:100，高于顶栏(30)/侧栏(40)——浮层自身没有 z-index，
+     直接挂 body 会让 scrim 压不暗顶栏、抽屉被顶栏盖住。 ============ -->
+<div class="overlay-layer">
+  <div class="scrim g-hidden" id="demo-modal-scrim" data-close-self="demo-modal"></div>
+  <div class="modal g-hidden" id="demo-modal" role="dialog" aria-modal="true" aria-label="确认操作">
+    <div class="modal__head">
+      <div class="modal__head-text">
+        <div class="modal__title" id="demo-modal-title">确认操作？</div>
+        <div class="modal__desc" id="demo-modal-desc">此操作需要确认。</div>
+      </div>
+      <button class="iconbtn modal__close" data-close="demo-modal" type="button" aria-label="关闭">✕</button>
     </div>
-    <button class="iconbtn modal__close" data-close="demo-modal" type="button" aria-label="关闭">✕</button>
-  </div>
-  <div class="modal__body" id="demo-modal-body"></div>
-  <div class="modal__foot">
-    <button class="btn btn--ghost" data-close="demo-modal" type="button">取消</button>
-    <button class="btn btn--primary" id="demo-modal-confirm" type="button">确认</button>
+    <div class="modal__body" id="demo-modal-body"></div>
+    <div class="modal__foot">
+      <button class="btn btn--ghost" data-close="demo-modal" type="button">取消</button>
+      <button class="btn btn--primary" id="demo-modal-confirm" type="button">确认</button>
+    </div>
   </div>
 </div>
 
-<div class="scrim g-hidden" id="demo-drawer-scrim" data-close-self="demo-drawer"></div>
-<div class="drawer g-hidden" id="demo-drawer" role="dialog" aria-modal="true" aria-label="应用详情">
-  <div class="drawer__head">
-    <div class="drawer__title">应用详情</div>
-    <button class="iconbtn" style="margin-left:auto" data-close="demo-drawer" type="button" aria-label="关闭">✕</button>
-  </div>
-  <div class="drawer__body">
-    <dl class="kv" id="demo-drawer-kv"></dl>
-  </div>
-  <div class="drawer__foot">
-    <button class="btn btn--primary" data-close="demo-drawer" type="button">完成</button>
+<div class="overlay-layer">
+  <div class="scrim g-hidden" id="demo-drawer-scrim" data-close-self="demo-drawer"></div>
+  <div class="drawer g-hidden" id="demo-drawer" role="dialog" aria-modal="true" aria-label="应用详情">
+    <div class="drawer__head">
+      <div class="drawer__title">应用详情</div>
+      <button class="iconbtn" style="margin-left:auto" data-close="demo-drawer" type="button" aria-label="关闭">✕</button>
+    </div>
+    <div class="drawer__body">
+      <dl class="kv" id="demo-drawer-kv"></dl>
+    </div>
+    <div class="drawer__foot">
+      <button class="btn btn--primary" data-close="demo-drawer" type="button">完成</button>
+    </div>
   </div>
 </div>
 

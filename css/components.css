@@ -150,6 +150,10 @@
   display: inline-flex; padding: 4px; gap: 4px;
   background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r);
 }
+/* 资产增强（源中无此规则，verify-css 白名单）：锁定内容宽度。inline-flex 作为
+   grid / flex 子项时会被父容器拉伸（表现为轨道满宽、选项挤在左侧）；需要占满
+   容器时由使用方显式覆盖 width。 */
+.segmented { width: fit-content; }
 .segmented__opt {
   padding: 7px 14px; border: 0; border-radius: var(--r-xs);
   background: transparent; color: var(--muted-text);

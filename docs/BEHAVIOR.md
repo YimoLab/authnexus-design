@@ -28,6 +28,12 @@
 | Toast | 200 |
 | 主题涟漪 | 300 |
 
+> **承载层**：弹窗 / 抽屉 / scrim 自身不设 z-index——它们必须放进 `.overlay-layer`
+> （`position: fixed; inset: 0; z-index: 100; pointer-events: none`，子元素自动恢复事件）
+> 内部才拿到 100 层。直接挂 body 的浮层只有 `z-index: auto`，会被顶栏(30) / 侧栏(40) 反压：
+> 表现为 scrim 压不暗顶栏、抽屉顶部被顶栏盖住、被遮内容与浮层层级错乱（静态页与
+> Vue 的 OverlayHost 都走这个承载层）。
+
 ### 1.3 定位算法要点（以 SelectMenu 为范本）
 
 - **水平**：与触发器左对齐 → 视口两侧 8px 收敛。

@@ -19,13 +19,14 @@ SRC = pathlib.Path(r"E:/CasuaIness/Personal/auth-nexus/app/src/styles/app.css")
 CSS_DIR = pathlib.Path(r"E:/CasuaIness/Personal/authnexus-design/css")
 FILES = ["tokens.css", "brand.css", "base.css", "components.css", "motion.css", "shell.css"]
 
-# 已知预期差异（来源：品牌项移入 brand.css、资产版 print 块收窄）
+# 已知预期差异（来源：品牌项移入 brand.css、资产版 print 块收窄、.segmented 宽度锁定增强）
 EXPECTED_DIFF = {
     ("tokens.css", ":root"),
     ("tokens.css", '[data-theme="dark"]'),
     ("brand.css", ":root"),
     ("brand.css", '[data-theme="dark"]'),
     ("base.css", ".toast-layer, .overlay-layer"),
+    ("components.css", ".segmented"),
 }
 
 

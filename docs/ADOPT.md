@@ -31,6 +31,10 @@
       <div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
       ```
 
+      `#overlay-layer` 的 `z-index: 100` 是浮层压住顶栏(30) / 侧栏(40) 的关键（浮层组件自身
+      不设 z-index）；不经 OverlayHost 手动挂浮层（静态页 / 原生 JS）时，要把每组
+      scrim + 面板同样包进 `<div class="overlay-layer">`。
+
    b. 应用根挂载 `<OverlayHost />` 与 `<ToastHost />` 各一次；
    复制需要的组件，改 import 别名（组件间引用全部是相对路径，同结构复制可零改动）；
 5. **验收**：跑 `audit/`（配置 `audit.config.json` 指向你的路由），对照 `gallery/` 检查观感。
@@ -171,6 +175,7 @@ Design system: authnexus-design v0.1.0（复制于 2026-10-DD，三平台同名�
 | 坑 | 规则 |
 |---|---|
 | **浮层 / Toast 完全不显示且无报错** | 检查 index.html 是否有 `#overlay-layer` / `#toast-layer` 容器（§0 第 4 步） |
+| scrim 压不暗顶栏 / 抽屉顶部被顶栏盖住 | 浮层对必须包在 `.overlay-layer` 内（z-index:100；浮层自身不设 z-index，手动挂载时最容易漏；BEHAVIOR §1.2） |
 | 浮层挂在玻璃祖先里，磨砂失效 | Teleport 挂 body + fixed + JS 坐标（BEHAVIOR §1.1） |
 | 下拉面板向右溢出 | 先设 min-width 再测量（§1.3） |
 | 只给 tbody 加 transform → 出横向滚动条 | 整块滑动 + `.paged-clip`（§4） |

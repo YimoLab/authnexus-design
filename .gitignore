@@ -20,6 +20,9 @@ audit/.out/
 # 站点构建产物
 _site/
 
+# 验证截图产物
+.shot/
+
 # 本地环境
 .env
 .env.local

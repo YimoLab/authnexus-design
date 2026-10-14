@@ -14,6 +14,9 @@ node_modules/
 dist/
 *.log
 
+# 审计产物
+audit/.out/
+
 # 本地环境
 .env
 .env.local

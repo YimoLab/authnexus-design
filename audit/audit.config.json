@@ -1,0 +1,32 @@
+{
+  "$comment": "AuthNexus Design · 审计配置。环境变量 CHROME_PATH / BASE_URL / OUT_DIR 可覆盖对应字段。profiles.authnexus 为鉴枢（AuthNexus）页面级用例；新项目参照其结构编写自己的 profile。",
+  "chromePath": "C:/Users/CasuaIness/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+  "baseUrl": "http://127.0.0.1:5173",
+  "outDir": ".out",
+  "profiles": {
+    "authnexus": {
+      "contrastRoutes": [
+        ["登录", "/#/login"],
+        ["注册", "/#/register"],
+        ["个人资料", "/#/account"],
+        ["已授权应用", "/#/account/authorizations"],
+        ["授权确认", "/#/oauth/authorize?client_id=anx_9f2c7b41e6d8&redirect_uri=https%3A%2F%2Fwww.notion.so%2Fintegrations%2Foauth%2Fcallback&response_type=code&scope=profile%3Aread%20email%3Aread&state=audit&flow=playground"],
+        ["授权错误页", "/#/oauth/error?error=access_denied"],
+        ["开发者概览", "/#/dev"],
+        ["应用管理", "/#/dev/apps"],
+        ["创建应用", "/#/dev/apps/new"],
+        ["应用详情", "/#/dev/apps/app_notion"],
+        ["应用详情·凭证", "/#/dev/apps/app_notion?tab=credentials"],
+        ["接入指南", "/#/dev/guide"],
+        ["管理概览", "/#/admin"],
+        ["应用审核", "/#/admin/reviews"],
+        ["审核详情", "/#/admin/reviews/app_yunshu"],
+        ["授权管理", "/#/admin/grants"],
+        ["用户管理", "/#/admin/users"],
+        ["权限范围", "/#/admin/scopes"],
+        ["授权审计", "/#/admin/audit"],
+        ["令牌管理", "/#/admin/tokens"]
+      ]
+    }
+  }
+}

@@ -5,11 +5,11 @@
    摘离自：鉴枢 AuthNexus app/src/styles/app.css（§4 应用外壳 · §22 移动端侧栏开关 ·
           §21 中外壳相关响应式），逐字。
    说明：玻璃侧栏 + 玻璃顶栏 + 内容区的中后台骨架，含三套外壳：
-         .shell（控制台，中后台主用）· .plain（简洁居中）· .userbar（用户中心顶栏）。
+         .anx-shell（控制台，中后台主用）· .anx-plain（简洁居中）· .anx-userbar（用户中心顶栏）。
          依赖 tokens.css（--glass-* / --nav-* 等令牌）与 components.css（fade-in 动画）。
    用法：引入顺序 fonts → tokens → brand → base → components → motion → shell；
-         侧栏在 ≤1023px 变为抽屉，用 .shell__side.is-open 与 .shell__scrim 开合（JS 控制），
-         .mobile-nav-toggle 为窄屏汉堡按钮。
+         侧栏在 ≤1023px 变为抽屉，用 .anx-shell__side.is-open 与 .anx-shell__scrim 开合（JS 控制），
+         .anx-mobile-nav-toggle 为窄屏汉堡按钮。
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -113,7 +113,7 @@
 .anx-topbar__actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 
 /* 内容区上移钻到浮动导航下方，滚动时从玻璃背后穿过；顶部内边距再把它推回来。
-   左侧不留内边距——左边距统一由 .shell__main 提供，顶栏与内容左缘才能对齐。 */
+   左侧不留内边距——左边距统一由 .anx-shell__main 提供，顶栏与内容左缘才能对齐。 */
 .anx-shell__body {
   flex: 1;
   margin-top: calc(-1 * var(--nav-total));

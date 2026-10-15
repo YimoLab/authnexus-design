@@ -155,7 +155,7 @@
   --surface-3: #383838;
 
   /* 深色模式下 --ink 反转为浅色实底：落在实底上的文字色必须一并反转为深色，
-     否则 .btn--primary / .tag--brand / .method--post / .segmented 选中项等
+     否则 .anx-btn--primary / .anx-tag--brand / .method--post / .anx-segmented 选中项等
      会出现「浅底白字」而无法阅读（对比度约 1.1:1）。 */
   --on-dark: #1A1A1A;
 

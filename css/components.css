@@ -174,7 +174,7 @@
 
 .anx-menu__panel {
   /* 定位由 JS 计算（fixed + Teleport 挂 body，见 AccountMenu.vue）：
-     不能挂在 .topbar 内部——顶栏有 backdrop-filter，会成为后代的 backdrop root，
+     不能挂在 .anx-topbar 内部——顶栏有 backdrop-filter，会成为后代的 backdrop root，
      弹层的磨砂只能采样顶栏内部内容（等于没有模糊），只剩半透明底透出清晰的页面。 */
   position: fixed;
   z-index: 60;
@@ -262,8 +262,8 @@
   display: inline-flex; align-items: center; gap: 6px;
   margin-right: 10px; font-size: 13px; color: var(--muted-text);
 }
-/* 每页条数：class 落在自定义下拉的包装层上（盒样式由 .fsel--sm 负责，这里只定宽）。
-   选择器带上 .pager__size 提高特异度——否则会被后文同特异度的 .fsel { width: 100% } 覆盖，
+/* 每页条数：class 落在自定义下拉的包装层上（盒样式由 .anx-fsel--sm 负责，这里只定宽）。
+   选择器带上 .anx-pager__size 提高特异度——否则会被后文同特异度的 .anx-fsel { width: 100% } 覆盖，
    导致紧凑下拉在行内被拉满宽度。 */
 .anx-pager__size .anx-pager__select { width: 62px; }
 .anx-pager__btn {
@@ -325,11 +325,11 @@
 
 /* --------------------------------------------------------------------------
    33. 下拉选择（SelectMenu.vue）：自绘 listbox 取代原生 <select>
-   面板锚定策略沿用 .menu__panel / .sidepop：Teleport 挂 body + fixed +
+   面板锚定策略沿用 .anx-menu__panel / .anx-sidepop：Teleport 挂 body + fixed +
    JS 计算坐标（挂在有 backdrop-filter 的祖先里，磨砂会退化成「背景透明」）。
    -------------------------------------------------------------------------- */
 
-/* 33.1 触发器：盒模型与 .input / .select 保持一致（高度 44px、bone 底、r 圆角） */
+/* 33.1 触发器：盒模型与 .anx-input / .anx-select 保持一致（高度 44px、bone 底、r 圆角） */
 .anx-fsel { position: relative; width: 100%; }
 .anx-fsel__btn {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -362,7 +362,7 @@
 /* 紧凑变体（分页条的「每页条数」） */
 .anx-fsel--sm .anx-fsel__btn { height: 30px; padding: 0 8px; gap: 4px; font-size: 13px; }
 
-/* 33.2 面板：液态玻璃配方与其他浮层统一；z-index 高于 .overlay-layer(100)，
+/* 33.2 面板：液态玻璃配方与其他浮层统一；z-index 高于 .anx-overlay-layer(100)，
    低于 toast(200)——弹窗内的下拉（权限目录表单的「敏感级别」）要盖住弹窗。 */
 .anx-fsel__panel {
   position: fixed; z-index: 160;
@@ -413,7 +413,7 @@
 .anx-fsel__panel[data-up="true"].anx-fsel-pop-leave-to { transform: translateY(4px) scale(.99); }
 
 /* 33.5 搜索框：没有右侧动作按钮时不再预留 48px 空位
-   （原样式为 .input-wrap 内的「显示/隐藏密码」按钮留位，搜索框没有按钮却被挤窄，
+   （原样式为 .anx-input-wrap 内的「显示/隐藏密码」按钮留位，搜索框没有按钮却被挤窄，
    placeholder 显示不全）。登录 / 注册页的密码框有按钮，不受影响。 */
 .anx-input-wrap:not(:has(.anx-input-wrap__action)) .anx-input { padding-right: 14px; }
 
@@ -423,7 +423,7 @@
    -------------------------------------------------------------------------- */
 
 /* 34.1 指示条：按选中项几何测量定位（TabBar.vue），切换时平移。
-   容器底部分隔线从 border 改成伪元素——指示条需要「盖住」这条线，而 .tabs 是横向
+   容器底部分隔线从 border 改成伪元素——指示条需要「盖住」这条线，而 .anx-tabs 是横向
    滚动容器（overflow-x: auto 会让 overflow-y 计算为 auto），绝对定位元素伸出内容盒
    哪怕 1px 也会被裁掉。 */
 .anx-tabs { position: relative; border-bottom: 0; }

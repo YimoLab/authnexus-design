@@ -49,7 +49,7 @@
    六个分页视图（审计 / 审核 / 授权 / 令牌 / 用户 / 应用）共用同一组类名：
    表格用 <tbody :key="page">、div 行列表用 keyed 容器包住行区域。 */
 /* 裁剪容器：滑动中的内容不越出面板边界。表格用「整块滑动」而不是只动 tbody——
-   实测 tbody 位移会撑大 .table-wrap 的滚动范围、闪出横向滚动条。 */
+   实测 tbody 位移会撑大 .anx-table-wrap 的滚动范围、闪出横向滚动条。 */
 .anx-paged-clip { overflow: hidden; }
 
 .anx-paged-fwd-enter-active, .anx-paged-back-enter-active { transition: opacity .18s var(--ease), transform .18s var(--ease); }

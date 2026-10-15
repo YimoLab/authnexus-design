@@ -81,6 +81,7 @@ def load_map() -> dict:
 # ---------------------------------------------------------------- CSS
 CSS_CLASS = re.compile(r"\.([a-zA-Z][\w-]*)")
 CSS_PROTECT = re.compile(r"(/\*.*?\*/|url\([^)]*\))", re.S)
+URL_IN_COMMENT = re.compile(r"url\([^)]*\)")
 
 
 def map_name(name: str, cmap: dict) -> str | None:
@@ -92,7 +93,8 @@ def map_name(name: str, cmap: dict) -> str | None:
     return cmap[r] + name[len(r):]
 
 
-def migrate_css(text: str, cmap: dict):
+def migrate_css(text: str, cmap: dict, comments_too: bool = False):
+    """comments_too=True 时连注释里的 class 引用一起迁移（注释是给人和 AI 的说明书）"""
     parts = CSS_PROTECT.split(text)
     changed = [0]
     for i in range(0, len(parts), 2):        # 偶数位是「正文」，奇数位是被保护的分隔符
@@ -108,6 +110,32 @@ def migrate_css(text: str, cmap: dict):
             return m.group(0)
 
         parts[i] = CSS_CLASS.sub(repl, seg)
+
+    if comments_too:
+        for i in range(1, len(parts), 2):    # 奇数位 = 注释 / url()
+            seg = parts[i]
+            if not seg or not seg.startswith("/*"):
+                continue
+            # 注释内部同样替换 class 引用，但先保护其中的 url(...)
+            held = []
+
+            def stash(m):
+                held.append(m.group(0))
+                return f"\0HELD{len(held) - 1}\0"
+
+            inner = URL_IN_COMMENT.sub(stash, seg)
+
+            def crepl(m):
+                new = map_name(m.group(1), cmap)
+                if new:
+                    changed[0] += 1
+                    return "." + new
+                return m.group(0)
+
+            inner = CSS_CLASS.sub(crepl, inner)
+            for idx, val in enumerate(held):
+                inner = inner.replace(f"\0HELD{idx}\0", val)
+            parts[i] = inner
     return "".join(parts), changed[0]
 
 
@@ -218,9 +246,9 @@ HANDLERS = {
 }
 
 
-def handler_for(path: pathlib.Path, target: str):
+def handler_for(path: pathlib.Path, target: str, comments_too: bool = False):
     if target == "css":
-        return HANDLERS["css"]
+        return lambda t, m: migrate_css(t, m, comments_too=comments_too)
     if target == "docs":
         return HANDLERS["docs"]
     if path.suffix == ".html":
@@ -239,6 +267,8 @@ def main() -> int:
     ap.add_argument("--dry-run", dest="apply", action="store_false",
                     help="显式预演（默认行为）")
     ap.add_argument("--only", action="append", default=[])
+    ap.add_argument("--comments", action="store_true",
+                    help="连 CSS 注释里的 class 引用一起迁移（注释是给人和 AI 的说明书）")
     args = ap.parse_args()
 
     if args.map:
@@ -264,7 +294,7 @@ def main() -> int:
                 if args.only and not any(o in rel for o in args.only):
                     continue
                 text = p.read_text(encoding="utf-8")
-                new, n = handler_for(p, t)(text, cmap)
+                new, n = handler_for(p, t, comments_too=args.comments)(text, cmap)
                 if n == 0:
                     continue
                 total_files += 1

@@ -27,3 +27,5 @@ _site/
 .env
 .env.local
 .env.*.local
+# 验证临时产物
+.tmp-check/

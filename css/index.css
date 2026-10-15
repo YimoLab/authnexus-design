@@ -1,0 +1,22 @@
+/* ==========================================================================
+   AuthNexus Design · index.css — 唯一引入入口
+   --------------------------------------------------------------------------
+   只需在应用里 import 这一份，顺序即依赖顺序，不要自行调整：
+     fonts → tokens → brand → base → components → motion → shell
+   · tokens   设计令牌（明暗双主题 + 玻璃配方 + 玻璃降级）
+   · brand    品牌覆盖入口（--acid / logo / 字体族）——换品牌只改这里
+   · base     重置 / 排版 / 按钮 / 表单 / 表格 / 标签 / 提示 / 骨架 / 时间线
+   · components 浮层 / 下拉 / 分段 / 图片选择器 / 分页 / SelectMenu / TabBar
+   · motion   过渡动效 + 主题涟漪 + 「减少动效」全局压缩
+   · shell    中后台外壳（玻璃侧栏 + 顶栏），纯展示型项目可不引
+
+   Vue/React 组件源码见 ../vue/，接入步骤见 ../docs/ADOPT.md，
+   交互铁律见 ../docs/BEHAVIOR.md。
+   ========================================================================== */
+
+@import './tokens.css';
+@import './brand.css';
+@import './base.css';
+@import './components.css';
+@import './motion.css';
+@import './shell.css';

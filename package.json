@@ -1,0 +1,89 @@
+{
+  "name": "@yimolab/authnexus-design",
+  "version": "0.1.0",
+  "description": "鉴枢设计系统：CSS 令牌 + 自绘组件 + 自托管字体 + 浏览器黑盒审计。明暗双主题、液态玻璃、零 UI 库依赖；class 全部在 anx- 命名空间；契约驱动，为 AI 编码代理优化。",
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "vue3",
+    "components",
+    "css",
+    "dark-mode",
+    "glassmorphism",
+    "ai-friendly"
+  ],
+  "license": "MIT",
+  "author": "YimoLab",
+  "homepage": "https://github.com/YimoLab/authnexus-design#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YimoLab/authnexus-design.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YimoLab/authnexus-design/issues"
+  },
+  "sideEffects": [
+    "*.css",
+    "vue/ui/theme.ts",
+    "vue/overlay/toast.ts",
+    "vue/overlay/overlayState.ts"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./css": "./css/index.css",
+    "./css/*": "./css/*",
+    "./fonts": "./fonts/fonts.css",
+    "./fonts/*": "./fonts/*",
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.js"
+    },
+    "./vue/*": "./vue/*",
+    "./audit": {
+      "import": "./dist/audit.js"
+    },
+    "./docs/BEHAVIOR": "./docs/BEHAVIOR.md",
+    "./docs/ADOPT": "./docs/ADOPT.md",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "css",
+    "fonts",
+    "vue",
+    "audit",
+    "docs",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "verify:css": "python tools/verify-css.py",
+    "scan:classes": "python tools/scan-classes.py",
+    "build:site": "bash tools/build-site.sh",
+    "push:all": "bash tools/push-all.sh",
+    "audit:gallery": "node audit/audit-gallery.mjs"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "playwright-core": "^1.40.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

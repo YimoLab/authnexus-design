@@ -53,7 +53,12 @@ DOC_SAFE = True
 
 
 def root_of(name: str) -> str:
+    # BEM：__ 元素、-- 修饰；单连字符（page-head / t-h1 / grid-2）属名字的一部分
     return re.split(r"__|--", name, 1)[0]
+
+
+# 选择器里的 class：点号 + 字母开头
+CSS_CLASS_SEL = re.compile(r"\.([a-zA-Z][\w-]*)")
 
 
 def clean_css(text: str) -> str:
@@ -180,8 +185,18 @@ def migrate_html(text: str, cmap: dict):
 
 
 # ---------------------------------------------------------------- JS/TS 选择器字面量
+# 覆盖 DOM API 与 Playwright 两类调用（审计脚本大量使用后者）
+# 注意：选择器内部可能含双引号属性选择器（.x[aria-selected="true"]），
+# 因此字符串体用「惰性匹配到同类型引号」而非 [^'"]*，否则会漏迁。
 JS_SELECTOR = re.compile(
-    r"""(querySelectorAll|querySelector|closest|matches|getElementsByClassName)\s*\(\s*(['"])([^'"]*)\2""")
+    r"""(querySelectorAll|querySelector|closest|matches|getElementsByClassName"""
+    r"""|waitForSelector|waitForSelectorAll|locator|\$\$|\$|waitForFunction"""
+    r"""|click|dblclick|hover|focus|blur|fill|type|press|selectOption|setInputFiles"""
+    r"""|dragAndDrop|dispatchEvent|eval|\$\$eval|getAttribute)"""
+    r"""\s*\(\s*(['"])(.+?)\1""", re.S)
+# Playwright 行内伪类/文本引擎：:has-text("x")、:text("x")、>> nth=0
+PW_INLINE = re.compile(
+    r"""(?::(?:has-text|text|is|visible)\([^()]*\))|(?:>>\s*nth=\d+)""")
 JS_CLASSLIST = re.compile(r"""(classList\.(?:add|remove|toggle|contains|replace)\s*\(\s*)(['"])([^'"]*)\2""")
 JS_CLASSNAME = re.compile(r"""(className\s*=\s*)(['"])([^'"]*)\2""")
 JS_SETCLASS = re.compile(r"""(setAttribute\(\s*(['"])class\2\s*,\s*)(['"])([^'"]*)\3""")
@@ -189,14 +204,49 @@ JS_SETCLASS = re.compile(r"""(setAttribute\(\s*(['"])class\2\s*,\s*)(['"])([^'"]
 VUE_BIND_KEY = re.compile(r"""(['"])([a-z][\w\s-]*)\1(\s*:)""")
 
 
-def migrate_js(text: str, cmap: dict):
-    changed = [0]
+def migrate_selector(sel: str, cmap: dict):
+    """处理选择器字符串：.a .b > .c[attr] .d:hover :has-text("x") >> nth=0
+    只改点号后的类名，保留元素名、属性选择器、组合符、伪类与 Playwright 行内引擎参数。"""
+    changed = 0
+    # 先把 Playwright 行内伪类的参数藏起来（其内容不是选择器）
+    held = []
 
-    def repl_selector(m):
-        head, q, val = m.group(1), m.group(2), m.group(3)
-        new, n = migrate_class_attr(val, cmap)
-        changed[0] += n
-        return f"{head}({q}{new}{q}"
+    def stash(m):
+        held.append(m.group(0))
+        return f"\0H{len(held) - 1}\0"
+
+    work = PW_INLINE.sub(stash, sel)
+
+    def repl(m):
+        nonlocal changed
+        new = map_name(m.group(1), cmap)
+        if new:
+            changed += 1
+            return "." + new
+        return m.group(0)
+
+    work = CSS_CLASS_SEL.sub(repl, work)
+    for i, v in enumerate(held):
+        work = work.replace(f"\0H{i}\0", v)
+    return work, changed
+
+
+def migrate_js(text: str, cmap: dict):
+    """只处理**能确定安全**的三类字面量，其余一律跳过并上报。
+
+    安全场景：
+      1. classList.add/remove/toggle/contains('a b')  —— 参数必是 class 列表
+      2. className = 'a b' / setAttribute('class','a b') —— 同上
+      3. 选择器字符串：整串形如 .a .b > .c[attr] :has-text("x") >> nth=0
+         （**必须整串都是选择器语法**，否则跳过——这是与代码结构的分界）
+
+    明确不处理（曾导致把 e.target.closest('[data-close]') 改成 e.target.'('[data-close]')）：
+      · 任意位置的 `.xxx`（会命中方法调用、对象属性、字符串拼接）
+      · :class="..." 动态绑定（改引号破坏 HTML 嵌套）
+      · 跨引号的嵌套选择器（惰性匹配会截断）
+    这些场景由 scan + 人工清单处理，见 docs/NAMESPACE-MIGRATION.md。
+    """
+    changed = [0]
 
     def repl_classlist(m):
         head, q, val = m.group(1), m.group(2), m.group(3)
@@ -204,15 +254,13 @@ def migrate_js(text: str, cmap: dict):
         changed[0] += n
         return f"{head}{q}{new}{q}"
 
-    text = JS_SELECTOR.sub(repl_selector, text)
-    text = JS_CLASSLIST.sub(repl_classlist, text)
-
     def repl_classname(m):
-        q, val = m.group(2), m.group(3)
+        head, q, val = m.group(1), m.group(2), m.group(3)
         new, n = migrate_class_attr(val, cmap)
         changed[0] += n
-        return f"{m.group(1)}{q}{new}{q}"
+        return f"{head}{q}{new}{q}"
 
+    text = JS_CLASSLIST.sub(repl_classlist, text)
     text = JS_CLASSNAME.sub(repl_classname, text)
     text = JS_SETCLASS.sub(repl_classname, text)
     return text, changed[0]

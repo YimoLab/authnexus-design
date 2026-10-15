@@ -56,7 +56,7 @@ const b = await chromium.launch({ executablePath: CHROME, headless: true })
   const p = await ctx.newPage()
   await p.goto(AUTH_URL, { waitUntil: 'networkidle' })
   await p.waitForSelector('.consent-card', { timeout: 8000 })
-  const chips = await p.$$eval('.consent-card .tag--scope', (els) =>
+  const chips = await p.$$eval('.consent-card .anx-tag--scope', (els) =>
     els.map((e) => ({ name: e.textContent.trim(), title: e.title })),
   )
   check(chips.length === 3, '未登录态：权限芯片 ' + chips.length + ' 个')
@@ -72,7 +72,7 @@ for (const theme of ['light', 'dark']) {
   const p = await ctx.newPage()
   await p.goto(BASE + '/', { waitUntil: 'networkidle' })
   await p.click('.demo-account >> nth=0')
-  await p.waitForSelector('.grid-main-side')
+  await p.waitForSelector('.anx-grid-main-side')
   await p.goto(BASE + '/#/account', { waitUntil: 'networkidle' })
   await p.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme)
   await p.goto(AUTH_URL, { waitUntil: 'networkidle' })

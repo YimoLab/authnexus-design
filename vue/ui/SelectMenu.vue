@@ -87,7 +87,7 @@ function place() {
 function ensureVisible() {
   const panel = panelEl.value
   if (!panel) return
-  const el = panel.querySelector<HTMLElement>('.fsel__opt.is-active')
+  const el = panel.querySelector<HTMLElement>('.anx-fsel__opt.is-active')
   if (!el) return
   const top = el.offsetTop
   const bottom = top + el.offsetHeight

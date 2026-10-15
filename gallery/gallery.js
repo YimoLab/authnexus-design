@@ -79,9 +79,9 @@ function closeFsel() {
   openFsel = null
 }
 document.querySelectorAll('.g-fsel').forEach((root) => {
-  const btn = root.querySelector('.fsel__btn')
-  const panel = root.querySelector('.fsel__panel')
-  const value = root.querySelector('.fsel__value')
+  const btn = root.querySelector('.anx-fsel__btn')
+  const panel = root.querySelector('.anx-fsel__panel')
+  const value = root.querySelector('.anx-fsel__value')
   btn.addEventListener('click', () => {
     if (openFsel && openFsel.panel === panel) { closeFsel(); return }
     closeFsel()
@@ -89,13 +89,13 @@ document.querySelectorAll('.g-fsel').forEach((root) => {
     placePanel(btn, panel)
     openFsel = { root, btn, panel }
   })
-  panel.querySelectorAll('.fsel__opt').forEach((opt) => {
+  panel.querySelectorAll('.anx-fsel__opt').forEach((opt) => {
     opt.addEventListener('click', () => {
-      panel.querySelectorAll('.fsel__opt').forEach((o) => o.classList.remove('is-selected'))
+      panel.querySelectorAll('.anx-fsel__opt').forEach((o) => o.classList.remove('is-selected'))
       opt.classList.add('is-selected')
       if (value) {
-        value.textContent = opt.querySelector('.fsel__optlabel').textContent
-        value.classList.remove('fsel__value--empty')
+        value.textContent = opt.querySelector('.anx-fsel__optlabel').textContent
+        value.classList.remove('anx-fsel__value--empty')
       }
       closeFsel()
     })
@@ -125,32 +125,32 @@ function toastIcon(body, size) {
 function showToast(tone, title, text) {
   if (!toastLayer) {
     toastLayer = document.createElement('div')
-    toastLayer.className = 'toast-layer'
+    toastLayer.className = 'anx-toast-layer'
     document.body.appendChild(toastLayer)
   }
   const el = document.createElement('div')
-  el.className = 'toast toast--' + tone
+  el.className = 'anx-toast anx-toast--' + tone
   el.setAttribute('role', tone === 'danger' ? 'alert' : 'status')
   /* 图标与 ToastHost.vue 一致——tone 的视觉区分在 .toast__icon 的颜色上 */
   const icon = document.createElement('span')
-  icon.className = 'toast__icon'
+  icon.className = 'anx-toast__icon'
   icon.innerHTML = toastIcon(TOAST_ICONS[tone] || TOAST_ICONS.info, 18)
   el.appendChild(icon)
   const body = document.createElement('div')
-  body.className = 'toast__body'
+  body.className = 'anx-toast__body'
   const t = document.createElement('div')
-  t.className = 'toast__title'
+  t.className = 'anx-toast__title'
   t.textContent = title
   body.appendChild(t)
   if (text) {
     const d = document.createElement('div')
-    d.className = 'toast__text'
+    d.className = 'anx-toast__text'
     d.textContent = text
     body.appendChild(d)
   }
   el.appendChild(body)
   const close = document.createElement('button')
-  close.className = 'toast__close'
+  close.className = 'anx-toast__close'
   close.type = 'button'
   close.setAttribute('aria-label', '关闭通知')
   close.innerHTML = toastIcon(TOAST_ICONS.close, 14)
@@ -169,9 +169,9 @@ document.querySelectorAll('[data-toast]').forEach((btn) => {
 
 /* ---------- 标签栏：指示条定位（与 TabBar.vue 同一算法） ---------- */
 function inkTabs() {
-  document.querySelectorAll('.tabs[data-demo]').forEach((tabs) => {
-    const ink = tabs.querySelector('.tabs__ink')
-    const active = tabs.querySelector('.tab[aria-selected="true"]')
+  document.querySelectorAll('.anx-tabs[data-demo]').forEach((tabs) => {
+    const ink = tabs.querySelector('.anx-tabs__ink')
+    const active = tabs.querySelector('.anx-tab[aria-selected="true"]')
     if (!ink || !active || !active.getBoundingClientRect().width) return
     const b = tabs.getBoundingClientRect()
     const r = active.getBoundingClientRect()
@@ -180,10 +180,10 @@ function inkTabs() {
     requestAnimationFrame(() => tabs.classList.add('is-ready'))
   })
 }
-document.querySelectorAll('.tabs[data-demo] .tab').forEach((tab) => {
+document.querySelectorAll('.anx-tabs[data-demo] .anx-tab').forEach((tab) => {
   tab.addEventListener('click', () => {
-    const tabs = tab.closest('.tabs')
-    tabs.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', 'false'))
+    const tabs = tab.closest('.anx-tabs')
+    tabs.querySelectorAll('.anx-tab').forEach((t) => t.setAttribute('aria-selected', 'false'))
     tab.setAttribute('aria-selected', 'true')
     inkTabs()
   })
@@ -191,8 +191,8 @@ document.querySelectorAll('.tabs[data-demo] .tab').forEach((tab) => {
 
 /* ---------- 分段开关：滑块定位（与 SegmentedControl.vue 同一算法） ---------- */
 function moveSeg(seg) {
-  const thumb = seg.querySelector('.segmented__thumb')
-  const active = seg.querySelector('.segmented__opt[aria-pressed="true"]')
+  const thumb = seg.querySelector('.anx-segmented__thumb')
+  const active = seg.querySelector('.anx-segmented__opt[aria-pressed="true"]')
   if (!thumb || !active || !active.getBoundingClientRect().width) return
   const b = seg.getBoundingClientRect()
   const r = active.getBoundingClientRect()
@@ -200,10 +200,10 @@ function moveSeg(seg) {
   thumb.style.transform = `translateX(${Math.round(r.left - b.left)}px)`
   requestAnimationFrame(() => seg.classList.add('is-ready'))
 }
-document.querySelectorAll('.segmented[data-demo]').forEach((seg) => {
-  seg.querySelectorAll('.segmented__opt').forEach((opt) => {
+document.querySelectorAll('.anx-segmented[data-demo]').forEach((seg) => {
+  seg.querySelectorAll('.anx-segmented__opt').forEach((opt) => {
     opt.addEventListener('click', () => {
-      seg.querySelectorAll('.segmented__opt').forEach((o) => o.setAttribute('aria-pressed', 'false'))
+      seg.querySelectorAll('.anx-segmented__opt').forEach((o) => o.setAttribute('aria-pressed', 'false'))
       opt.setAttribute('aria-pressed', 'true')
       moveSeg(seg)
     })
@@ -213,5 +213,5 @@ document.querySelectorAll('.segmented[data-demo]').forEach((seg) => {
 /* ---------- 首屏就位 ---------- */
 window.addEventListener('load', () => {
   inkTabs()
-  document.querySelectorAll('.segmented[data-demo]').forEach(moveSeg)
+  document.querySelectorAll('.anx-segmented[data-demo]').forEach(moveSeg)
 })

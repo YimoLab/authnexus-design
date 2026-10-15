@@ -27,52 +27,52 @@
 </head>
 <body>
 
-<div class="shell" id="shell">
+<div class="anx-shell" id="shell">
 
   <!-- ============ 玻璃侧栏 ============ -->
-  <aside class="shell__side" id="shell-side">
-    <div class="brandbar">
-      <span class="brandbar__mark" aria-hidden="true">
+  <aside class="anx-shell__side" id="shell-side">
+    <div class="anx-brandbar">
+      <span class="anx-brandbar__mark" aria-hidden="true">
         <svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="8" fill="var(--logo-bg)"/><path d="M11 21.5V10.5L21 21.5V10.5" stroke="var(--logo-fg)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
       </span>
       <div>
-        <div class="brandbar__name">Nexus Admin</div>
-        <span class="brandbar__sub">中后台演示</span>
+        <div class="anx-brandbar__name">Nexus Admin</div>
+        <span class="anx-brandbar__sub">中后台演示</span>
       </div>
     </div>
 
-    <nav class="sidenav" aria-label="主导航">
-      <div class="sidenav__group">
-        <span class="sidenav__label">总览</span>
-        <a class="sidenav__item" href="#overview" data-view="overview" aria-current="page">
+    <nav class="anx-sidenav" aria-label="主导航">
+      <div class="anx-sidenav__group">
+        <span class="anx-sidenav__label">总览</span>
+        <a class="anx-sidenav__item" href="#overview" data-view="overview" aria-current="page">
           <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>
           数据概览
         </a>
       </div>
-      <div class="sidenav__group">
-        <span class="sidenav__label">业务</span>
-        <a class="sidenav__item" href="#apps" data-view="apps">
+      <div class="anx-sidenav__group">
+        <span class="anx-sidenav__label">业务</span>
+        <a class="anx-sidenav__item" href="#apps" data-view="apps">
           <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 4h8M6 8h8M6 12h8"/><path d="M2.5 4h.01M2.5 8h.01M2.5 12h.01" stroke-width="2"/></svg>
           应用管理
-          <span class="sidenav__count">8</span>
+          <span class="anx-sidenav__count">8</span>
         </a>
-        <a class="sidenav__item" href="#new" data-view="new">
+        <a class="anx-sidenav__item" href="#new" data-view="new">
           <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>
           新建应用
         </a>
       </div>
-      <div class="sidenav__group">
-        <span class="sidenav__label">系统</span>
-        <a class="sidenav__item" href="#settings" data-view="settings">
+      <div class="anx-sidenav__group">
+        <span class="anx-sidenav__label">系统</span>
+        <a class="anx-sidenav__item" href="#settings" data-view="settings">
           <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="5.4"/><circle cx="8" cy="8" r="1.9"/></svg>
           偏好设置
         </a>
       </div>
     </nav>
 
-    <div class="shell__sidefoot">
+    <div class="anx-shell__sidefoot">
       <div class="side-user">
-        <span class="avatar">易</span>
+        <span class="anx-avatar">易</span>
         <div class="side-user__meta">
           <div class="side-user__name">易墨</div>
           <div class="side-user__mail">yimo@casuainess.cn</div>
@@ -81,78 +81,78 @@
     </div>
   </aside>
 
-  <button class="shell__scrim" id="side-scrim" type="button" aria-label="关闭侧栏"></button>
+  <button class="anx-shell__scrim" id="side-scrim" type="button" aria-label="关闭侧栏"></button>
 
   <!-- ============ 主区 ============ -->
-  <div class="shell__main">
-    <header class="topbar">
-      <button class="iconbtn mobile-nav-toggle" id="nav-toggle" type="button" aria-label="打开侧栏">
+  <div class="anx-shell__main">
+    <header class="anx-topbar">
+      <button class="anx-iconbtn anx-mobile-nav-toggle" id="nav-toggle" type="button" aria-label="打开侧栏">
         <svg viewBox="0 0 16 16" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 4.5h10M3 8h10M3 11.5h10"/></svg>
       </button>
-      <div class="topbar__crumbs">
-        <span class="topbar__crumb">nexus admin</span>
-        <span class="topbar__crumb">/</span>
-        <h1 class="topbar__title" id="topbar-title">数据概览</h1>
+      <div class="anx-topbar__crumbs">
+        <span class="anx-topbar__crumb">nexus admin</span>
+        <span class="anx-topbar__crumb">/</span>
+        <h1 class="anx-topbar__title" id="topbar-title">数据概览</h1>
       </div>
-      <div class="topbar__actions">
-        <div class="input-wrap topbar-search">
-          <input class="input" placeholder="搜索应用、用户…" aria-label="搜索" />
+      <div class="anx-topbar__actions">
+        <div class="anx-input-wrap topbar-search">
+          <input class="anx-input" placeholder="搜索应用、用户…" aria-label="搜索" />
         </div>
-        <button class="iconbtn" type="button" aria-label="通知">
+        <button class="anx-iconbtn" type="button" aria-label="通知">
           <svg viewBox="0 0 16 16" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5a4 4 0 0 0-4 4v2.2L3 11h10l-1-2.3V6.5a4 4 0 0 0-4-4Z"/><path d="M6.5 13a1.5 1.5 0 0 0 3 0"/></svg>
         </button>
-        <button class="iconbtn" id="theme-toggle" type="button" aria-label="切换主题">
+        <button class="anx-iconbtn" id="theme-toggle" type="button" aria-label="切换主题">
           <svg viewBox="0 0 16 16" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="5.4"/><path d="M8 2.6a5.4 5.4 0 0 0 0 10.8Z" fill="currentColor" stroke="none"/></svg>
         </button>
-        <span class="avatar avatar--sm">易</span>
+        <span class="anx-avatar anx-avatar--sm">易</span>
       </div>
     </header>
 
-    <main class="shell__body">
-      <div class="shell__inner">
+    <main class="anx-shell__body">
+      <div class="anx-shell__inner">
 
         <!-- ================= 视图 1 · 数据概览 ================= -->
         <section class="view is-active" data-view="overview" aria-label="数据概览">
-          <div class="page-head">
-            <div class="page-head__text">
-              <h2 class="t-h1">数据概览</h2>
-              <p class="page-head__desc">近 7 日的关键指标与最近动态（静态演示数据）。</p>
+          <div class="anx-page-head">
+            <div class="anx-page-head__text">
+              <h2 class="anx-t-h1">数据概览</h2>
+              <p class="anx-page-head__desc">近 7 日的关键指标与最近动态（静态演示数据）。</p>
             </div>
-            <div class="page-head__actions">
-              <button class="btn btn--ghost" type="button" data-toast="info" data-title="已刷新" data-text="演示页为静态数据，不产生真实请求。">刷新</button>
-              <button class="btn btn--primary" type="button" data-view-jump="new">＋ 新建应用</button>
-            </div>
-          </div>
-
-          <div class="grid-4">
-            <div class="stat">
-              <div class="stat__label">应用总数</div>
-              <div class="stat__num">24<span class="stat__unit">个</span></div>
-              <div class="stat__delta stat__delta--up">本月 +3</div>
-            </div>
-            <div class="stat">
-              <div class="stat__label">今日调用</div>
-              <div class="stat__num">1,284</div>
-              <div class="stat__delta stat__delta--down">较昨日 −12%</div>
-            </div>
-            <div class="stat">
-              <div class="stat__label">活跃用户</div>
-              <div class="stat__num">312</div>
-              <div class="stat__delta stat__delta--up">近 7 日 +18%</div>
-            </div>
-            <div class="stat">
-              <div class="stat__label">待处理审核</div>
-              <div class="stat__num">2</div>
-              <div class="stat__delta">通常 1 个工作日内完成</div>
+            <div class="anx-page-head__actions">
+              <button class="anx-btn anx-btn--ghost" type="button" data-toast="info" data-title="已刷新" data-text="演示页为静态数据，不产生真实请求。">刷新</button>
+              <button class="anx-btn anx-btn--primary" type="button" data-view-jump="new">＋ 新建应用</button>
             </div>
           </div>
 
-          <div class="grid-main-side section">
-            <div class="panel">
-              <div class="panel__head">
+          <div class="anx-grid-4">
+            <div class="anx-stat">
+              <div class="anx-stat__label">应用总数</div>
+              <div class="anx-stat__num">24<span class="anx-stat__unit">个</span></div>
+              <div class="anx-stat__delta anx-stat__delta--up">本月 +3</div>
+            </div>
+            <div class="anx-stat">
+              <div class="anx-stat__label">今日调用</div>
+              <div class="anx-stat__num">1,284</div>
+              <div class="anx-stat__delta anx-stat__delta--down">较昨日 −12%</div>
+            </div>
+            <div class="anx-stat">
+              <div class="anx-stat__label">活跃用户</div>
+              <div class="anx-stat__num">312</div>
+              <div class="anx-stat__delta anx-stat__delta--up">近 7 日 +18%</div>
+            </div>
+            <div class="anx-stat">
+              <div class="anx-stat__label">待处理审核</div>
+              <div class="anx-stat__num">2</div>
+              <div class="anx-stat__delta">通常 1 个工作日内完成</div>
+            </div>
+          </div>
+
+          <div class="anx-grid-main-side anx-section">
+            <div class="anx-panel">
+              <div class="anx-panel__head">
                 <div><h2>近 7 日调用趋势</h2><p>单位：千次</p></div>
               </div>
-              <div class="panel__body">
+              <div class="anx-panel__body">
                 <svg class="chart" viewBox="0 0 560 190" preserveAspectRatio="none" role="img" aria-label="近 7 日调用趋势折线图">
                   <line x1="0" y1="48" x2="560" y2="48" class="chart__grid"/>
                   <line x1="0" y1="96" x2="560" y2="96" class="chart__grid"/>
@@ -163,31 +163,31 @@
                 <div class="chart__axis"><span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>周日</span></div>
               </div>
             </div>
-            <div class="panel">
-              <div class="panel__head">
+            <div class="anx-panel">
+              <div class="anx-panel__head">
                 <div><h2>最近动态</h2></div>
               </div>
-              <div class="panel__body">
-                <div class="timeline">
-                  <div class="timeline__item">
-                    <span class="timeline__dot timeline__dot--ok"></span>
-                    <div class="timeline__title">「云枢笔记」通过审核</div>
-                    <div class="timeline__meta">16:02 · 易墨</div>
+              <div class="anx-panel__body">
+                <div class="anx-timeline">
+                  <div class="anx-timeline__item">
+                    <span class="anx-timeline__dot anx-timeline__dot--ok"></span>
+                    <div class="anx-timeline__title">「云枢笔记」通过审核</div>
+                    <div class="anx-timeline__meta">16:02 · 易墨</div>
                   </div>
-                  <div class="timeline__item">
-                    <span class="timeline__dot"></span>
-                    <div class="timeline__title">Figma 新增 42 位授权用户</div>
-                    <div class="timeline__meta">14:37</div>
+                  <div class="anx-timeline__item">
+                    <span class="anx-timeline__dot"></span>
+                    <div class="anx-timeline__title">Figma 新增 42 位授权用户</div>
+                    <div class="anx-timeline__meta">14:37</div>
                   </div>
-                  <div class="timeline__item">
-                    <span class="timeline__dot timeline__dot--warn"></span>
-                    <div class="timeline__title">「云栈记账」提交审核</div>
-                    <div class="timeline__meta">11:20 · 江余</div>
+                  <div class="anx-timeline__item">
+                    <span class="anx-timeline__dot anx-timeline__dot--warn"></span>
+                    <div class="anx-timeline__title">「云栈记账」提交审核</div>
+                    <div class="anx-timeline__meta">11:20 · 江余</div>
                   </div>
-                  <div class="timeline__item">
-                    <span class="timeline__dot timeline__dot--danger"></span>
-                    <div class="timeline__title">「Google 日历」权限已停用</div>
-                    <div class="timeline__meta">09:15 · 系统</div>
+                  <div class="anx-timeline__item">
+                    <span class="anx-timeline__dot anx-timeline__dot--danger"></span>
+                    <div class="anx-timeline__title">「Google 日历」权限已停用</div>
+                    <div class="anx-timeline__meta">09:15 · 系统</div>
                   </div>
                 </div>
               </div>
@@ -197,42 +197,42 @@
 
         <!-- ================= 视图 2 · 应用管理 ================= -->
         <section class="view" data-view="apps" aria-label="应用管理">
-          <div class="page-head">
-            <div class="page-head__text">
-              <h2 class="t-h1">应用管理</h2>
-              <p class="page-head__desc">共 8 个应用，支持状态筛选与分页（演示数据，翻页可交互）。</p>
+          <div class="anx-page-head">
+            <div class="anx-page-head__text">
+              <h2 class="anx-t-h1">应用管理</h2>
+              <p class="anx-page-head__desc">共 8 个应用，支持状态筛选与分页（演示数据，翻页可交互）。</p>
             </div>
-            <div class="page-head__actions">
-              <button class="btn btn--primary" type="button" data-view-jump="new">＋ 新建应用</button>
+            <div class="anx-page-head__actions">
+              <button class="anx-btn anx-btn--primary" type="button" data-view-jump="new">＋ 新建应用</button>
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel__head">
+          <div class="anx-panel">
+            <div class="anx-panel__head">
               <div><h2>全部应用</h2><p>第 <span id="apps-page-cur">1</span> / 2 页</p></div>
-              <div class="panel__head-actions">
-                <div class="input-wrap list-search">
-                  <input class="input" placeholder="搜索应用名…" aria-label="搜索应用" />
+              <div class="anx-panel__head-actions">
+                <div class="anx-input-wrap list-search">
+                  <input class="anx-input" placeholder="搜索应用名…" aria-label="搜索应用" />
                 </div>
-                <span class="fsel fsel--sm" id="apps-status">
-                  <button class="fsel__btn" type="button" aria-label="状态筛选">
-                    <span class="fsel__value">全部状态</span>
-                    <span class="fsel__caret" aria-hidden="true"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg></span>
+                <span class="anx-fsel anx-fsel--sm" id="apps-status">
+                  <button class="anx-fsel__btn" type="button" aria-label="状态筛选">
+                    <span class="anx-fsel__value">全部状态</span>
+                    <span class="anx-fsel__caret" aria-hidden="true"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg></span>
                   </button>
-                  <div class="fsel__panel fsel__panel--sm" hidden>
-                    <div class="fsel__opt is-selected"><span class="fsel__optlabel">全部状态</span><span class="fsel__check">✓</span></div>
-                    <div class="fsel__opt"><span class="fsel__optlabel">已上线</span><span class="fsel__check">✓</span></div>
-                    <div class="fsel__opt"><span class="fsel__optlabel">待审核</span><span class="fsel__check">✓</span></div>
-                    <div class="fsel__opt"><span class="fsel__optlabel">已下架</span><span class="fsel__check">✓</span></div>
+                  <div class="anx-fsel__panel anx-fsel__panel--sm" hidden>
+                    <div class="anx-fsel__opt is-selected"><span class="anx-fsel__optlabel">全部状态</span><span class="anx-fsel__check">✓</span></div>
+                    <div class="anx-fsel__opt"><span class="anx-fsel__optlabel">已上线</span><span class="anx-fsel__check">✓</span></div>
+                    <div class="anx-fsel__opt"><span class="anx-fsel__optlabel">待审核</span><span class="anx-fsel__check">✓</span></div>
+                    <div class="anx-fsel__opt"><span class="anx-fsel__optlabel">已下架</span><span class="anx-fsel__check">✓</span></div>
                   </div>
                 </span>
               </div>
             </div>
 
-            <div class="panel__body panel__body--tight">
-              <div class="paged-clip">
-                <div class="table-wrap">
-                  <table class="table table--clickable">
+            <div class="anx-panel__body anx-panel__body--tight">
+              <div class="anx-paged-clip">
+                <div class="anx-table-wrap">
+                  <table class="anx-table anx-table--clickable">
                     <thead>
                       <tr><th>应用</th><th>归属</th><th>状态</th><th class="is-num">调用数</th><th></th></tr>
                     </thead>
@@ -240,15 +240,15 @@
                   </table>
                 </div>
               </div>
-              <div class="pager">
-                <span class="pager__total">共 8 条</span>
-                <div class="pager__nav">
-                  <button class="pager__btn" id="apps-prev" type="button" disabled aria-label="上一页">
+              <div class="anx-pager">
+                <span class="anx-pager__total">共 8 条</span>
+                <div class="anx-pager__nav">
+                  <button class="anx-pager__btn" id="apps-prev" type="button" disabled aria-label="上一页">
                     <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4 6 8l4 4"/></svg>
                   </button>
-                  <button class="pager__btn pager__btn--num is-current" data-page="1" type="button" aria-current="page">1</button>
-                  <button class="pager__btn pager__btn--num" data-page="2" type="button">2</button>
-                  <button class="pager__btn" id="apps-next" type="button" aria-label="下一页">
+                  <button class="anx-pager__btn anx-pager__btn--num is-current" data-page="1" type="button" aria-current="page">1</button>
+                  <button class="anx-pager__btn anx-pager__btn--num" data-page="2" type="button">2</button>
+                  <button class="anx-pager__btn" id="apps-next" type="button" aria-label="下一页">
                     <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
                   </button>
                 </div>
@@ -259,79 +259,79 @@
 
         <!-- ================= 视图 3 · 新建应用 ================= -->
         <section class="view" data-view="new" aria-label="新建应用">
-          <div class="page-head">
-            <div class="page-head__text">
-              <h2 class="t-h1">新建应用</h2>
-              <p class="page-head__desc">接入 OAuth2 授权中心的基础信息（演示表单，提交有确认流程）。</p>
+          <div class="anx-page-head">
+            <div class="anx-page-head__text">
+              <h2 class="anx-t-h1">新建应用</h2>
+              <p class="anx-page-head__desc">接入 OAuth2 授权中心的基础信息（演示表单，提交有确认流程）。</p>
             </div>
           </div>
 
-          <div class="grid-main-side">
-            <div class="panel">
-              <div class="panel__head">
+          <div class="anx-grid-main-side">
+            <div class="anx-panel">
+              <div class="anx-panel__head">
                 <div><h2>应用信息</h2><p>带 * 为必填</p></div>
               </div>
-              <div class="panel__body">
+              <div class="anx-panel__body">
                 <div class="form-col">
-                  <div class="field od-field">
-                    <label class="field__label" for="f-name">应用名称<span class="req">*</span></label>
-                    <input class="input" id="f-name" value="云栈记账" placeholder="例如：云枢笔记" />
-                    <span class="field__hint">2–20 个字符，审核通过后不可修改</span>
+                  <div class="anx-field od-field">
+                    <label class="anx-field__label" for="f-name">应用名称<span class="anx-req">*</span></label>
+                    <input class="anx-input" id="f-name" value="云栈记账" placeholder="例如：云枢笔记" />
+                    <span class="anx-field__hint">2–20 个字符，审核通过后不可修改</span>
                   </div>
-                  <div class="field od-field">
-                    <label class="field__label" for="f-cb">回调地址<span class="req">*</span></label>
-                    <input class="input" id="f-cb" value="https://bill.example.com/oauth/cb" />
-                    <span class="field__hint">必须为 https 开头的完整地址</span>
+                  <div class="anx-field od-field">
+                    <label class="anx-field__label" for="f-cb">回调地址<span class="anx-req">*</span></label>
+                    <input class="anx-input" id="f-cb" value="https://bill.example.com/oauth/cb" />
+                    <span class="anx-field__hint">必须为 https 开头的完整地址</span>
                   </div>
-                  <div class="field od-field">
-                    <label class="field__label" for="f-desc">应用简介</label>
-                    <textarea class="textarea" id="f-desc" placeholder="一句话描述应用的用途，将展示在授权确认页"></textarea>
+                  <div class="anx-field od-field">
+                    <label class="anx-field__label" for="f-desc">应用简介</label>
+                    <textarea class="anx-textarea" id="f-desc" placeholder="一句话描述应用的用途，将展示在授权确认页"></textarea>
                   </div>
-                  <div class="field od-field">
-                    <label class="field__label">敏感级别</label>
-                    <span class="fsel" id="f-tier">
-                      <button class="fsel__btn" type="button">
-                        <span class="fsel__value">二级 · 需要审核</span>
-                        <span class="fsel__caret" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg></span>
+                  <div class="anx-field od-field">
+                    <label class="anx-field__label">敏感级别</label>
+                    <span class="anx-fsel" id="f-tier">
+                      <button class="anx-fsel__btn" type="button">
+                        <span class="anx-fsel__value">二级 · 需要审核</span>
+                        <span class="anx-fsel__caret" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg></span>
                       </button>
-                      <div class="fsel__panel" hidden>
-                        <div class="fsel__opt"><span class="fsel__optlabel">一级 · 开放申请</span><span class="fsel__check">✓</span></div>
-                        <div class="fsel__opt is-selected"><span class="fsel__optlabel">二级 · 需要审核</span><span class="fsel__check">✓</span></div>
-                        <div class="fsel__opt"><span class="fsel__optlabel">三级 · 限制开放</span><span class="fsel__check">✓</span></div>
+                      <div class="anx-fsel__panel" hidden>
+                        <div class="anx-fsel__opt"><span class="anx-fsel__optlabel">一级 · 开放申请</span><span class="anx-fsel__check">✓</span></div>
+                        <div class="anx-fsel__opt is-selected"><span class="anx-fsel__optlabel">二级 · 需要审核</span><span class="anx-fsel__check">✓</span></div>
+                        <div class="anx-fsel__opt"><span class="anx-fsel__optlabel">三级 · 限制开放</span><span class="anx-fsel__check">✓</span></div>
                       </div>
                     </span>
                   </div>
-                  <label class="checkline">
+                  <label class="anx-checkline">
                     <input type="checkbox" checked />
-                    <span class="checkline__text">我已阅读并同意 <strong>接入规范</strong>与数据使用约定</span>
+                    <span class="anx-checkline__text">我已阅读并同意 <strong>接入规范</strong>与数据使用约定</span>
                   </label>
-                  <div class="form-actions">
-                    <button class="btn btn--primary" id="f-submit" type="button">提交审核</button>
-                    <button class="btn btn--ghost" type="button" data-toast="info" data-title="草稿已保存" data-text="可以稍后在应用列表继续编辑。">存为草稿</button>
+                  <div class="anx-form-actions">
+                    <button class="anx-btn anx-btn--primary" id="f-submit" type="button">提交审核</button>
+                    <button class="anx-btn anx-btn--ghost" type="button" data-toast="info" data-title="草稿已保存" data-text="可以稍后在应用列表继续编辑。">存为草稿</button>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="panel">
-              <div class="panel__head">
+            <div class="anx-panel">
+              <div class="anx-panel__head">
                 <div><h2>提交清单</h2></div>
               </div>
-              <div class="panel__body form-col">
-                <div class="alert alert--info">
-                  <div class="alert__body">
-                    <div class="alert__title">审核说明</div>
-                    <div class="alert__text">提交后 1 个工作日内完成人工核对；期间可撤回。</div>
+              <div class="anx-panel__body form-col">
+                <div class="anx-alert anx-alert--info">
+                  <div class="anx-alert__body">
+                    <div class="anx-alert__title">审核说明</div>
+                    <div class="anx-alert__text">提交后 1 个工作日内完成人工核对；期间可撤回。</div>
                   </div>
                 </div>
-                <label class="checkline"><input type="checkbox" checked /><span class="checkline__text">回调地址可达性已自测</span></label>
-                <label class="checkline"><input type="checkbox" checked /><span class="checkline__text">应用名称不侵犯他人商标</span></label>
-                <label class="checkline"><input type="checkbox" /><span class="checkline__text">已准备隐私政策链接（建议）</span></label>
-                <div class="divider"></div>
+                <label class="anx-checkline"><input type="checkbox" checked /><span class="anx-checkline__text">回调地址可达性已自测</span></label>
+                <label class="anx-checkline"><input type="checkbox" checked /><span class="anx-checkline__text">应用名称不侵犯他人商标</span></label>
+                <label class="anx-checkline"><input type="checkbox" /><span class="anx-checkline__text">已准备隐私政策链接（建议）</span></label>
+                <div class="anx-divider"></div>
                 <div class="g-label-like">申请权限（示例）</div>
                 <div>
-                  <span class="tag tag--scope">读取个人资料<span class="tag__key">profile:read</span></span>
-                  <span class="tag tag--scope" style="margin-left:6px">读取邮箱<span class="tag__key">email:read</span></span>
+                  <span class="anx-tag anx-tag--scope">读取个人资料<span class="anx-tag__key">profile:read</span></span>
+                  <span class="anx-tag anx-tag--scope" style="margin-left:6px">读取邮箱<span class="anx-tag__key">email:read</span></span>
                 </div>
               </div>
             </div>
@@ -340,65 +340,65 @@
 
         <!-- ================= 视图 4 · 偏好设置 ================= -->
         <section class="view" data-view="settings" aria-label="偏好设置">
-          <div class="page-head">
-            <div class="page-head__text">
-              <h2 class="t-h1">偏好设置</h2>
-              <p class="page-head__desc">通知、保留策略与危险操作（演示交互）。</p>
+          <div class="anx-page-head">
+            <div class="anx-page-head__text">
+              <h2 class="anx-t-h1">偏好设置</h2>
+              <p class="anx-page-head__desc">通知、保留策略与危险操作（演示交互）。</p>
             </div>
           </div>
 
-          <div class="grid-2">
-            <div class="panel">
-              <div class="panel__head">
+          <div class="anx-grid-2">
+            <div class="anx-panel">
+              <div class="anx-panel__head">
                 <div><h2>通用</h2></div>
               </div>
-              <div class="panel__body form-col">
-                <label class="switch">
+              <div class="anx-panel__body form-col">
+                <label class="anx-switch">
                   <input type="checkbox" checked />
-                  <span class="switch__track"></span>
-                  <span class="t-sm">审核结果邮件通知</span>
+                  <span class="anx-switch__track"></span>
+                  <span class="anx-t-sm">审核结果邮件通知</span>
                 </label>
-                <label class="switch">
+                <label class="anx-switch">
                   <input type="checkbox" checked />
-                  <span class="switch__track"></span>
-                  <span class="t-sm">应用调用异常告警</span>
+                  <span class="anx-switch__track"></span>
+                  <span class="anx-t-sm">应用调用异常告警</span>
                 </label>
-                <label class="switch">
+                <label class="anx-switch">
                   <input type="checkbox" />
-                  <span class="switch__track"></span>
-                  <span class="t-sm">每周数据简报</span>
+                  <span class="anx-switch__track"></span>
+                  <span class="anx-t-sm">每周数据简报</span>
                 </label>
-                <div class="field od-field">
-                  <label class="field__label">审计日志保留</label>
-                  <div class="segmented" id="retention-seg" role="group">
-                    <span class="segmented__thumb" aria-hidden="true"></span>
-                    <button class="segmented__opt" type="button" aria-pressed="false">30 天</button>
-                    <button class="segmented__opt" type="button" aria-pressed="true">90 天</button>
-                    <button class="segmented__opt" type="button" aria-pressed="false">1 年</button>
+                <div class="anx-field od-field">
+                  <label class="anx-field__label">审计日志保留</label>
+                  <div class="anx-segmented" id="retention-seg" role="group">
+                    <span class="anx-segmented__thumb" aria-hidden="true"></span>
+                    <button class="anx-segmented__opt" type="button" aria-pressed="false">30 天</button>
+                    <button class="anx-segmented__opt" type="button" aria-pressed="true">90 天</button>
+                    <button class="anx-segmented__opt" type="button" aria-pressed="false">1 年</button>
                   </div>
                 </div>
-                <div class="form-actions">
-                  <button class="btn btn--primary" type="button" data-toast="ok" data-title="已保存" data-text="偏好设置已更新。">保存</button>
+                <div class="anx-form-actions">
+                  <button class="anx-btn anx-btn--primary" type="button" data-toast="ok" data-title="已保存" data-text="偏好设置已更新。">保存</button>
                 </div>
               </div>
             </div>
 
-            <div class="panel">
-              <div class="panel__head">
+            <div class="anx-panel">
+              <div class="anx-panel__head">
                 <div><h2>演示数据</h2></div>
               </div>
-              <div class="panel__body form-col">
-                <div class="alert alert--warn">
-                  <div class="alert__body">
-                    <div class="alert__title">仅演示环境</div>
-                    <div class="alert__text">本页为静态演示，以下操作不会产生真实影响。</div>
+              <div class="anx-panel__body form-col">
+                <div class="anx-alert anx-alert--warn">
+                  <div class="anx-alert__body">
+                    <div class="anx-alert__title">仅演示环境</div>
+                    <div class="anx-alert__text">本页为静态演示，以下操作不会产生真实影响。</div>
                   </div>
                 </div>
-                <div class="divider"></div>
+                <div class="anx-divider"></div>
                 <div>
-                  <div class="t-sm t-strong">重置演示数据</div>
-                  <p class="field__hint" style="margin:4px 0 12px">把应用列表、动态与统计恢复到初始状态。</p>
-                  <button class="btn btn--danger-quiet" id="danger-reset" type="button">重置演示数据</button>
+                  <div class="anx-t-sm anx-t-strong">重置演示数据</div>
+                  <p class="anx-field__hint" style="margin:4px 0 12px">把应用列表、动态与统计恢复到初始状态。</p>
+                  <button class="anx-btn anx-btn--danger-quiet" id="danger-reset" type="button">重置演示数据</button>
                 </div>
               </div>
             </div>
@@ -413,41 +413,41 @@
 <!-- ============ 浮层（真实形态：挂 body 的 .overlay-layer 承载层；JS 开关）
      承载层提供 z-index:100，高于顶栏(30)/侧栏(40)——浮层自身没有 z-index，
      直接挂 body 会让 scrim 压不暗顶栏、抽屉被顶栏盖住。 ============ -->
-<div class="overlay-layer">
-  <div class="scrim g-hidden" id="demo-modal-scrim" data-close-self="demo-modal"></div>
-  <div class="modal g-hidden" id="demo-modal" role="dialog" aria-modal="true" aria-label="确认操作">
-    <div class="modal__head">
-      <div class="modal__head-text">
-        <div class="modal__title" id="demo-modal-title">确认操作？</div>
-        <div class="modal__desc" id="demo-modal-desc">此操作需要确认。</div>
+<div class="anx-overlay-layer">
+  <div class="anx-scrim g-hidden" id="demo-modal-scrim" data-close-self="demo-modal"></div>
+  <div class="anx-modal g-hidden" id="demo-modal" role="dialog" aria-modal="true" aria-label="确认操作">
+    <div class="anx-modal__head">
+      <div class="anx-modal__head-text">
+        <div class="anx-modal__title" id="demo-modal-title">确认操作？</div>
+        <div class="anx-modal__desc" id="demo-modal-desc">此操作需要确认。</div>
       </div>
-      <button class="iconbtn modal__close" data-close="demo-modal" type="button" aria-label="关闭">✕</button>
+      <button class="anx-iconbtn anx-modal__close" data-close="demo-modal" type="button" aria-label="关闭">✕</button>
     </div>
-    <div class="modal__body" id="demo-modal-body"></div>
-    <div class="modal__foot">
-      <button class="btn btn--ghost" data-close="demo-modal" type="button">取消</button>
-      <button class="btn btn--primary" id="demo-modal-confirm" type="button">确认</button>
-    </div>
-  </div>
-</div>
-
-<div class="overlay-layer">
-  <div class="scrim g-hidden" id="demo-drawer-scrim" data-close-self="demo-drawer"></div>
-  <div class="drawer g-hidden" id="demo-drawer" role="dialog" aria-modal="true" aria-label="应用详情">
-    <div class="drawer__head">
-      <div class="drawer__title">应用详情</div>
-      <button class="iconbtn" style="margin-left:auto" data-close="demo-drawer" type="button" aria-label="关闭">✕</button>
-    </div>
-    <div class="drawer__body">
-      <dl class="kv" id="demo-drawer-kv"></dl>
-    </div>
-    <div class="drawer__foot">
-      <button class="btn btn--primary" data-close="demo-drawer" type="button">完成</button>
+    <div class="anx-modal__body" id="demo-modal-body"></div>
+    <div class="anx-modal__foot">
+      <button class="anx-btn anx-btn--ghost" data-close="demo-modal" type="button">取消</button>
+      <button class="anx-btn anx-btn--primary" id="demo-modal-confirm" type="button">确认</button>
     </div>
   </div>
 </div>
 
-<div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
+<div class="anx-overlay-layer">
+  <div class="anx-scrim g-hidden" id="demo-drawer-scrim" data-close-self="demo-drawer"></div>
+  <div class="anx-drawer g-hidden" id="demo-drawer" role="dialog" aria-modal="true" aria-label="应用详情">
+    <div class="anx-drawer__head">
+      <div class="anx-drawer__title">应用详情</div>
+      <button class="anx-iconbtn" style="margin-left:auto" data-close="demo-drawer" type="button" aria-label="关闭">✕</button>
+    </div>
+    <div class="anx-drawer__body">
+      <dl class="anx-kv" id="demo-drawer-kv"></dl>
+    </div>
+    <div class="anx-drawer__foot">
+      <button class="anx-btn anx-btn--primary" data-close="demo-drawer" type="button">完成</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-layer" class="anx-toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
 
 <script src="admin.js"></script>
 </body>

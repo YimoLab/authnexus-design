@@ -74,7 +74,7 @@ const hasCls = (tl, key, sub) => tl.some((s) => s[key] && s[key].cls.includes(su
 
 await p.goto(BASE + '/', { waitUntil: 'networkidle' })
 await p.click('.demo-account >> nth=0')
-await p.waitForSelector('.grid-main-side')
+await p.waitForSelector('.anx-grid-main-side')
 await p.waitForTimeout(400)
 
 /* ============ ① 分页 · div 行列表（审计页） ============ */
@@ -104,7 +104,7 @@ await p.waitForTimeout(500)
 
 /* ============ ② 分页 · 表格（令牌页） ============ */
 await p.goto(BASE + '/#/admin/tokens', { waitUntil: 'networkidle' })
-await p.waitForSelector('.table-wrap tbody tr')
+await p.waitForSelector('.anx-table-wrap tbody tr')
 await p.waitForTimeout(500)
 {
   const tl = probe([['box', '.paged-clip [class*="paged-"]']])
@@ -121,7 +121,7 @@ await p.waitForTimeout(500)
   )
   /* 动效不得让横向滚动容器闪出滚动条：翻页后不应残留横向滚动范围 */
   const leftover = await p.evaluate(() => {
-    const w = document.querySelector('.table-wrap')
+    const w = document.querySelector('.anx-table-wrap')
     return w ? w.scrollWidth - w.clientWidth : -1
   })
   check(leftover <= 0, '表格翻页后 .table-wrap 无残留横向滚动（' + leftover + 'px）')
@@ -130,16 +130,16 @@ await p.waitForTimeout(500)
 
 /* ============ ③ 分段开关滑块 + 弹窗内容切换 ============ */
 await p.goto(BASE + '/#/account', { waitUntil: 'networkidle' })
-await p.waitForSelector('.grid-main-side')
+await p.waitForSelector('.anx-grid-main-side')
 await p.waitForTimeout(400)
 await p.click('button:has-text("开启")')
-await p.waitForSelector('.modal')
+await p.waitForSelector('.anx-modal')
 await p.click('.modal button:has-text("开始绑定")')
-await p.waitForSelector('.modal .mfa-qr svg')
+await p.waitForSelector('.anx-modal .mfa-qr svg')
 await p.waitForTimeout(350)
 {
   const tl = probe([
-    ['th', '.segmented__thumb'],
+    ['th', '.anx-segmented__thumb'],
     ['box', '.modal [class*="mfa-fwd"], .modal [class*="mfa-back"]'],
   ])
   await p.waitForTimeout(30)
@@ -154,7 +154,7 @@ await p.waitForTimeout(350)
   )
 
   const align = await p.evaluate(() => {
-    const th = document.querySelector('.segmented__thumb')
+    const th = document.querySelector('.anx-segmented__thumb')
     const btn = document.querySelector('.segmented__opt[aria-pressed="true"]')
     const a = th.getBoundingClientRect()
     const c = btn.getBoundingClientRect()
@@ -172,7 +172,7 @@ await p.waitForTimeout(350)
   check(hasCls(t2, 'box', 'mfa-back'), '弹窗内容：back 方向过渡类出现')
 }
 await p.click('.modal button:has-text("取消")')
-await p.waitForSelector('.modal', { state: 'detached' })
+await p.waitForSelector('.anx-modal', { state: 'detached' })
 
 /* ============ ④ 路由进出场 ============ */
 {
@@ -189,13 +189,13 @@ await p.waitForTimeout(400)
 
 /* ============ ⑤ 标签栏：滑动指示条 + 面板内容滑动 ============ */
 await p.goto(BASE + '/#/admin/reviews', { waitUntil: 'networkidle' })
-await p.waitForSelector('.reviewrow, .empty')
+await p.waitForSelector('.reviewrow, .anx-empty')
 await p.waitForTimeout(600)
 {
   /* 首帧对齐：指示条应与当前选中 tab 像素级重合 */
   const inkAlign = () =>
     p.evaluate(() => {
-      const ink = document.querySelector('.tabs__ink')
+      const ink = document.querySelector('.anx-tabs__ink')
       const tab = document.querySelector('.tab[aria-selected="true"]')
       if (!ink || !tab) return null
       const a = ink.getBoundingClientRect()
@@ -209,8 +209,8 @@ await p.waitForTimeout(600)
      指示条**没被容器裁掉**。另有 1px 纵向溢出来自原型既有的 .tab{margin-bottom:-1px}
      （滚动条已被 ::-webkit-scrollbar 隐藏），与指示条无关。 */
   const clip = await p.evaluate(() => {
-    const t = document.querySelector('.tabs')
-    const ink = document.querySelector('.tabs__ink')
+    const t = document.querySelector('.anx-tabs')
+    const ink = document.querySelector('.anx-tabs__ink')
     if (!t || !ink) return null
     const tr = t.getBoundingClientRect()
     const ir = ink.getBoundingClientRect()
@@ -220,13 +220,13 @@ await p.waitForTimeout(600)
 
   /* 点第二个 tab：指示条应平移（中间帧多个 transform），面板按 fwd 方向滑入 */
   const tl = probe([
-    ['ink', '.tabs__ink'],
+    ['ink', '.anx-tabs__ink'],
     ['pane', '.panel[class*="tabpane-"]'],
   ])
   await p.waitForTimeout(30)
   await p.click('.tab:has-text("已通过")')
   await p.waitForTimeout(90)
-  await p.locator('.tabs').screenshot({ path: OUT + '/anim-6-tab-ink.png' }).catch(() => {})
+  await p.locator('.anx-tabs').screenshot({ path: OUT + '/anim-6-tab-ink.png' }).catch(() => {})
   const t = await tl
   const frames = new Set(t.map((r) => r.ink && r.ink.tf).filter(Boolean))
   check(frames.size >= 3, '标签栏：指示条平移被采样到 ' + frames.size + ' 个中间位移')
@@ -282,7 +282,7 @@ async function sampleTheme(target) {
         pseudo: a0 ? a0.effect.pseudoElement : '',
         clip,
         theme: document.documentElement.getAttribute('data-theme') || 'light',
-        discs: document.querySelectorAll('.theme-ripple').length,
+        discs: document.querySelectorAll('.anx-theme-ripple').length,
       })
       await new Promise((res) => setTimeout(res, 20))
     }
@@ -381,11 +381,11 @@ const parseR = (s) => {
     const samples = []
     const t0 = performance.now()
     while (performance.now() - t0 < 800) {
-      const d = document.querySelector('.theme-ripple')
+      const d = document.querySelector('.anx-theme-ripple')
       samples.push({ clip: d ? getComputedStyle(d).clipPath : '', theme: document.documentElement.getAttribute('data-theme') || 'light' })
       await new Promise((res) => setTimeout(res, 20))
     }
-    return { samples, discs: document.querySelectorAll('.theme-ripple').length, theme: document.documentElement.getAttribute('data-theme') }
+    return { samples, discs: document.querySelectorAll('.anx-theme-ripple').length, theme: document.documentElement.getAttribute('data-theme') }
   })
   const fclips = fb.samples.map((s) => parseR(s.clip)).filter(Boolean)
   check(fclips.length > 3 && fclips[0].r < fclips[fclips.length - 1].r, '兜底：无视图过渡时走圆盘路径（半径 ' + (fclips[0] ? fclips[0].r : '?') + ' → ' + (fclips.length ? fclips[fclips.length - 1].r : '?') + '）')
@@ -408,7 +408,7 @@ const parseR = (s) => {
     await new Promise((res) => setTimeout(res, 40))
     return {
       theme: document.documentElement.getAttribute('data-theme'),
-      discs: document.querySelectorAll('.theme-ripple').length,
+      discs: document.querySelectorAll('.anx-theme-ripple').length,
       vt: document.documentElement.getAttribute('data-vt-mode'),
     }
   })
@@ -422,7 +422,7 @@ const parseR = (s) => {
   const p2 = await ctx2.newPage()
   await p2.goto(BASE + '/#/login', { waitUntil: 'networkidle' })
   const dur = await p2.evaluate(() => {
-    const el = document.querySelector('.btn') || document.body
+    const el = document.querySelector('.anx-btn') || document.body
     return getComputedStyle(el).transitionDuration
   })
   check(parseFloat(dur) < 0.001, '系统「减少动效」时过渡时长被压缩（' + dur + '）')

@@ -45,7 +45,7 @@ function openConfirm({ title, desc, bodyHtml, confirmText, danger, onConfirm }) 
   document.getElementById('demo-modal-body').innerHTML = bodyHtml || ''
   const btn = document.getElementById('demo-modal-confirm')
   btn.textContent = confirmText || '确认'
-  btn.className = 'btn ' + (danger ? 'btn--danger' : 'btn--primary')
+  btn.className = 'anx-btn' + (danger ? 'btn--danger' : 'btn--primary')
   pendingConfirm = onConfirm
   show('demo-modal')
 }
@@ -71,28 +71,28 @@ function toastIcon(body, size) {
 function showToast(tone, title, text) {
   const layer = document.getElementById('toast-layer')
   const el = document.createElement('div')
-  el.className = 'toast toast--' + tone
+  el.className = 'anx-toast anx-toast--' + tone
   el.setAttribute('role', tone === 'danger' ? 'alert' : 'status')
   /* 图标（与 ToastHost.vue 一致——tone 的视觉区分在 .toast__icon 的颜色上） */
   const icon = document.createElement('span')
-  icon.className = 'toast__icon'
+  icon.className = 'anx-toast__icon'
   icon.innerHTML = toastIcon(TOAST_ICONS[tone] || TOAST_ICONS.info, 18)
   el.appendChild(icon)
   const body = document.createElement('div')
-  body.className = 'toast__body'
+  body.className = 'anx-toast__body'
   const t = document.createElement('div')
-  t.className = 'toast__title'
+  t.className = 'anx-toast__title'
   t.textContent = title
   body.appendChild(t)
   if (text) {
     const d = document.createElement('div')
-    d.className = 'toast__text'
+    d.className = 'anx-toast__text'
     d.textContent = text
     body.appendChild(d)
   }
   el.appendChild(body)
   const close = document.createElement('button')
-  close.className = 'toast__close'
+  close.className = 'anx-toast__close'
   close.type = 'button'
   close.setAttribute('aria-label', '关闭通知')
   close.innerHTML = toastIcon(TOAST_ICONS.close, 14)
@@ -137,9 +137,9 @@ function closeFsel() {
   openFsel.panel.hidden = true
   openFsel = null
 }
-document.querySelectorAll('.fsel').forEach((root) => {
-  const btn = root.querySelector('.fsel__btn')
-  const panel = root.querySelector('.fsel__panel')
+document.querySelectorAll('.anx-fsel').forEach((root) => {
+  const btn = root.querySelector('.anx-fsel__btn')
+  const panel = root.querySelector('.anx-fsel__panel')
   if (!btn || !panel) return
   btn.addEventListener('click', () => {
     if (!panel.hidden) { closeFsel(); return }
@@ -148,14 +148,14 @@ document.querySelectorAll('.fsel').forEach((root) => {
     placePanel(btn, panel)
     openFsel = { root, btn, panel }
   })
-  panel.querySelectorAll('.fsel__opt').forEach((opt) => {
+  panel.querySelectorAll('.anx-fsel__opt').forEach((opt) => {
     opt.addEventListener('click', () => {
-      panel.querySelectorAll('.fsel__opt').forEach((o) => o.classList.remove('is-selected'))
+      panel.querySelectorAll('.anx-fsel__opt').forEach((o) => o.classList.remove('is-selected'))
       opt.classList.add('is-selected')
-      const val = root.querySelector('.fsel__value')
+      const val = root.querySelector('.anx-fsel__value')
       if (val) {
-        val.textContent = opt.querySelector('.fsel__optlabel').textContent
-        val.classList.remove('fsel__value--empty')
+        val.textContent = opt.querySelector('.anx-fsel__optlabel').textContent
+        val.classList.remove('anx-fsel__value--empty')
       }
       closeFsel()
     })
@@ -167,8 +167,8 @@ document.addEventListener('pointerdown', (e) => {
 
 /* ---------- 分段开关（滑块测量与 SegmentedControl 一致） ---------- */
 function moveSeg(seg) {
-  const thumb = seg.querySelector('.segmented__thumb')
-  const active = seg.querySelector('.segmented__opt[aria-pressed="true"]')
+  const thumb = seg.querySelector('.anx-segmented__thumb')
+  const active = seg.querySelector('.anx-segmented__opt[aria-pressed="true"]')
   if (!thumb || !active) return
   const r = active.getBoundingClientRect()
   if (!r.width) return
@@ -177,10 +177,10 @@ function moveSeg(seg) {
   thumb.style.transform = `translateX(${Math.round(r.left - b.left)}px)`
   requestAnimationFrame(() => seg.classList.add('is-ready'))
 }
-document.querySelectorAll('.segmented').forEach((seg) => {
-  seg.querySelectorAll('.segmented__opt').forEach((opt) => {
+document.querySelectorAll('.anx-segmented').forEach((seg) => {
+  seg.querySelectorAll('.anx-segmented__opt').forEach((opt) => {
     opt.addEventListener('click', () => {
-      seg.querySelectorAll('.segmented__opt').forEach((o) => o.setAttribute('aria-pressed', 'false'))
+      seg.querySelectorAll('.anx-segmented__opt').forEach((o) => o.setAttribute('aria-pressed', 'false'))
       opt.setAttribute('aria-pressed', 'true')
       moveSeg(seg)
     })
@@ -228,7 +228,7 @@ function renderApps() {
   document.getElementById('apps-page-cur').textContent = String(appsPage)
   document.getElementById('apps-prev').disabled = appsPage <= 1
   document.getElementById('apps-next').disabled = appsPage >= PAGE_COUNT
-  document.querySelectorAll('.pager__btn--num').forEach((b) => {
+  document.querySelectorAll('.anx-pager__btn--num').forEach((b) => {
     const cur = Number(b.dataset.page) === appsPage
     b.classList.toggle('is-current', cur)
     if (cur) b.setAttribute('aria-current', 'page')
@@ -237,7 +237,7 @@ function renderApps() {
 }
 document.getElementById('apps-prev').addEventListener('click', () => { if (appsPage > 1) { appsPage--; renderApps() } })
 document.getElementById('apps-next').addEventListener('click', () => { if (appsPage < PAGE_COUNT) { appsPage++; renderApps() } })
-document.querySelectorAll('.pager__btn--num').forEach((b) =>
+document.querySelectorAll('.anx-pager__btn--num').forEach((b) =>
   b.addEventListener('click', () => { appsPage = Number(b.dataset.page); renderApps() }),
 )
 tbody.addEventListener('click', (e) => {
@@ -261,7 +261,7 @@ function openAppDrawer(app) {
 
 /* ---------- 视图切换 ---------- */
 const VIEW_TITLES = { overview: '数据概览', apps: '应用管理', new: '新建应用', settings: '偏好设置' }
-const navItems = document.querySelectorAll('.sidenav__item[data-view]')
+const navItems = document.querySelectorAll('.anx-sidenav__item[data-view]')
 const views = document.querySelectorAll('.view')
 function switchView(name) {
   views.forEach((v) => v.classList.toggle('is-active', v.dataset.view === name))
@@ -272,7 +272,7 @@ function switchView(name) {
   document.getElementById('topbar-title').textContent = VIEW_TITLES[name] || name
   document.documentElement.scrollTop = 0
   closeSide()
-  requestAnimationFrame(() => document.querySelectorAll('.segmented').forEach(moveSeg))
+  requestAnimationFrame(() => document.querySelectorAll('.anx-segmented').forEach(moveSeg))
 }
 navItems.forEach((n) => n.addEventListener('click', (e) => { e.preventDefault(); switchView(n.dataset.view) }))
 document.querySelectorAll('[data-view-jump]').forEach((b) =>

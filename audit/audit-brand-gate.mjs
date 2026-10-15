@@ -34,11 +34,11 @@ const b = await chromium.launch({ executablePath: CHROME, headless: true })
 async function login(page) {
   await page.goto(BASE + '/', { waitUntil: 'networkidle' })
   await page.click('.demo-account >> nth=0')
-  await page.waitForSelector('.grid-main-side')
+  await page.waitForSelector('.anx-grid-main-side')
 }
 const resetItemVisible = async (page) => {
   await page.click('.accountbtn')
-  await page.waitForSelector('.menu__panel')
+  await page.waitForSelector('.anx-menu__panel')
   const n = await page.locator('.menu__item:has-text("重置本地演示数据")').count()
   await page.keyboard.press('Escape')
   await page.waitForTimeout(200)
@@ -57,7 +57,7 @@ const resetItemVisible = async (page) => {
   )
   await p.goto(BASE + '/#/account', { waitUntil: 'networkidle' })
   await p.reload({ waitUntil: 'networkidle' })
-  await p.waitForSelector('.grid-main-side')
+  await p.waitForSelector('.anx-grid-main-side')
   check((await resetItemVisible(p)) === 0, '生产模式（demoAuth=0）：该菜单项已隐藏（点了必然被服务端拒绝）')
   await ctx.close()
 }

@@ -75,7 +75,7 @@ const RESULT_BTN = 'button[aria-label="按结果筛选"]'
 
 await page.goto(BASE + '/', { waitUntil: 'networkidle' })
 await page.click('.demo-account >> nth=0')
-await page.waitForSelector('.grid-main-side')
+await page.waitForSelector('.anx-grid-main-side')
 await page.goto(BASE + '/#/admin/audit', { waitUntil: 'networkidle' })
 await page.waitForSelector('.logrow')
 await page.waitForTimeout(500)
@@ -106,9 +106,9 @@ await page.waitForTimeout(500)
 /* ── ② 打开动效时间线 ───────────────────────────────────────────── */
 {
   const tl = probe([
-    ['panel', '.fsel__panel'],
-    ['caret', CAT_BTN + ' .fsel__caret'],
-    ['opt', '.fsel__panel .fsel__opt'],
+    ['panel', '.anx-fsel__panel'],
+    ['caret', CAT_BTN + ' .anx-fsel__caret'],
+    ['opt', '.anx-fsel__panel .anx-fsel__opt'],
   ])
   await page.waitForTimeout(40)
   await page.click(CAT_BTN)
@@ -133,7 +133,7 @@ await page.waitForTimeout(500)
 /* ── ③ 选项错峰入场 + 勾选浮现 ──────────────────────────────────── */
 {
   const delays = await page.evaluate(() =>
-    Array.from(document.querySelectorAll('.fsel__panel .fsel__opt')).map((el) => ({
+    Array.from(document.querySelectorAll('.anx-fsel__panel .anx-fsel__opt')).map((el) => ({
       delay: getComputedStyle(el).animationDelay,
       name: getComputedStyle(el).animationName,
       op: getComputedStyle(el).opacity,
@@ -145,9 +145,9 @@ await page.waitForTimeout(500)
   check(delays.every((d) => parseFloat(d.op) > 0.9), '动画结束后选项不透明度已恢复为 1')
 
   const selMark = await page.evaluate(() => {
-    const sel = document.querySelector('.fsel__panel .fsel__opt.is-selected')
+    const sel = document.querySelector('.anx-fsel__panel .anx-fsel__opt.is-selected')
     if (!sel) return null
-    const check = sel.querySelector('.fsel__check')
+    const check = sel.querySelector('.anx-fsel__check')
     const cs = check ? getComputedStyle(check) : null
     return { label: sel.textContent.trim(), op: cs ? parseFloat(cs.opacity) : -1, tf: cs ? cs.transform : '' }
   })
@@ -160,8 +160,8 @@ await page.waitForTimeout(500)
 /* ── ④ 鼠标选择：选「令牌」→ 列表真的被筛掉 ─────────────────────── */
 {
   await page.click('.fsel__panel .fsel__opt:has-text("令牌")')
-  await page.waitForSelector('.fsel__panel', { state: 'detached', timeout: 4000 })
-  const label = (await page.textContent(CAT_BTN + ' .fsel__value')).trim()
+  await page.waitForSelector('.anx-fsel__panel', { state: 'detached', timeout: 4000 })
+  const label = (await page.textContent(CAT_BTN + ' .anx-fsel__value')).trim()
   check(label === '令牌', '鼠标选择后触发器文案 = ' + label)
 
   const rows = await page.locator('.logrow').count()
@@ -170,11 +170,11 @@ await page.waitForTimeout(500)
   await shot('sel-02-filtered')
 
   /* 关闭动效也有过渡类 */
-  const tl = probe([['panel', '.fsel__panel']], 500)
+  const tl = probe([['panel', '.anx-fsel__panel']], 500)
   await page.waitForTimeout(30)
   await page.click(CAT_BTN)
   await page.waitForTimeout(60)
-  await page.click('.scrim, .panel')
+  await page.click('.anx-scrim, .anx-panel')
   const t = await tl
   check(hasCls(t, 'panel', 'fsel-pop-leave'), '关闭：出现 leave 过渡类（不是瞬间消失）')
   await page.waitForTimeout(400)
@@ -186,7 +186,7 @@ await page.waitForTimeout(500)
   await page.mouse.move(20, 20)
   await page.focus(RESULT_BTN)
   await page.keyboard.press('ArrowDown')
-  await page.waitForSelector('.fsel__panel')
+  await page.waitForSelector('.anx-fsel__panel')
   const openLabel = (await page.getAttribute(RESULT_BTN, 'aria-expanded'))
   check(openLabel === 'true', 'ArrowDown 展开下拉（aria-expanded=true）')
   const ad1 = await page.getAttribute(RESULT_BTN, 'aria-activedescendant')
@@ -197,23 +197,23 @@ await page.waitForTimeout(500)
   check(ad1 !== ad2, 'ArrowDown 移动高亮项（aria-activedescendant 变化）')
 
   await page.keyboard.press('Enter')
-  await page.waitForSelector('.fsel__panel', { state: 'detached', timeout: 4000 })
-  const label = (await page.textContent(RESULT_BTN + ' .fsel__value')).trim()
+  await page.waitForSelector('.anx-fsel__panel', { state: 'detached', timeout: 4000 })
+  const label = (await page.textContent(RESULT_BTN + ' .anx-fsel__value')).trim()
   check(label === '成功', 'Enter 选中高亮项：' + label)
 
   /* Esc 关闭并把焦点还给触发按钮 */
   await page.keyboard.press('ArrowDown')
-  await page.waitForSelector('.fsel__panel')
+  await page.waitForSelector('.anx-fsel__panel')
   await page.keyboard.press('Escape')
-  await page.waitForSelector('.fsel__panel', { state: 'detached', timeout: 4000 })
+  await page.waitForSelector('.anx-fsel__panel', { state: 'detached', timeout: 4000 })
   const focusBack = await page.evaluate(() => document.activeElement?.getAttribute('aria-label'))
   check(focusBack === '按结果筛选', 'Esc 关闭后焦点回到触发按钮（' + focusBack + '）')
 
   /* Tab 也能收起 */
   await page.keyboard.press('ArrowDown')
-  await page.waitForSelector('.fsel__panel')
+  await page.waitForSelector('.anx-fsel__panel')
   await page.keyboard.press('Tab')
-  await page.waitForSelector('.fsel__panel', { state: 'detached', timeout: 4000 })
+  await page.waitForSelector('.anx-fsel__panel', { state: 'detached', timeout: 4000 })
   check(true, 'Tab 收起下拉且不劫持焦点顺序')
 
   /* 复位筛选，避免影响后续步骤的截图 */
@@ -228,9 +228,9 @@ await page.waitForTimeout(500)
 {
   const PAGER = 'button[aria-label="每页条数"]'
   await page.click(PAGER)
-  await page.waitForSelector('.fsel__panel')
+  await page.waitForSelector('.anx-fsel__panel')
   const geo = await page.evaluate(() => {
-    const panel = document.querySelector('.fsel__panel')
+    const panel = document.querySelector('.anx-fsel__panel')
     const btn = document.querySelector('button[aria-label="每页条数"]')
     const pr = panel.getBoundingClientRect()
     const br = btn.getBoundingClientRect()
@@ -257,7 +257,7 @@ await page.waitForTimeout(500)
   await shot('sel-03-pager-up')
 
   await page.click('.fsel__panel .fsel__opt:has-text("20")')
-  await page.waitForSelector('.fsel__panel', { state: 'detached', timeout: 4000 })
+  await page.waitForSelector('.anx-fsel__panel', { state: 'detached', timeout: 4000 })
   const rows = await page.locator('.logrow').count()
   check(rows === 20, '每页条数改为 20 后当前页渲染 ' + rows + ' 行')
   await page.click(PAGER)
@@ -269,16 +269,16 @@ await page.waitForTimeout(500)
 {
   await page.goto(BASE + '/#/admin/scopes', { waitUntil: 'networkidle' })
   await page.click('button:has-text("新建权限")')
-  await page.waitForSelector('.modal')
+  await page.waitForSelector('.anx-modal')
   await page.click('#ns-tier')
-  await page.waitForSelector('.fsel__panel')
+  await page.waitForSelector('.anx-fsel__panel')
   const over = await page.evaluate(() => {
-    const panel = document.querySelector('.fsel__panel')
+    const panel = document.querySelector('.anx-fsel__panel')
     const r = panel.getBoundingClientRect()
     const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
     return {
       z: getComputedStyle(panel).zIndex,
-      above: !!(hit && hit.closest('.fsel__panel')),
+      above: !!(hit && hit.closest('.anx-fsel__panel')),
       hit: hit ? hit.className || hit.tagName : null,
     }
   })
@@ -291,7 +291,7 @@ await page.waitForTimeout(500)
   /* Esc 会把下拉与所在弹窗一起收起（弹层系统的既有行为），这里只做兜底 */
   await page.keyboard.press('Escape')
   await page.waitForTimeout(300)
-  if (await page.locator('.modal').count()) {
+  if (await page.locator('.anx-modal').count()) {
     await page.click('.modal button:has-text("取消")')
     await page.waitForTimeout(300)
   }
@@ -302,7 +302,7 @@ await page.waitForTimeout(500)
   await page.goto(BASE + '/#/admin/audit', { waitUntil: 'networkidle' })
   await page.waitForSelector('.logrow')
   await page.click('.accountbtn')
-  await page.waitForSelector('.menu__panel')
+  await page.waitForSelector('.anx-menu__panel')
   await page.click('button:has-text("切换到深色主题")')
   /* 涟漪过渡期间主题尚未翻转：等它翻过去再开下拉，避免采到浅色玻璃的参数 */
   await page.waitForFunction(
@@ -313,14 +313,14 @@ await page.waitForTimeout(500)
   await page.click(CAT_BTN)
   await page.waitForTimeout(500)
   const glass = await page.evaluate(() => {
-    const cs = getComputedStyle(document.querySelector('.fsel__panel'))
+    const cs = getComputedStyle(document.querySelector('.anx-fsel__panel'))
     return { blur: cs.backdropFilter, bg: cs.backgroundColor }
   })
   check(/blur\(32px\)/.test(glass.blur), '深色主题下仍是液态玻璃（' + glass.blur + '）')
   await shot('sel-05-dark')
   await page.keyboard.press('Escape')
   await page.click('.accountbtn')
-  await page.waitForSelector('.menu__panel')
+  await page.waitForSelector('.anx-menu__panel')
   await page.click('button:has-text("切换到浅色主题")')
   await page.waitForFunction(
     () => document.documentElement.getAttribute('data-theme') !== 'dark',

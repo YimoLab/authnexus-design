@@ -10,8 +10,8 @@
      · 结构层：按钮·输入框·分段·分页·标签栏·下拉 的存在性与关键几何
      · 回归护栏（曾真实踩过的坑）：
          - 分段开关不得被父容器拉满（inline-flex 被 grid/flex 拉伸）
-         - toast 三态必须有 .toast__icon 且颜色互不相同
-         - 浮层必须被 .overlay-layer(z-index:100) 承载并真正盖住页面
+         - toast 三态必须有 .anx-toast__icon 且颜色互不相同
+         - 浮层必须被 .anx-overlay-layer(z-index:100) 承载并真正盖住页面
    用法：node audit/audit-gallery.mjs [画廊URL]
         GALLERY_URL=... node audit/audit-gallery.mjs
    ========================================================================== */
@@ -132,34 +132,34 @@ for (const theme of THEMES) {
     const q = (s) => document.querySelector(s)
     const r = (el) => (el ? el.getBoundingClientRect() : null)
     const out = {}
-    const btn = q('.btn--primary')
+    const btn = q('.anx-btn--primary')
     out.btn = btn
       ? { bg: getComputedStyle(btn).backgroundColor, radius: parseFloat(getComputedStyle(btn).borderTopLeftRadius) }
       : null
-    const inp = q('.input')
+    const inp = q('.anx-input')
     out.input = inp
       ? { h: Math.round(r(inp).height), border: parseFloat(getComputedStyle(inp).borderTopWidth) }
       : null
-    const seg = q('.segmented')
+    const seg = q('.anx-segmented')
     const segBox = r(seg)
     const parentBox = seg ? r(seg.parentElement) : null
     out.seg = segBox && parentBox
       ? { w: Math.round(segBox.width), parentW: Math.round(parentBox.width) }
       : null
     // 点一下第三个选项，确保滑块已就位
-    const opts = seg ? [...seg.querySelectorAll('.segmented__opt')] : []
+    const opts = seg ? [...seg.querySelectorAll('.anx-segmented__opt')] : []
     if (opts.length > 2) opts[2].click()
-    const thumb = seg ? seg.querySelector('.segmented__thumb') : null
-    const active = seg ? seg.querySelector('.segmented__opt[aria-pressed="true"]') : null
+    const thumb = seg ? seg.querySelector('.anx-segmented__thumb') : null
+    const active = seg ? seg.querySelector('.anx-segmented__opt[aria-pressed="true"]') : null
     out.thumb = thumb && active
       ? { tw: Math.round(r(thumb).width), aw: Math.round(r(active).width) }
       : null
-    const num = q('.pager__btn--num')
+    const num = q('.anx-pager__btn--num')
     out.pager = num ? { w: Math.round(r(num).width), h: Math.round(r(num).height) } : null
-    const ink = q('.tabs__ink')
+    const ink = q('.anx-tabs__ink')
     out.ink = ink ? { w: Math.round(r(ink).width) } : null
-    out.tabs = !!q('.tabs') && !!q('.tabs .tab[aria-selected="true"]')
-    out.inkToken = getComputedStyle(q('.btn--primary') || document.body).getPropertyValue('--ink').trim()
+    out.tabs = !!q('.anx-tabs') && !!q('.anx-tabs .anx-tab[aria-selected="true"]')
+    out.inkToken = getComputedStyle(q('.anx-btn--primary') || document.body).getPropertyValue('--ink').trim()
     out.btnInk = out.btn ? out.btn.bg : null
     out.inkRgb = tok2rgb(getComputedStyle(document.documentElement).getPropertyValue('--ink'))
     return out
@@ -174,7 +174,7 @@ for (const theme of THEMES) {
   say(geo.btn && geo.btn.bg === geo.inkRgb, '主按钮底色 = --ink 令牌', `${geo.btn && geo.btn.bg} vs ${geo.inkRgb}`)
   say(geo.btn && geo.btn.radius >= 8, '主按钮圆角 ≥ 8px', geo.btn && `${geo.btn.radius}px`)
   say(!!geo.input && geo.input.h >= 40 && geo.input.border >= 1, '输入框高度 ≥ 40 且有 1px 边框', JSON.stringify(geo.input))
-  say(!!geo.seg, '分段开关存在（.segmented）')
+  say(!!geo.seg, '分段开关存在（.anx-segmented）')
   say(
     geo.seg && geo.seg.w < geo.seg.parentW - 40,
     '分段开关未被父容器拉满（回归护栏）',
@@ -187,31 +187,31 @@ for (const theme of THEMES) {
 
   /* toast 三态（回归护栏） */
   await page.evaluate(() => {
-    document.querySelectorAll('.toast').forEach((e) => e.remove())
+    document.querySelectorAll('.anx-toast').forEach((e) => e.remove())
     showToast('ok', '已保存', '断言用')
     showToast('danger', '保存失败', '断言用')
     showToast('info', '提示', '断言用')
   })
   await page.waitForTimeout(260)
   const toast = await page.evaluate(() => {
-    const list = [...document.querySelectorAll('.toast')]
+    const list = [...document.querySelectorAll('.anx-toast')]
     return {
       count: list.length,
-      withIcon: list.filter((t) => t.querySelector('.toast__icon svg')).length,
-      colors: [...new Set(list.map((t) => getComputedStyle(t.querySelector('.toast__icon')).color))],
+      withIcon: list.filter((t) => t.querySelector('.anx-toast__icon svg')).length,
+      colors: [...new Set(list.map((t) => getComputedStyle(t.querySelector('.anx-toast__icon')).color))],
     }
   })
   say(toast.count === 3, '三种 tone 都能触发', `${toast.count}/3`)
-  say(toast.withIcon === 3, '每个 toast 都有 .toast__icon 图标（回归护栏）', `${toast.withIcon}/3`)
+  say(toast.withIcon === 3, '每个 toast 都有 .anx-toast__icon 图标（回归护栏）', `${toast.withIcon}/3`)
   say(toast.colors.length === 3, '三种 tone 图标颜色互不相同（回归护栏）', toast.colors.join(' | '))
-  await page.evaluate(() => document.querySelectorAll('.toast').forEach((e) => e.remove()))
+  await page.evaluate(() => document.querySelectorAll('.anx-toast').forEach((e) => e.remove()))
 
   /* 浮层承载层 + 玻璃 + 命中测试 */
   await page.click('[data-overlay="g-modal"]')
   await page.waitForTimeout(320)
   const ov = await page.evaluate(() => {
-    const layer = document.querySelector('.overlay-layer')
-    const modal = document.querySelector('.modal')
+    const layer = document.querySelector('.anx-overlay-layer')
+    const modal = document.querySelector('.anx-modal')
     const mr = modal.getBoundingClientRect()
     const hit = document.elementFromPoint(mr.left + mr.width / 2, mr.top + 24)
     return {
@@ -227,14 +227,14 @@ for (const theme of THEMES) {
   say(/blur\(/.test(ov.glass), '弹窗玻璃 backdrop-filter 生效', ov.glass)
   say(ov.hitInModal, '弹窗区域命中弹窗本身（未被页面元素压住）', ov.hit)
   /* 关闭弹窗：画廊未绑定 Esc，走真实关闭路径（点「取消」→ data-close） */
-  await page.click('.modal [data-close="g-modal"]')
+  await page.click('.anx-modal [data-close="g-modal"]')
   await page.waitForTimeout(360)
 
   /* 下拉面板层级与命中 */
-  await page.click('.fsel__btn')
+  await page.click('.anx-fsel__btn')
   await page.waitForTimeout(300)
   const dd = await page.evaluate(() => {
-    const panel = [...document.querySelectorAll('.fsel__panel')].find((p) => !p.hidden)
+    const panel = [...document.querySelectorAll('.anx-fsel__panel')].find((p) => !p.hidden)
     if (!panel) return { open: false }
     const pr = panel.getBoundingClientRect()
     const hit = document.elementFromPoint(pr.left + pr.width / 2, pr.top + 12)
@@ -249,7 +249,7 @@ for (const theme of THEMES) {
   say(dd.z === '160', '下拉面板 z-index = 160（盖住弹窗、低于 toast）', String(dd.z))
   say(dd.inViewport, '下拉面板完整落在视口内')
   say(dd.hitInPanel, '下拉面板区域命中面板内部')
-  await page.click('.fsel__btn') // 再次点击触发器即收起
+  await page.click('.anx-fsel__btn') // 再次点击触发器即收起
   await page.waitForTimeout(260)
 }
 

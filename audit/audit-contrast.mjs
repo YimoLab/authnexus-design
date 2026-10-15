@@ -21,7 +21,7 @@ await page.goto(BASE + '/#/login', { waitUntil: 'networkidle' })
 await page.evaluate((t) => localStorage.setItem('authnexus.theme', t), THEME)
 await page.reload({ waitUntil: 'networkidle' })
 await page.click('.demo-account >> nth=0')
-await page.waitForSelector('.grid-main-side')
+await page.waitForSelector('.anx-grid-main-side')
 
 const allIssues = []
 
@@ -59,9 +59,9 @@ for (const [label, path] of ROUTES) {
     const effectiveBg = (el) => {
       /* 分段开关的选中实底来自兄弟节点滑块（.segmented__thumb），不在祖先链上——
          显式取滑块背景，按真实观感计算文字对比度 */
-      const seg = el.closest && el.closest('.segmented')
+      const seg = el.closest && el.closest('.anx-segmented')
       if (seg && el.getAttribute('aria-pressed') === 'true') {
-        const thumb = seg.querySelector('.segmented__thumb')
+        const thumb = seg.querySelector('.anx-segmented__thumb')
         if (thumb) {
           const tcs = getComputedStyle(thumb)
           const tbg = parse(tcs.backgroundColor)

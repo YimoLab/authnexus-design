@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /* ==========================================================================
    AuthNexus Design · 分段开关
-   选中态是一枚会滑动的「滑块」（.segmented__thumb）：切换时从旧选项平滑滑到
+   选中态是一枚会滑动的「滑块」（.anx-segmented__thumb）：切换时从旧选项平滑滑到
    新选项，而不是瞬间变色。滑块位置按选中按钮的实际几何位置测量（各选项文案
    长度不同，不能用等分宽度），并在窗口尺寸变化时重新测量。
    样式见 app.css 第 32 节（原型 .segmented 基类的动效增强）。
@@ -23,7 +23,7 @@ const ready = ref(false)
 
 function measure(): boolean {
   const box = root.value
-  const active = box?.querySelector<HTMLElement>('.segmented__opt[aria-pressed="true"]')
+  const active = box?.querySelector<HTMLElement>('.anx-segmented__opt[aria-pressed="true"]')
   if (!box || !active) return false
   const b = box.getBoundingClientRect()
   const r = active.getBoundingClientRect()
@@ -66,9 +66,9 @@ onBeforeUnmount(() => window.removeEventListener('resize', onResize))
 </script>
 
 <template>
-  <div ref="root" class="segmented" :class="{ 'is-ready': ready }" role="group">
+  <div ref="root" class="anx-segmented" :class="{ 'is-ready': ready }" role="group">
     <span
-      class="segmented__thumb"
+      class="anx-segmented__thumb"
       :style="{ width: thumb.w + 'px', transform: `translateX(${thumb.x}px)` }"
       aria-hidden="true"
     />
@@ -76,7 +76,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', onResize))
       v-for="o in options"
       :key="o.value"
       type="button"
-      class="segmented__opt"
+      class="anx-segmented__opt"
       :aria-pressed="String(modelValue) === String(o.value)"
       @click="emit('update:modelValue', o.value)"
     >

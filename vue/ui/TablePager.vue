@@ -57,14 +57,14 @@ const sizeOptions = computed(() => props.sizes.map((s) => ({ value: String(s), l
 </script>
 
 <template>
-  <div class="pager">
-    <span class="pager__total">共 {{ total }} 条</span>
-    <div class="pager__nav">
-      <span v-if="sizes.length > 1" class="pager__size">
+  <div class="anx-pager">
+    <span class="anx-pager__total">共 {{ total }} 条</span>
+    <div class="anx-pager__nav">
+      <span v-if="sizes.length > 1" class="anx-pager__size">
       每页
       <SelectMenu
         compact
-        class="pager__select"
+        class="anx-pager__select"
         :model-value="String(pageSize)"
         :options="sizeOptions"
         aria-label="每页条数"
@@ -75,7 +75,7 @@ const sizeOptions = computed(() => props.sizes.map((s) => ({ value: String(s), l
       <template v-if="pageCount > 1">
         <button
           type="button"
-          class="pager__btn"
+          class="anx-pager__btn"
           :disabled="page <= 1"
           aria-label="上一页"
           @click="go(page - 1)"
@@ -83,11 +83,11 @@ const sizeOptions = computed(() => props.sizes.map((s) => ({ value: String(s), l
           <Icon name="chevron-left" :size="15" />
         </button>
         <template v-for="(p, i) in pages" :key="i">
-          <span v-if="p === '…'" class="pager__gap">…</span>
+          <span v-if="p === '…'" class="anx-pager__gap">…</span>
           <button
             v-else
             type="button"
-            class="pager__btn pager__btn--num"
+            class="anx-pager__btn anx-pager__btn--num"
             :class="{ 'is-current': p === page }"
             :aria-current="p === page ? 'page' : undefined"
             @click="go(p)"
@@ -97,7 +97,7 @@ const sizeOptions = computed(() => props.sizes.map((s) => ({ value: String(s), l
         </template>
         <button
           type="button"
-          class="pager__btn"
+          class="anx-pager__btn"
           :disabled="page >= pageCount"
           aria-label="下一页"
           @click="go(page + 1)"

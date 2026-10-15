@@ -23,12 +23,12 @@ const role = computed(() => (props.tone === 'danger' ? 'alert' : 'status'))
 </script>
 
 <template>
-  <div class="alert" :class="'alert--' + tone" :role="role">
+  <div class="anx-alert" :class="'anx-alert--' + tone" :role="role">
     <Icon :name="iconName" :size="18" />
-    <div class="alert__body">
-      <p v-if="title" class="alert__title">{{ title }}</p>
-      <p v-if="text || $slots.default" class="alert__text"><slot>{{ text }}</slot></p>
-      <p v-for="(line, i) in lines || []" :key="i" class="alert__text">{{ line }}</p>
+    <div class="anx-alert__body">
+      <p v-if="title" class="anx-alert__title">{{ title }}</p>
+      <p v-if="text || $slots.default" class="anx-alert__text"><slot>{{ text }}</slot></p>
+      <p v-for="(line, i) in lines || []" :key="i" class="anx-alert__text">{{ line }}</p>
     </div>
   </div>
 </template>

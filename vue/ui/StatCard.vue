@@ -12,13 +12,13 @@ withDefaults(
 </script>
 
 <template>
-  <div class="stat">
-    <p class="stat__label">{{ label }}</p>
-    <p class="stat__num">{{ value }}<span v-if="unit" class="stat__unit">{{ unit }}</span></p>
+  <div class="anx-stat">
+    <p class="anx-stat__label">{{ label }}</p>
+    <p class="anx-stat__num">{{ value }}<span v-if="unit" class="anx-stat__unit">{{ unit }}</span></p>
     <p
       v-if="delta || $slots.delta"
-      class="stat__delta"
-      :class="deltaTone ? 'stat__delta--' + deltaTone : ''"
+      class="anx-stat__delta"
+      :class="deltaTone ? 'anx-stat__delta--' + deltaTone : ''"
     >
       <slot name="delta">{{ delta }}</slot>
     </p>

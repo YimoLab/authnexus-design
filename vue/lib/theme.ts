@@ -131,7 +131,7 @@ async function discRipple(next: Theme, origin: DOMRect): Promise<void> {
   const point = `circle(0px at ${x}px ${y}px)`
 
   const disc = document.createElement('div')
-  disc.className = 'theme-ripple'
+  disc.className = 'anx-theme-ripple'
   /* 扩散时铺目标主题的底色；收缩时铺当前主题的底色（把它收走，露出新主题） */
   disc.style.background = pageColor(next === 'dark' ? 'dark' : from)
   document.body.appendChild(disc)

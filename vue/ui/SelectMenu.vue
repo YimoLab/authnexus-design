@@ -223,11 +223,11 @@ watch(
 </script>
 
 <template>
-  <div class="fsel" :class="{ 'fsel--sm': compact }">
+  <div class="anx-fsel" :class="{ 'anx-fsel--sm': compact }">
     <button
       ref="btnEl"
       type="button"
-      class="fsel__btn"
+      class="anx-fsel__btn"
       :id="ctrlId"
       role="combobox"
       aria-haspopup="listbox"
@@ -239,9 +239,9 @@ watch(
       @click="toggle"
       @keydown="onButtonKeydown"
     >
-      <span v-if="selectedLabel" class="fsel__value">{{ selectedLabel }}</span>
-      <span v-else class="fsel__value fsel__value--empty">{{ placeholder }}</span>
-      <Icon class="fsel__caret" name="chevron-down" :size="compact ? 14 : 16" :stroke="1.8" />
+      <span v-if="selectedLabel" class="anx-fsel__value">{{ selectedLabel }}</span>
+      <span v-else class="anx-fsel__value anx-fsel__value--empty">{{ placeholder }}</span>
+      <Icon class="anx-fsel__caret" name="chevron-down" :size="compact ? 14 : 16" :stroke="1.8" />
     </button>
 
     <Teleport to="body">
@@ -249,8 +249,8 @@ watch(
         <div
           v-if="open"
           ref="panelEl"
-          class="fsel__panel"
-          :class="{ 'fsel__panel--sm': compact }"
+          class="anx-fsel__panel"
+          :class="{ 'anx-fsel__panel--sm': compact }"
           role="listbox"
           :id="listId"
           :data-up="up ? 'true' : 'false'"
@@ -265,7 +265,7 @@ watch(
           <div
             v-for="(o, i) in options"
             :key="o.value"
-            class="fsel__opt"
+            class="anx-fsel__opt"
             :class="{ 'is-active': i === active, 'is-selected': o.value === modelValue }"
             :id="optId(i)"
             role="option"
@@ -276,8 +276,8 @@ watch(
             @mousedown.prevent
             @click="choose(o)"
           >
-            <span class="fsel__optlabel">{{ o.label }}</span>
-            <span class="fsel__check" aria-hidden="true">
+            <span class="anx-fsel__optlabel">{{ o.label }}</span>
+            <span class="anx-fsel__check" aria-hidden="true">
               <Icon name="check" :size="14" :stroke="2.1" />
             </span>
           </div>

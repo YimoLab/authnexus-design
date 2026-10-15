@@ -12,7 +12,7 @@ withDefaults(
 </script>
 
 <template>
-  <span class="badge" :class="'badge--' + tone">
+  <span class="anx-badge" :class="'anx-badge--' + tone">
     <Icon v-if="icon" :name="icon" :size="12" :stroke="1.9" />{{ text }}
   </span>
 </template>

@@ -43,35 +43,35 @@ onBeforeUnmount(() => {
 <template>
   <Teleport to="#overlay-layer">
     <div
-      class="scrim"
+      class="anx-scrim"
       :class="{ 'is-closing': overlay.entry.closing }"
       data-scrim
       @click="overlay.entry.dismissible && overlay.close()"
     />
     <aside
       ref="rootEl"
-      class="drawer"
+      class="anx-drawer"
       :class="{ 'is-closing': overlay.entry.closing }"
       role="dialog"
       aria-modal="true"
     >
-      <div class="drawer__head">
+      <div class="anx-drawer__head">
         <div class="od-fill">
-          <h2 v-if="title" class="drawer__title">{{ title }}</h2>
-          <p v-if="desc" class="t-xs t-faint">{{ desc }}</p>
+          <h2 v-if="title" class="anx-drawer__title">{{ title }}</h2>
+          <p v-if="desc" class="anx-t-xs anx-t-faint">{{ desc }}</p>
         </div>
         <button
           v-if="overlay.entry.dismissible"
           type="button"
-          class="iconbtn"
+          class="anx-iconbtn"
           aria-label="关闭"
           @click="overlay.close()"
         >
           <Icon name="close" :size="16" />
         </button>
       </div>
-      <div class="drawer__body"><slot /></div>
-      <div v-if="$slots.foot" class="drawer__foot"><slot name="foot" /></div>
+      <div class="anx-drawer__body"><slot /></div>
+      <div v-if="$slots.foot" class="anx-drawer__foot"><slot name="foot" /></div>
     </aside>
   </Teleport>
 </template>

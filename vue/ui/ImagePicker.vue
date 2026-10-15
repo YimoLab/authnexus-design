@@ -114,32 +114,32 @@ function remove() {
 </script>
 
 <template>
-  <div class="imgpick" :class="'imgpick--' + variant">
+  <div class="anx-imgpick" :class="'anx-imgpick--' + variant">
     <button
       type="button"
-      class="imgpick__preview"
+      class="anx-imgpick__preview"
       :aria-label="modelValue ? '更换图片' : '上传图片'"
       @click="pick"
     >
       <img v-if="modelValue" :src="modelValue" alt="" />
-      <span v-else class="imgpick__ph" :class="{ 'is-busy': busy }">
+      <span v-else class="anx-imgpick__ph" :class="{ 'is-busy': busy }">
         <Icon :name="busy ? 'refresh' : 'image'" :size="20" />
       </span>
-      <span v-if="modelValue" class="imgpick__mask">
+      <span v-if="modelValue" class="anx-imgpick__mask">
         <Icon name="image" :size="18" />
       </span>
     </button>
-    <div class="imgpick__meta">
+    <div class="anx-imgpick__meta">
       <div class="od-row" style="gap: 8px">
-        <button type="button" class="btn btn--ghost btn--sm" @click="pick">
+        <button type="button" class="anx-btn anx-btn--ghost anx-btn--sm" @click="pick">
           {{ modelValue ? '更换图片' : '上传图片' }}
         </button>
-        <button v-if="modelValue" type="button" class="btn btn--danger-quiet btn--sm" @click="remove">
+        <button v-if="modelValue" type="button" class="anx-btn anx-btn--danger-quiet anx-btn--sm" @click="remove">
           移除
         </button>
       </div>
-      <p v-if="hint" class="t-xs t-faint imgpick__hint">{{ hint }}</p>
+      <p v-if="hint" class="anx-t-xs anx-t-faint anx-imgpick__hint">{{ hint }}</p>
     </div>
-    <input ref="inputEl" type="file" accept="image/*" class="imgpick__input" @change="onFile" />
+    <input ref="inputEl" type="file" accept="image/*" class="anx-imgpick__input" @change="onFile" />
   </div>
 </template>

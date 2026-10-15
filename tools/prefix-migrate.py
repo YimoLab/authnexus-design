@@ -141,6 +141,13 @@ def migrate_css(text: str, cmap: dict, comments_too: bool = False):
 
 # ---------------------------------------------------------------- HTML class 属性
 HTML_CLASS_ATTR = re.compile(r"""(?<![:\w-])class\s*=\s*(["'])([^"']*)\1""")
+# :class 动态绑定的三种写法：
+#   :class="{ 'btn btn--acid': cond }"      对象字面量的字符串键
+#   :class="[size ? 'modal--' + size : '']"  数组里的字符串字面量与拼接
+#   :class="'imgpick--' + variant"          纯表达式字符串
+BIND_CLASS_ATTR = re.compile(r"""(:class\s*=\s*)(["'])(.*?)\2""", re.S)
+# 表达式里所有「像 class 的字符串字面量」（只认纯类名列表，不含运算符）
+LIT_STR = re.compile(r"""(['"])([a-z][\w-]*(?:[ ][\w-]+)*)\1""")
 
 
 def migrate_class_attr(value: str, cmap: dict):
@@ -164,7 +171,12 @@ def migrate_html(text: str, cmap: dict):
         changed[0] += n
         return f"class={q}{new}{q}"
 
-    return HTML_CLASS_ATTR.sub(repl, text), changed[0]
+    text = HTML_CLASS_ATTR.sub(repl, text)
+    # 注意：:class 动态绑定**不自动处理**。
+    #   · 对象字面量 :class="{ 'btn--sm': cond }" —— 改引号会破坏 HTML 嵌套
+    #   · 拼接表达式 :class="'modal--' + size"  —— 改前缀会破坏拼接逻辑
+    # 这两类由人工逐处确认（迁移清单里列出），避免自动化引入语法错误。
+    return text, changed[0]
 
 
 # ---------------------------------------------------------------- JS/TS 选择器字面量
@@ -179,11 +191,6 @@ VUE_BIND_KEY = re.compile(r"""(['"])([a-z][\w\s-]*)\1(\s*:)""")
 
 def migrate_js(text: str, cmap: dict):
     changed = [0]
-
-    def sub_attr(m, value_group):
-        new, n = migrate_class_attr(m.group(value_group), cmap)
-        changed[0] += n
-        return m.group(0)[: m.start(value_group) - m.start(0)] + new + m.group(0)[m.end(value_group) - m.start(0):]
 
     def repl_selector(m):
         head, q, val = m.group(1), m.group(2), m.group(3)
@@ -236,12 +243,19 @@ def migrate_doc(text: str, cmap: dict):
     return "".join(parts), changed[0]
 
 
+def both(t, m):
+    """模板 class 属性 + script 选择器字面量，两类一起处理"""
+    t, n1 = migrate_html(t, m)
+    t, n2 = migrate_js(t, m)
+    return t, n1 + n2
+
+
 HANDLERS = {
     "css": lambda t, m: migrate_css(t, m),
     "web_html": lambda t, m: migrate_html(t, m),
-    "web": lambda t, m: migrate_js(migrate_html(t, m)[0], m),
-    "vue": lambda t, m: migrate_js(migrate_html(t, m)[0], m),
-    "audit": lambda t, m: migrate_js(migrate_html(t, m)[0], m),
+    "web": both,
+    "vue": both,
+    "audit": both,
     "docs": migrate_doc,
 }
 
@@ -253,7 +267,10 @@ def handler_for(path: pathlib.Path, target: str, comments_too: bool = False):
         return HANDLERS["docs"]
     if path.suffix == ".html":
         return HANDLERS["web_html"]
-    if path.suffix in (".js", ".mjs", ".ts", ".tsx", ".vue"):
+    if path.suffix == ".vue":
+        # Vue 单文件组件：模板 class 属性 + script 内选择器字面量，两者都要
+        return HANDLERS["vue"]
+    if path.suffix in (".js", ".mjs", ".ts", ".tsx"):
         return HANDLERS[target if target in ("vue", "audit") else "web"]
     return HANDLERS[target]
 

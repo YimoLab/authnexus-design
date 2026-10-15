@@ -45,12 +45,12 @@ const hasImg = computed(() => !!props.user?.avatar)
 
 <template>
   <span
-    class="avatar"
-    :class="size ? 'avatar--' + size : ''"
+    class="anx-avatar"
+    :class="size ? 'anx-avatar--' + size : ''"
     aria-hidden="true"
     :style="hasImg ? undefined : { background: style.bg, color: style.fg }"
   >
-    <img v-if="hasImg" :src="user!.avatar as string" alt="" class="avatar__img" />
+    <img v-if="hasImg" :src="user!.avatar as string" alt="" class="anx-avatar__img" />
     <template v-else>{{ initials }}</template>
   </span>
 </template>

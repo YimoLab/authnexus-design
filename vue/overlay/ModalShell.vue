@@ -69,36 +69,36 @@ function onKeydown(e: KeyboardEvent) {
 <template>
   <Teleport to="#overlay-layer">
     <div
-      class="scrim"
+      class="anx-scrim"
       :class="{ 'is-closing': overlay.entry.closing }"
       data-scrim
       @click="overlay.entry.dismissible && overlay.close()"
     />
     <div
       ref="rootEl"
-      class="modal"
+      class="anx-modal"
       :class="[size ? 'modal--' + size : '', { 'is-closing': overlay.entry.closing }]"
       role="dialog"
       aria-modal="true"
       @keydown="onKeydown"
     >
-      <div v-if="title || desc" class="modal__head">
-        <div class="modal__head-text">
-          <h2 v-if="title" class="modal__title">{{ title }}</h2>
-          <p v-if="desc" class="modal__desc">{{ desc }}</p>
+      <div v-if="title || desc" class="anx-modal__head">
+        <div class="anx-modal__head-text">
+          <h2 v-if="title" class="anx-modal__title">{{ title }}</h2>
+          <p v-if="desc" class="anx-modal__desc">{{ desc }}</p>
         </div>
         <button
           v-if="overlay.entry.dismissible"
           type="button"
-          class="iconbtn modal__close"
+          class="anx-iconbtn anx-modal__close"
           aria-label="关闭"
           @click="overlay.close()"
         >
           <Icon name="close" :size="16" />
         </button>
       </div>
-      <div v-if="$slots.default" class="modal__body"><slot /></div>
-      <div v-if="$slots.foot" class="modal__foot"><slot name="foot" /></div>
+      <div v-if="$slots.default" class="anx-modal__body"><slot /></div>
+      <div v-if="$slots.foot" class="anx-modal__foot"><slot name="foot" /></div>
     </div>
   </Teleport>
 </template>

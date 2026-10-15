@@ -12,10 +12,10 @@ withDefaults(
 </script>
 
 <template>
-  <div class="empty">
-    <div class="empty__icon"><Icon :name="icon" :size="24" /></div>
-    <p class="empty__title">{{ title }}</p>
-    <p v-if="text || $slots.text" class="empty__text"><slot name="text">{{ text }}</slot></p>
-    <div v-if="$slots.actions" class="empty__actions"><slot name="actions" /></div>
+  <div class="anx-empty">
+    <div class="anx-empty__icon"><Icon :name="icon" :size="24" /></div>
+    <p class="anx-empty__title">{{ title }}</p>
+    <p v-if="text || $slots.text" class="anx-empty__text"><slot name="text">{{ text }}</slot></p>
+    <div v-if="$slots.actions" class="anx-empty__actions"><slot name="actions" /></div>
   </div>
 </template>

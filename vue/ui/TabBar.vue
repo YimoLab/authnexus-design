@@ -60,9 +60,9 @@ watch(() => props.active, measureSoon, { flush: 'post' })
 </script>
 
 <template>
-  <div ref="root" class="tabs" :class="{ 'is-ready': ready }" role="tablist">
+  <div ref="root" class="anx-tabs" :class="{ 'is-ready': ready }" role="tablist">
     <span
-      class="tabs__ink"
+      class="anx-tabs__ink"
       :class="{ 'is-ready': ready }"
       :style="{ width: ink.w + 'px', transform: `translateX(${ink.x}px)` }"
       aria-hidden="true"

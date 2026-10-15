@@ -39,15 +39,15 @@ function onInput(e: Event) {
 </script>
 
 <template>
-  <div class="od-field field">
-    <label v-if="label" class="field__label" :for="fieldId"
-      >{{ label }}<span v-if="required" class="req" aria-hidden="true">*</span></label
+  <div class="od-field anx-field">
+    <label v-if="label" class="anx-field__label" :for="fieldId"
+      >{{ label }}<span v-if="required" class="anx-req" aria-hidden="true">*</span></label
     >
 
     <textarea
       v-if="type === 'textarea'"
-      class="textarea"
-      :class="{ 'input--mono': mono }"
+      class="anx-textarea"
+      :class="{ 'anx-input--mono': mono }"
       :id="fieldId"
       :name="name || fieldId"
       :rows="rows"
@@ -75,8 +75,8 @@ function onInput(e: Event) {
 
     <input
       v-else
-      class="input"
-      :class="{ 'input--mono': mono }"
+      class="anx-input"
+      :class="{ 'anx-input--mono': mono }"
       :id="fieldId"
       :name="name || fieldId"
       :type="type"
@@ -93,8 +93,8 @@ function onInput(e: Event) {
       @input="onInput"
     />
 
-    <p v-if="hint" class="field__hint" :id="fieldId + '_hint'"><slot name="hint">{{ hint }}</slot></p>
-    <p v-if="error" class="field__error">
+    <p v-if="hint" class="anx-field__hint" :id="fieldId + '_hint'"><slot name="hint">{{ hint }}</slot></p>
+    <p v-if="error" class="anx-field__error">
       <Icon name="alert-circle" :size="14" />
       <span>{{ error }}</span>
     </p>

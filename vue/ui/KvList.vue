@@ -7,8 +7,8 @@ const isHtml = (row: KvRow) => row.length > 2 && !!row[2]
 </script>
 
 <template>
-  <dl class="kv" :class="{ 'kv--tight': tight }">
-    <div v-for="(row, i) in rows" :key="i" class="kv__row">
+  <dl class="anx-kv" :class="{ 'anx-kv--tight': tight }">
+    <div v-for="(row, i) in rows" :key="i" class="anx-kv__row">
       <dt>{{ row[0] }}</dt>
       <dd v-if="isHtml(row)" v-html="row[1]" />
       <dd v-else>{{ row[1] }}</dd>

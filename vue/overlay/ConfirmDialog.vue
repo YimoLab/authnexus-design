@@ -34,18 +34,18 @@ function confirm() {
     <component :is="body" v-if="body" />
     <template #foot>
       <template v-if="infoOnly">
-        <button type="button" class="btn btn--primary" data-autofocus @click="overlay.close()">
+        <button type="button" class="anx-btn anx-btn--primary" data-autofocus @click="overlay.close()">
           {{ confirmText || '知道了' }}
         </button>
       </template>
       <template v-else>
-        <button type="button" class="btn btn--ghost" @click="overlay.close()">
+        <button type="button" class="anx-btn anx-btn--ghost" @click="overlay.close()">
           {{ cancelText || '取消' }}
         </button>
         <button
           type="button"
-          class="btn"
-          :class="tone === 'danger' ? 'btn--danger' : 'btn--primary'"
+          class="anx-btn"
+          :class="tone === 'danger' ? 'anx-btn--danger' : 'anx-btn--primary'"
           data-autofocus
           @click="confirm"
         >

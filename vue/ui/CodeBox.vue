@@ -40,18 +40,18 @@ async function copyIt() {
 </script>
 
 <template>
-  <div class="codeblock">
-    <code class="code" :class="{ 'code--wrap': wrap, 'code--plain': !copy }">{{ value }}</code>
+  <div class="anx-codeblock">
+    <code class="anx-code" :class="{ 'anx-code--wrap': wrap, 'anx-code--plain': !copy }">{{ value }}</code>
     <button
       v-if="copy"
       type="button"
-      class="copybtn codeblock__copy"
+      class="anx-copybtn anx-codeblock__copy"
       :class="{ 'is-done': done }"
       aria-label="复制内容"
       @click="copyIt"
     >
       <Icon :name="done ? 'check' : 'copy'" :size="14" />
-      <span class="visually-hidden">{{ done ? '已复制' : '复制' }}</span>
+      <span class="anx-visually-hidden">{{ done ? '已复制' : '复制' }}</span>
     </button>
   </div>
 </template>

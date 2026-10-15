@@ -57,11 +57,27 @@ document.getElementById('demo-modal-confirm').addEventListener('click', () => {
 })
 
 /* ---------- Toast ---------- */
+/* tone 图标取自资产 lib/icons.ts（与 ToastHost.vue 相同）：ok=check-circle /
+   danger=alert-circle / info=info；关闭按钮用 close 图标 */
+const TOAST_ICONS = {
+  ok: '<circle cx="12" cy="12" r="8.6"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/>',
+  danger: '<circle cx="12" cy="12" r="8.6"/><path d="M12 7.8v4.8"/><path d="M12 16.2h.01" stroke-width="2.2"/>',
+  info: '<circle cx="12" cy="12" r="8.6"/><path d="M12 11.4v4.8"/><path d="M12 7.8h.01" stroke-width="2.2"/>',
+  close: '<path d="m6.2 6.2 11.6 11.6M17.8 6.2 6.2 17.8"/>',
+}
+function toastIcon(body, size) {
+  return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`
+}
 function showToast(tone, title, text) {
   const layer = document.getElementById('toast-layer')
   const el = document.createElement('div')
   el.className = 'toast toast--' + tone
   el.setAttribute('role', tone === 'danger' ? 'alert' : 'status')
+  /* 图标（与 ToastHost.vue 一致——tone 的视觉区分在 .toast__icon 的颜色上） */
+  const icon = document.createElement('span')
+  icon.className = 'toast__icon'
+  icon.innerHTML = toastIcon(TOAST_ICONS[tone] || TOAST_ICONS.info, 18)
+  el.appendChild(icon)
   const body = document.createElement('div')
   body.className = 'toast__body'
   const t = document.createElement('div')
@@ -78,8 +94,8 @@ function showToast(tone, title, text) {
   const close = document.createElement('button')
   close.className = 'toast__close'
   close.type = 'button'
-  close.setAttribute('aria-label', '关闭')
-  close.textContent = '✕'
+  close.setAttribute('aria-label', '关闭通知')
+  close.innerHTML = toastIcon(TOAST_ICONS.close, 14)
   el.appendChild(close)
   layer.appendChild(el)
   const dismiss = () => {

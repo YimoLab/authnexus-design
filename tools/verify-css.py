@@ -35,6 +35,8 @@ def strip_comments(text: str) -> str:
 
 
 def normalize(text: str) -> str:
+    # 前缀感知：比对时剥掉 anx-，使资产（前缀版）与鉴枢源（无前缀）仍可逐条对齐
+    text = re.sub(r"\.anx-(?=[a-zA-Z])", ".", text)
     return re.sub(r"\s+", " ", text).strip()
 
 

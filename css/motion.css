@@ -16,8 +16,8 @@
 
 /* 32.1 分段开关（SegmentedControl.vue）：选中态从「瞬间换色」改为滑块平移。
    滑块几何由组件测量（选项文案长度不一，不能用等分宽度），首帧只定位不播动画。 */
-.segmented { position: relative; }
-.segmented__thumb {
+.anx-segmented { position: relative; }
+.anx-segmented__thumb {
   position: absolute; top: 4px; bottom: 4px; left: 0;
   border-radius: var(--r-xs);
   background: var(--ink);
@@ -25,54 +25,54 @@
 }
 /* 就位前（首帧）：选中项先按普通文字色，避免反白字先闪在浅底上；
    滑块就位与文字反白发生在同一帧，之后移动（transform/width）才走过渡 */
-.segmented:not(.is-ready) .segmented__opt[aria-pressed="true"] { color: var(--ink); }
-.segmented.is-ready .segmented__thumb {
+.anx-segmented:not(.is-ready) .anx-segmented__opt[aria-pressed="true"] { color: var(--ink); }
+.anx-segmented.is-ready .anx-segmented__thumb {
   opacity: 1;
   transition: transform .24s var(--ease), width .24s var(--ease);
 }
-.segmented__opt { position: relative; z-index: 1; }
+.anx-segmented__opt { position: relative; z-index: 1; }
 /* 选中实底改由滑块承担，按钮只负责文字反白 */
-.segmented__opt[aria-pressed="true"] { background: transparent; }
+.anx-segmented__opt[aria-pressed="true"] { background: transparent; }
 
 /* 32.2 弹窗内容切换（MfaModal.vue）：扫码 ↔ 手动按切换方向左右滑动 */
-.mfa-fwd-enter-active, .mfa-back-enter-active { transition: opacity .2s var(--ease), transform .2s var(--ease); }
-.mfa-fwd-leave-active, .mfa-back-leave-active {
+.anx-mfa-fwd-enter-active, .anx-mfa-back-enter-active { transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.anx-mfa-fwd-leave-active, .anx-mfa-back-leave-active {
   transition: opacity .13s var(--ease), transform .13s var(--ease);
   pointer-events: none; /* 离开中的旧内容不可再交互 */
 }
-.mfa-fwd-enter-from { opacity: 0; transform: translateX(26px); }
-.mfa-fwd-leave-to   { opacity: 0; transform: translateX(-26px); }
-.mfa-back-enter-from { opacity: 0; transform: translateX(-26px); }
-.mfa-back-leave-to   { opacity: 0; transform: translateX(26px); }
+.anx-mfa-fwd-enter-from { opacity: 0; transform: translateX(26px); }
+.anx-mfa-fwd-leave-to   { opacity: 0; transform: translateX(-26px); }
+.anx-mfa-back-enter-from { opacity: 0; transform: translateX(-26px); }
+.anx-mfa-back-leave-to   { opacity: 0; transform: translateX(26px); }
 
 /* 32.3 分页列表：翻页时整块左右滑动（方向由 usePager 的 direction 决定）。
    六个分页视图（审计 / 审核 / 授权 / 令牌 / 用户 / 应用）共用同一组类名：
    表格用 <tbody :key="page">、div 行列表用 keyed 容器包住行区域。 */
 /* 裁剪容器：滑动中的内容不越出面板边界。表格用「整块滑动」而不是只动 tbody——
    实测 tbody 位移会撑大 .table-wrap 的滚动范围、闪出横向滚动条。 */
-.paged-clip { overflow: hidden; }
+.anx-paged-clip { overflow: hidden; }
 
-.paged-fwd-enter-active, .paged-back-enter-active { transition: opacity .18s var(--ease), transform .18s var(--ease); }
-.paged-fwd-leave-active, .paged-back-leave-active {
+.anx-paged-fwd-enter-active, .anx-paged-back-enter-active { transition: opacity .18s var(--ease), transform .18s var(--ease); }
+.anx-paged-fwd-leave-active, .anx-paged-back-leave-active {
   transition: opacity .13s var(--ease), transform .13s var(--ease);
   pointer-events: none; /* 离开中的旧行不可点击 */
 }
-.paged-fwd-enter-from { opacity: 0; transform: translateX(28px); }
-.paged-fwd-leave-to   { opacity: 0; transform: translateX(-28px); }
-.paged-back-enter-from { opacity: 0; transform: translateX(-28px); }
-.paged-back-leave-to   { opacity: 0; transform: translateX(28px); }
+.anx-paged-fwd-enter-from { opacity: 0; transform: translateX(28px); }
+.anx-paged-fwd-leave-to   { opacity: 0; transform: translateX(-28px); }
+.anx-paged-back-enter-from { opacity: 0; transform: translateX(-28px); }
+.anx-paged-back-leave-to   { opacity: 0; transform: translateX(28px); }
 
 /* 32.4 路由内容进出场（components/shell/RouteFade.vue，三个外壳统一启用） */
-.routefade-enter-active { transition: opacity .2s var(--ease), transform .2s var(--ease); }
-.routefade-enter-from { opacity: 0; transform: translateY(10px); }
-.routefade-leave-active { transition: opacity .1s var(--ease); pointer-events: none; }
-.routefade-leave-to { opacity: 0; }
+.anx-routefade-enter-active { transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.anx-routefade-enter-from { opacity: 0; transform: translateY(10px); }
+.anx-routefade-leave-active { transition: opacity .1s var(--ease); pointer-events: none; }
+.anx-routefade-leave-to { opacity: 0; }
 
 /* 32.5 分页按钮的按压反馈 */
-.pager__btn {
+.anx-pager__btn {
   transition: background-color var(--t) var(--ease), color var(--t) var(--ease), transform .12s var(--ease);
 }
-.pager__btn:active:not(:disabled) { transform: scale(.92); }
+.anx-pager__btn:active:not(:disabled) { transform: scale(.92); }
 
 
 /* --------------------------------------------------------------------------
@@ -81,7 +81,7 @@
    因此这里不需要过渡规则（也不受「减少动效」的媒体查询影响——那种情况 JS 直接跳过动画）。
    -------------------------------------------------------------------------- */
 
-.theme-ripple {
+.anx-theme-ripple {
   position: fixed; inset: 0;
   z-index: 300;                 /* 高于浮层(100)与 toast(200) */
   pointer-events: none;

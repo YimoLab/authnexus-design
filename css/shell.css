@@ -16,16 +16,16 @@
    4. 应用外壳
    -------------------------------------------------------------------------- */
 
-.app { min-height: 100dvh; }
+.anx-app { min-height: 100dvh; }
 
 /* 4.1 控制台外壳 */
 /* 侧栏改为浮层，主内容靠左内边距让位 */
-.shell {
+.anx-shell {
   min-height: 100dvh;
   background: var(--page);
 }
 
-.shell__side {
+.anx-shell__side {
   position: fixed; top: var(--nav-gap); left: var(--gutter); bottom: var(--nav-gap);
   z-index: 40;
   width: var(--sidebar-w);
@@ -40,52 +40,52 @@
   transition: width var(--t) var(--ease);
 }
 
-.brandbar {
+.anx-brandbar {
   display: flex; align-items: center; gap: 12px;
   height: var(--nav-h); padding: 0 20px; flex: none;
   border-bottom: 1px solid var(--border);
 }
-.brandbar__mark { color: var(--ink); display: block; line-height: 0; }
-.brandbar__name { font-size: 16px; font-weight: 700; letter-spacing: -.022em; }
-.brandbar__sub {
+.anx-brandbar__mark { color: var(--ink); display: block; line-height: 0; }
+.anx-brandbar__name { font-size: 16px; font-weight: 700; letter-spacing: -.022em; }
+.anx-brandbar__sub {
   display: block; font-size: 12px; font-weight: 500; letter-spacing: .01em;
   color: var(--muted-text); margin-top: -1px;
 }
 
-.sidenav { flex: 1 1 auto; overflow-y: auto; padding: 16px 12px 24px; }
-.sidenav__group + .sidenav__group { margin-top: 24px; }
-.sidenav__label {
+.anx-sidenav { flex: 1 1 auto; overflow-y: auto; padding: 16px 12px 24px; }
+.anx-sidenav__group + .anx-sidenav__group { margin-top: 24px; }
+.anx-sidenav__label {
   display: block; padding: 0 12px 8px;
   font-size: 12px; font-weight: 600; letter-spacing: .04em;
   color: var(--muted-text);
 }
-.sidenav__item {
+.anx-sidenav__item {
   display: flex; align-items: center; gap: 12px;
   height: 40px; padding: 0 12px; margin-bottom: 2px;
   border-radius: var(--r);
   color: var(--ink); font-size: 14px; font-weight: 500;
   transition: background-color var(--t) var(--ease), color var(--t) var(--ease);
 }
-.sidenav__item:hover { background: var(--surface-2); text-decoration: none; }
-.sidenav__item[aria-current="page"] {
+.anx-sidenav__item:hover { background: var(--surface-2); text-decoration: none; }
+.anx-sidenav__item[aria-current="page"] {
   /* 酸橙绿实底上的文字统一走 --on-acid：浅色模式等同墨色，深色模式自动转为深色，
      避免浅色文字压在亮绿上（对比度约 1.2:1）。 */
   background: var(--acid); color: var(--on-acid); font-weight: 600;
 }
-.sidenav__item svg { color: var(--muted-text); }
-.sidenav__item:hover svg { color: var(--ink); }
-.sidenav__item[aria-current="page"] svg { color: var(--on-acid); }
-.sidenav__count {
+.anx-sidenav__item svg { color: var(--muted-text); }
+.anx-sidenav__item:hover svg { color: var(--ink); }
+.anx-sidenav__item[aria-current="page"] svg { color: var(--on-acid); }
+.anx-sidenav__count {
   margin-left: auto; min-width: 22px; padding: 0 7px;
   border-radius: var(--r-pill); background: var(--surface-3); color: var(--ink);
   font-size: 12px; font-weight: 600; line-height: 20px; text-align: center;
   font-variant-numeric: tabular-nums;
 }
-.sidenav__item[aria-current="page"] .sidenav__count { background: rgba(38, 38, 38, .16); color: var(--on-acid); }
+.anx-sidenav__item[aria-current="page"] .anx-sidenav__count { background: rgba(38, 38, 38, .16); color: var(--on-acid); }
 
-.shell__sidefoot { flex: none; border-top: 1px solid var(--border); padding: 14px 12px; }
+.anx-shell__sidefoot { flex: none; border-top: 1px solid var(--border); padding: 14px 12px; }
 
-.shell__main {
+.anx-shell__main {
   min-width: 0;
   min-height: 100dvh;
   display: flex; flex-direction: column;
@@ -93,7 +93,7 @@
   transition: padding-left var(--t) var(--ease);
 }
 
-.topbar {
+.anx-topbar {
   position: sticky; top: var(--nav-gap); z-index: 30;
   height: var(--nav-h); flex: none;
   display: flex; align-items: center; gap: 16px;
@@ -106,33 +106,33 @@
   border: 1px solid var(--glass-line);
   box-shadow: var(--glass-shadow);
 }
-.topbar__title { font-size: 15px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.topbar__crumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted-text); flex: none; }
-.topbar__crumb a { color: var(--muted-text); }
-.topbar__crumbs { min-width: 0; overflow: hidden; display: flex; align-items: center; gap: 10px; }
-.topbar__actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.anx-topbar__title { font-size: 15px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.anx-topbar__crumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted-text); flex: none; }
+.anx-topbar__crumb a { color: var(--muted-text); }
+.anx-topbar__crumbs { min-width: 0; overflow: hidden; display: flex; align-items: center; gap: 10px; }
+.anx-topbar__actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 
 /* 内容区上移钻到浮动导航下方，滚动时从玻璃背后穿过；顶部内边距再把它推回来。
    左侧不留内边距——左边距统一由 .shell__main 提供，顶栏与内容左缘才能对齐。 */
-.shell__body {
+.anx-shell__body {
   flex: 1;
   margin-top: calc(-1 * var(--nav-total));
   padding: calc(var(--nav-total) + 32px) var(--gutter) 96px 0;
 }
-.shell__inner { max-width: var(--container); margin: 0 auto; }
+.anx-shell__inner { max-width: var(--container); margin: 0 auto; }
 
 /* 4.2 简洁外壳 */
-.plain {
+.anx-plain {
   min-height: 100dvh; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   padding: 48px 24px; gap: 32px;
   background: var(--page);
 }
-.plain--top { justify-content: flex-start; padding-top: 64px; }
-.plain__foot { font-size: 13px; color: var(--muted-text); text-align: center; max-width: 52ch; line-height: 1.6; }
+.anx-plain--top { justify-content: flex-start; padding-top: 64px; }
+.anx-plain__foot { font-size: 13px; color: var(--muted-text); text-align: center; max-width: 52ch; line-height: 1.6; }
 
 /* 4.3 用户中心外壳 */
-.userbar {
+.anx-userbar {
   position: sticky; top: var(--nav-gap); z-index: 30; height: var(--nav-h);
   display: flex; align-items: center;
   margin: var(--nav-gap) var(--gutter) 0;
@@ -144,25 +144,25 @@
   border: 1px solid var(--glass-line);
   box-shadow: var(--glass-shadow);
 }
-.userbar__inner {
+.anx-userbar__inner {
   width: 100%; max-width: var(--container); margin: 0 auto;
   display: flex; align-items: center; gap: 16px;
 }
-.userbar .brandbar { border-bottom: 0; padding-left: 0; height: auto; }
-.usernav { display: flex; align-items: center; gap: 4px; margin-left: 12px; }
-.usernav__item {
+.anx-userbar .anx-brandbar { border-bottom: 0; padding-left: 0; height: auto; }
+.anx-usernav { display: flex; align-items: center; gap: 4px; margin-left: 12px; }
+.anx-usernav__item {
   padding: 8px 14px; border-radius: var(--r-pill);
   font-size: 14px; font-weight: 500; color: var(--ink);
   transition: background-color var(--t) var(--ease);
 }
-.usernav__item:hover { background: var(--surface-2); text-decoration: none; }
-.usernav__item[aria-current="page"] { background: var(--acid); color: var(--on-acid); font-weight: 600; }
+.anx-usernav__item:hover { background: var(--surface-2); text-decoration: none; }
+.anx-usernav__item[aria-current="page"] { background: var(--acid); color: var(--on-acid); font-weight: 600; }
 
-.userwrap {
+.anx-userwrap {
   margin-top: calc(-1 * var(--nav-total));
   padding: calc(var(--nav-total) + 32px) var(--gutter) 96px;
 }
-.userwrap__inner { max-width: var(--container); margin: 0 auto; }
+.anx-userwrap__inner { max-width: var(--container); margin: 0 auto; }
 
 
 
@@ -172,10 +172,10 @@
    参考原型用 JS 控制该按钮的显隐；这里改用纯 CSS 断点，行为一致。
    -------------------------------------------------------------------------- */
 
-.mobile-nav-toggle { display: none; }
+.anx-mobile-nav-toggle { display: none; }
 
 @media (max-width: 1023px) {
-  .mobile-nav-toggle { display: inline-flex; }
+  .anx-mobile-nav-toggle { display: inline-flex; }
 }
 
 
@@ -186,49 +186,49 @@
 
 @media (max-width: 1023px) {
   /* 抽屉贴左边缘，只在右侧留圆角 */
-  .shell__side {
+  .anx-shell__side {
     inset: 0 auto 0 0; z-index: 80;
     width: min(300px, 86vw);
     border-radius: 0 var(--glass-radius) var(--glass-radius) 0;
     transform: translateX(-100%);
     transition: transform var(--t) var(--ease);
   }
-  .shell__side.is-open { transform: translateX(0); }
+  .anx-shell__side.is-open { transform: translateX(0); }
 
-  .shell__main { padding-left: 0; }
+  .anx-shell__main { padding-left: 0; }
 
-  .shell__scrim {
+  .anx-shell__scrim {
     position: fixed; inset: 0; z-index: 79;
     background: rgba(38, 38, 38, .32);
     animation: fade-in var(--t) var(--ease);
   }
-  [data-theme="dark"] .shell__scrim { background: rgba(0, 0, 0, .58); }
+  [data-theme="dark"] .anx-shell__scrim { background: rgba(0, 0, 0, .58); }
 
-  .topbar { margin: var(--nav-gap) 16px 0; padding: 0 12px; }
-  .shell__body { padding: calc(var(--nav-total) + 24px) 16px 80px; }
+  .anx-topbar { margin: var(--nav-gap) 16px 0; padding: 0 12px; }
+  .anx-shell__body { padding: calc(var(--nav-total) + 24px) 16px 80px; }
 
-  .usernav { display: none; }
-  .userbar { margin: var(--nav-gap) 16px 0; padding: 0 12px; }
-  .userwrap { padding: calc(var(--nav-total) + 24px) 16px 80px; }
+  .anx-usernav { display: none; }
+  .anx-userbar { margin: var(--nav-gap) 16px 0; padding: 0 12px; }
+  .anx-userwrap { padding: calc(var(--nav-total) + 24px) 16px 80px; }
 }
 
 @media (max-width: 640px) {
-  .userbar .topbar__actions > .btn { display: none; }
-  .topbar__crumb { display: none; }
+  .anx-userbar .anx-topbar__actions > .anx-btn { display: none; }
+  .anx-topbar__crumb { display: none; }
 }
 
 @media (max-width: 540px) {
-  .shell__body { padding: calc(var(--nav-total) + 20px) 14px 72px; }
-  .topbar { margin: var(--nav-gap) 12px 0; padding: 0 10px; gap: 8px; }
-  .userbar { margin: var(--nav-gap) 12px 0; padding: 0 10px; }
+  .anx-shell__body { padding: calc(var(--nav-total) + 20px) 14px 72px; }
+  .anx-topbar { margin: var(--nav-gap) 12px 0; padding: 0 10px; gap: 8px; }
+  .anx-userbar { margin: var(--nav-gap) 12px 0; padding: 0 10px; }
 }
 
 @media (max-width: 400px) {
-  .brandbar__sub { display: none; }
+  .anx-brandbar__sub { display: none; }
 }
 
 @media print {
-  .shell__side, .topbar, .userbar, .toast-layer, .overlay-layer { display: none !important; }
-  .shell { grid-template-columns: minmax(0, 1fr); }
+  .anx-shell__side, .anx-topbar, .anx-userbar, .anx-toast-layer, .anx-overlay-layer { display: none !important; }
+  .anx-shell { grid-template-columns: minmax(0, 1fr); }
   body { background: #fff; }
 }

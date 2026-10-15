@@ -201,7 +201,7 @@
 @media (prefers-reduced-transparency: reduce) {
   :root { --glass-bg: var(--surface); --glass-panel-bg: var(--surface); --glass-panel-sheen: none; --glass-line: var(--border); }
   [data-theme="dark"] { --glass-bg: var(--surface); --glass-panel-bg: var(--surface); --glass-panel-sheen: none; --glass-line: var(--border); }
-  .topbar, .userbar, .modal, .drawer, .toast, .menu__panel, .sidepop {
+  .anx-topbar, .anx-userbar, .anx-modal, .anx-drawer, .anx-toast, .anx-menu__panel, .anx-sidepop {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }

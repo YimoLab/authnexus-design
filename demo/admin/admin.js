@@ -201,8 +201,8 @@ const APPS = [
 const PAGE_SIZE = 5
 const PAGE_COUNT = Math.ceil(APPS.length / PAGE_SIZE)
 const STATUS_BADGE = {
-  ok: '<span class="badge badge--ok">已上线</span>',
-  warn: '<span class="badge badge--warn">待审核</span>',
+  ok: '<span class="anx-badge anx-badge--ok">已上线</span>',
+  warn: '<span class="anx-badge anx-badge--warn">待审核</span>',
 }
 let appsPage = 1
 const tbody = document.getElementById('apps-tbody')
@@ -213,12 +213,12 @@ function renderApps() {
     .map(
       (r) => `
       <tr>
-        <td><div class="cell-main"><span class="appicon appicon--letter">${r.name.slice(0, 1)}</span>
-          <div><div class="cell-title">${r.name}</div><div class="cell-sub">${r.id}</div></div></div></td>
+        <td><div class="anx-cell-main"><span class="anx-appicon anx-appicon--letter">${r.name.slice(0, 1)}</span>
+          <div><div class="anx-cell-title">${r.name}</div><div class="anx-cell-sub">${r.id}</div></div></div></td>
         <td>${r.owner}</td>
         <td>${STATUS_BADGE[r.status]}</td>
         <td class="is-num">${r.calls}</td>
-        <td><div class="cell-actions"><button class="btn btn--sm btn--ghost" type="button" data-detail="${r.id}">详情</button></div></td>
+        <td><div class="anx-cell-actions"><button class="anx-btn anx-btn--sm anx-btn--ghost" type="button" data-detail="${r.id}">详情</button></div></td>
       </tr>`,
     )
     .join('')
@@ -250,12 +250,12 @@ tbody.addEventListener('click', (e) => {
 /* ---------- 抽屉（应用详情） ---------- */
 function openAppDrawer(app) {
   document.getElementById('demo-drawer-kv').innerHTML = `
-    <div class="kv__row"><dt>应用名称</dt><dd>${app.name}</dd></div>
-    <div class="kv__row"><dt>应用 ID</dt><dd>${app.id}</dd></div>
-    <div class="kv__row"><dt>状态</dt><dd>${STATUS_BADGE[app.status]}</dd></div>
-    <div class="kv__row"><dt>归属</dt><dd>${app.owner}</dd></div>
-    <div class="kv__row"><dt>调用数</dt><dd>${app.calls}</dd></div>
-    <div class="kv__row"><dt>最近调用</dt><dd>2026-10-14 16:02:11</dd></div>`
+    <div class="anx-kv__row"><dt>应用名称</dt><dd>${app.name}</dd></div>
+    <div class="anx-kv__row"><dt>应用 ID</dt><dd>${app.id}</dd></div>
+    <div class="anx-kv__row"><dt>状态</dt><dd>${STATUS_BADGE[app.status]}</dd></div>
+    <div class="anx-kv__row"><dt>归属</dt><dd>${app.owner}</dd></div>
+    <div class="anx-kv__row"><dt>调用数</dt><dd>${app.calls}</dd></div>
+    <div class="anx-kv__row"><dt>最近调用</dt><dd>2026-10-14 16:02:11</dd></div>`
   show('demo-drawer')
 }
 
@@ -311,7 +311,7 @@ document.getElementById('danger-reset').addEventListener('click', () => {
   openConfirm({
     title: '重置演示数据？',
     desc: '应用列表、动态与统计将恢复到初始状态。',
-    bodyHtml: '<div class="alert alert--danger"><div class="alert__body"><div class="alert__text">此操作不可撤销（演示环境无实际影响）。</div></div></div>',
+    bodyHtml: '<div class="anx-alert anx-alert--danger"><div class="anx-alert__body"><div class="anx-alert__text">此操作不可撤销（演示环境无实际影响）。</div></div></div>',
     confirmText: '重置',
     danger: true,
     onConfirm: () => { appsPage = 1; renderApps(); showToast('info', '已重置演示数据') },

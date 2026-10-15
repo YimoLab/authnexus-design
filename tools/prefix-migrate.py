@@ -23,14 +23,16 @@
 
 安全：CSS 侧先保护注释与 url(...) 内容；已经是 anx- 的名字跳过（可重复执行）。
 """
+import os
 import re
 import sys
 import json
 import argparse
 import pathlib
 
-ROOT = pathlib.Path(r"E:/CasuaIness/Personal/authnexus-design")
-MAP_FILE = ROOT / "tools" / "class-map.json"
+ROOT = pathlib.Path(os.environ.get("ANX_ROOT", r"E:/CasuaIness/Personal/authnexus-design"))
+# 映射表始终取自资产仓库（它是资产类的唯一真相），与 ROOT 无关
+MAP_FILE = pathlib.Path(r"E:/CasuaIness/Personal/authnexus-design/tools/class-map.json")
 PREFIX = "anx-"
 
 # 明确不加前缀的前缀
@@ -38,12 +40,14 @@ SKIP_PREFIX = ("is-", "has-", "js-", "od-", "g-", "anx-")
 
 # 各目标的文件集合
 TARGETS = {
-    "css":    ["css/*.css"],
-    "vue":    ["vue/**/*.vue", "vue/**/*.ts"],
-    "audit":  ["audit/*.mjs"],
+    "css":    ["css/*.css", "app/src/styles/*.css"],
+    "vue":    ["vue/**/*.vue", "vue/**/*.ts",
+               "app/src/**/*.vue", "app/src/**/*.ts"],
+    "audit":  ["audit/*.mjs", "app/scripts/*.mjs"],
     "web":    ["gallery/index.html", "gallery/gallery.js",
                "demo/admin/index.html", "demo/admin/admin.js",
-               "examples/react/index.html", "examples/react/src/*.tsx"],
+               "examples/react/index.html", "examples/react/src/*.tsx",
+               "app/index.html"],
     # 注意：tools/ 下的 .py/.sh **不纳入**——它们的 .stat() / 域名 / 扩展名会被误判为 class
     "docs":   ["README.md", "docs/*.md", "vue/README.md", "demo/README.md",
                "audit/README.md", "examples/vue/README.md", "examples/react/README.md",

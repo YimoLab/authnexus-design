@@ -14,14 +14,16 @@
   python tools/migrate-selectors.py --dry-run
   python tools/migrate-selectors.py --apply
 """
+import os
 import re
 import sys
 import json
 import argparse
 import pathlib
 
-ROOT = pathlib.Path(r"E:/CasuaIness/Personal/authnexus-design")
-MAP_FILE = ROOT / "tools" / "class-map.json"
+ROOT = pathlib.Path(os.environ.get("ANX_ROOT", r"E:/CasuaIness/Personal/authnexus-design"))
+# 映射表始终取自资产仓库（它是资产类的唯一真相），与 ROOT 无关
+MAP_FILE = pathlib.Path(r"E:/CasuaIness/Personal/authnexus-design/tools/class-map.json")
 SKIP_PREFIX = ("anx-", "is-", "has-", "js-", "od-", "g-")
 
 TARGETS = [
@@ -30,6 +32,8 @@ TARGETS = [
     "gallery/gallery.js", "gallery/index.html",
     "demo/admin/admin.js", "demo/admin/index.html",
     "examples/react/index.html", "examples/react/src/*.tsx",
+    # 鉴枢（消费方）——映射表仍取自资产仓库
+    "app/index.html", "app/src/**/*.vue", "app/src/**/*.ts", "app/scripts/*.mjs",
 ]
 
 CLASS_RE = re.compile(r"\.([a-zA-Z][\w-]*)")

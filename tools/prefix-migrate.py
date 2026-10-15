@@ -44,9 +44,10 @@ TARGETS = {
     "web":    ["gallery/index.html", "gallery/gallery.js",
                "demo/admin/index.html", "demo/admin/admin.js",
                "examples/react/index.html", "examples/react/src/*.tsx"],
+    # 注意：tools/ 下的 .py/.sh **不纳入**——它们的 .stat() / 域名 / 扩展名会被误判为 class
     "docs":   ["README.md", "docs/*.md", "vue/README.md", "demo/README.md",
                "audit/README.md", "examples/vue/README.md", "examples/react/README.md",
-               "gallery/*.md", "tools/*.py", "tools/*.sh", "tools/*.mjs"],
+               "gallery/*.md"],
 }
 # 只在 docs/tools 里替换「反引号包裹的 class」与「选择器」，避免误伤散文
 DOC_SAFE = True
@@ -271,23 +272,22 @@ DOC_CLASS = re.compile(r"\.([a-zA-Z][\w-]*)")
 
 
 def migrate_doc(text: str, cmap: dict):
-    """文档里只替换反引号包裹的 `.class` 与行内代码块中的 class 引用，
-    避免把散文/文件名里的点号误改。"""
+    """文档里只替换代码区（``` 块与 `行内代码`）中的 `.class`，
+    避免把散文与文件名里的点号误改。"""
     changed = [0]
     protect = re.compile(r"(```.*?```|`[^`\n]*`)", re.S)
     parts = protect.split(text)
 
-    def repl(seg):
-        def inner(m):
-            new = map_name(m.group(1), cmap)
-            if new:
-                changed[0] += 1
-                return "." + new
-            return m.group(0)
-        return DOC_CLASS.sub(inner, seg)
+    def inner(m):
+        new = map_name(m.group(1), cmap)
+        if new:
+            changed[0] += 1
+            return "." + new
+        return m.group(0)
 
     for i in range(0, len(parts), 2):
-        parts[i] = inner(parts[i])
+        if parts[i]:
+            parts[i] = DOC_CLASS.sub(inner, parts[i])
     return "".join(parts), changed[0]
 
 

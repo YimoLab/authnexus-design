@@ -154,14 +154,33 @@ confirmDialog({
 <button class="iconbtn" @click="toggleTheme({ origin: $event.currentTarget })">…</button>
 ```
 
-## 5. React 项目路径
+## 5. 命名空间（`anx-` 前缀）
+
+自 v0.1 起，全部 class 进入 `anx-` 命名空间——这是本资产作为**库**（而非一段复制的 CSS）
+的前提：Element 用 `el-`、AntD 用 `ant-` 是同一个理由。
+
+| 原写法 | 现写法 |
+|---|---|
+| `.btn` | `.anx-btn` |
+| `.btn--primary` | `.anx-btn--primary` |
+| `.fsel__btn` | `.anx-fsel__btn` |
+| `.page-head` | `.anx-page-head`（单连 hyphen 属名字的一部分） |
+| `.t-h1` | `.anx-t-h1`（同上） |
+
+**不加前缀**：`is-*` `has-*` `js-*`（状态类，依附于具体组件）、`od-*`（OpenDesign 第三方层）、
+`g-*`（画廊私有）。CSS 自定义属性（`--r` `--acid` `--glass-*`）与元素选择器（`div` `button`）不变。
+
+**给 AI 的提示**：写样式时只允许用 `anx-` 开头的资产类；需要新样式时优先在
+`css/brand.css`（品牌层）或项目自有样式文件里扩展，不要给资产类加新修饰符。
+
+## 6. React 项目路径
 
 1. 复制 `css/` 与 `fonts/`（与 Vue 项目完全相同，class 约定不变）；
 2. 组件**不复制 Vue 实现**：按 `docs/BEHAVIOR.md` 逐条实现（浮层铁律、键盘、定位算法、动效参数）；
 3. 用 `audit/` 的同一套断言验收——审计是浏览器黑盒，不看框架，通过即「一模一样」；
 4. 接线示例骨架见 `examples/react/`。
 
-## 6. 来源版本记录（防漂移）
+## 7. 来源版本记录（防漂移）
 
 每个消费项目在自己的 README 或 docs 记一行：
 
@@ -171,16 +190,16 @@ Design system: authnexus-design v0.1.0（复制于 2026-10-DD，三平台同名�
 
 本资产每次变更记录在 `CHANGELOG.md` 并打 tag；要升级时对照 CHANGELOG 决定是否重新复制。
 
-## 7. 常见坑速查（详见 BEHAVIOR.md 对应小节）
+## 8. 常见坑速查（详见 BEHAVIOR.md 对应小节）
 
 | 坑 | 规则 |
 |---|---|
 | **浮层 / Toast 完全不显示且无报错** | 检查 index.html 是否有 `#overlay-layer` / `#toast-layer` 容器（§0 第 4 步） |
-| scrim 压不暗顶栏 / 抽屉顶部被顶栏盖住 | 浮层对必须包在 `.overlay-layer` 内（z-index:100；浮层自身不设 z-index，手动挂载时最容易漏；BEHAVIOR §1.2） |
-| 三种 tone 的 toast 长得一样 | tone 的区分在 `.toast__icon` 的图标颜色（ok→check-circle / danger→alert-circle / info→info）——自绘 toast 必须包含 `<span class="toast__icon">` + 对应图标，漏了则三态无视觉区分 |
+| scrim 压不暗顶栏 / 抽屉顶部被顶栏盖住 | 浮层对必须包在 `.anx-overlay-layer` 内（z-index:100；浮层自身不设 z-index，手动挂载时最容易漏；BEHAVIOR §1.2） |
+| 三种 tone 的 toast 长得一样 | tone 的区分在 `.anx-toast__icon` 的图标颜色（ok→check-circle / danger→alert-circle / info→info）——自绘 toast 必须包含 `<span class="anx-toast__icon">` + 对应图标，漏了则三态无视觉区分 |
 | 浮层挂在玻璃祖先里，磨砂失效 | Teleport 挂 body + fixed + JS 坐标（BEHAVIOR §1.1） |
 | 下拉面板向右溢出 | 先设 min-width 再测量（§1.3） |
-| 原生 `<select>` 弹出层无法定制 | 资产只给了 `.select` 的盒样式（与 `.input` 同高同边框），**弹出层由系统绘制**——圆角/动效/玻璃全部失效，一律改用 SelectMenu（BEHAVIOR §3） |
+| 原生 `<select>` 弹出层无法定制 | 资产只给了 `.anx-select` 的盒样式（与 `.anx-input` 同高同边框），**弹出层由系统绘制**——圆角/动效/玻璃全部失效，一律改用 SelectMenu（BEHAVIOR §3） |
 | 只给 tbody 加 transform → 出横向滚动条 | 整块滑动 + `.paged-clip`（§4） |
 | 路由过渡整页空白 | RouteFade 内必须包 keyed 普通 div（§6） |
 | 主题闪一下 | index.html 预置脚本与 `authnexus.theme` 同键（§7 / 本文件 §3） |

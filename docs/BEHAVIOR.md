@@ -126,7 +126,7 @@
 - `.input-wrap` 有动作按钮时右侧预留 48px，无按钮（`:has()` 判定）时不预留。
 - 原生 checkbox/radio 用 `accent-color: var(--ink)`；开关是自绘 label + 隐藏 input。
 - `[hidden] { display: none !important }` 必须保留（否则条件显隐被组件自身 display 压过）。
-- 主按钮是墨黑底白字；**酸橙绿按钮（.btn--acid）只留给品牌时刻**（如授权同意）。
+- 主按钮是墨黑底白字；**酸橙绿按钮（.anx-btn--acid）只留给品牌时刻**（如授权同意）。
 
 ## 11. 字体与排版
 

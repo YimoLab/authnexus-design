@@ -20,6 +20,7 @@ CSS_DIR = pathlib.Path(r"E:/CasuaIness/Personal/authnexus-design/css")
 FILES = ["tokens.css", "brand.css", "base.css", "components.css", "motion.css", "shell.css"]
 
 # 已知预期差异（来源：品牌项移入 brand.css、资产版 print 块收窄、.segmented 宽度锁定增强）
+# 注：资产侧选择器带 anx- 前缀，但 normalize() 会在比对前剥离前缀，因此下面的键是**无前缀**形式
 EXPECTED_DIFF = {
     ("tokens.css", ":root"),
     ("tokens.css", '[data-theme="dark"]'),

@@ -70,8 +70,9 @@
 ## 3. index.html 参考
 
 ```html
-<!-- 字体：预加载最常用的一两个字重（可选），其余按需加载 -->
-<link rel="preload" href="/src/design/fonts/albert-sans-500-latin.woff2"
+<!-- 字体：预加载最常用的一两个字重（可选），其余按需加载。
+     Albert Sans 是可变字体：一份 albert-sans-latin.woff2 覆盖 400–700，勿按字重拆文件 -->
+<link rel="preload" href="/src/design/fonts/albert-sans-latin.woff2"
       as="font" type="font/woff2" crossorigin />
 
 <!-- 主题预置：必须在首帧前执行，键名与 lib/theme.ts 一致（authnexus.theme） -->

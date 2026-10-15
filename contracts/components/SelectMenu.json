@@ -1,0 +1,115 @@
+{
+  "$schema": "../schema.json#",
+  "name": "SelectMenu",
+  "label": {
+    "zh": "下拉选择",
+    "en": "SelectMenu"
+  },
+  "group": "form",
+  "kind": "vue-component",
+  "source": "vue/ui/SelectMenu.vue",
+  "summary": {
+    "zh": "自绘 listbox 取代原生 <select>；键盘/翻转/先设宽再测量",
+    "en": "自绘 listbox 取代原生 <select>；键盘/翻转/先设宽再测量"
+  },
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string",
+      "required": false,
+      "default": "''",
+      "description": ""
+    },
+    {
+      "name": "options",
+      "type": "FieldOption[]",
+      "required": false,
+      "default": "() => []",
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "default": "''",
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": ""
+    }
+  ],
+  "emits": [
+    {
+      "name": "update:modelValue",
+      "payload": "v: string",
+      "description": ""
+    }
+  ],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-fsel",
+      "anx-fsel--sm",
+      "anx-fsel__btn",
+      "anx-fsel__caret",
+      "anx-fsel__check",
+      "anx-fsel__opt",
+      "anx-fsel__optlabel",
+      "anx-fsel__panel",
+      "anx-fsel__panel--sm",
+      "anx-fsel__value",
+      "anx-fsel__value--empty"
+    ],
+    "state": [],
+    "other": [
+      "'anx-fsel--sm':",
+      "'anx-fsel__panel--sm':",
+      "'is-active':",
+      "'is-selected':",
+      "===",
+      "active,",
+      "compact",
+      "i",
+      "modelValue",
+      "o.value",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "ui.types"
+  ],
+  "a11y": [
+    "选中态用 aria-selected（同时是样式钩子）",
+    "展开态用 aria-expanded",
+    "弹层用 aria-controls 关联触发器",
+    "listbox 焦点管理用 aria-activedescendant",
+    "自定义下拉用 listbox/option 语义"
+  ]
+}

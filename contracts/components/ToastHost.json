@@ -1,0 +1,44 @@
+{
+  "$schema": "../schema.json#",
+  "name": "ToastHost",
+  "label": {
+    "zh": "通知宿主",
+    "en": "ToastHost"
+  },
+  "group": "overlay",
+  "kind": "vue-component",
+  "source": "vue/overlay/ToastHost.vue",
+  "summary": {
+    "zh": "把 Toast Teleport 到 #toast-layer 的出口",
+    "en": "把 Toast Teleport 到 #toast-layer 的出口"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-toast",
+      "anx-toast__body",
+      "anx-toast__close",
+      "anx-toast__icon",
+      "anx-toast__text",
+      "anx-toast__title"
+    ],
+    "state": [],
+    "other": [
+      "'is-closing':",
+      "+",
+      "['toast--'",
+      "t.closing",
+      "t.tone,",
+      "toast--",
+      "{",
+      "}]"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "toast"
+  ],
+  "a11y": []
+}

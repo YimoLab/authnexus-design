@@ -1,0 +1,87 @@
+{
+  "$schema": "../schema.json#",
+  "name": "ImagePicker",
+  "label": {
+    "zh": "图片选择器",
+    "en": "ImagePicker"
+  },
+  "group": "form",
+  "kind": "vue-component",
+  "source": "vue/ui/ImagePicker.vue",
+  "summary": {
+    "zh": "点击选图 → 中心裁剪 → dataURL",
+    "en": "点击选图 → 中心裁剪 → dataURL"
+  },
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string | null",
+      "required": false,
+      "default": "null",
+      "description": ""
+    },
+    {
+      "name": "variant",
+      "type": "'avatar' | 'icon'",
+      "required": false,
+      "default": "'avatar'",
+      "description": ""
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "required": false,
+      "default": "256",
+      "description": ""
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [
+    {
+      "name": "update:modelValue",
+      "payload": "v: string | null",
+      "description": ""
+    }
+  ],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-btn",
+      "anx-btn--danger-quiet",
+      "anx-btn--ghost",
+      "anx-btn--sm",
+      "anx-imgpick",
+      "anx-imgpick--",
+      "anx-imgpick__hint",
+      "anx-imgpick__input",
+      "anx-imgpick__mask",
+      "anx-imgpick__meta",
+      "anx-imgpick__ph",
+      "anx-imgpick__preview",
+      "anx-t-faint",
+      "anx-t-xs"
+    ],
+    "state": [],
+    "other": [
+      "'anx-imgpick--'",
+      "'is-busy':",
+      "+",
+      "busy",
+      "od-row",
+      "variant",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "toast"
+  ],
+  "a11y": []
+}

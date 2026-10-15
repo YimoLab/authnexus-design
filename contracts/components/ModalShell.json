@@ -1,0 +1,81 @@
+{
+  "$schema": "../schema.json#",
+  "name": "ModalShell",
+  "label": {
+    "zh": "弹窗",
+    "en": "ModalShell"
+  },
+  "group": "overlay",
+  "kind": "vue-component",
+  "source": "vue/overlay/ModalShell.vue",
+  "summary": {
+    "zh": "液态玻璃弹窗；必须挂在 .anx-overlay-layer 内",
+    "en": "液态玻璃弹窗；必须挂在 .anx-overlay-layer 内"
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "desc",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "size",
+      "type": "'' | 'sm' | 'lg'",
+      "required": false,
+      "default": "''",
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [
+    {
+      "name": "foot"
+    }
+  ],
+  "classes": {
+    "asset": [
+      "anx-iconbtn",
+      "anx-modal",
+      "anx-modal__body",
+      "anx-modal__close",
+      "anx-modal__desc",
+      "anx-modal__foot",
+      "anx-modal__head",
+      "anx-modal__head-text",
+      "anx-modal__title",
+      "anx-scrim"
+    ],
+    "state": [],
+    "other": [
+      "'',",
+      "'is-closing':",
+      "'modal--'",
+      "+",
+      ":",
+      "?",
+      "[size",
+      "modal--",
+      "overlay.entry.closing",
+      "size",
+      "{",
+      "}",
+      "}]"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "overlayState"
+  ],
+  "a11y": [
+    "模态用 aria-modal"
+  ]
+}

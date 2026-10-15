@@ -1,0 +1,27 @@
+{
+  "$schema": "../schema.json#",
+  "name": "RouteFade",
+  "label": {
+    "zh": "路由过渡",
+    "en": "RouteFade"
+  },
+  "group": "layout",
+  "kind": "vue-component",
+  "source": "vue/ui/RouteFade.vue",
+  "summary": {
+    "zh": "进出场位移淡入，keyed 单根约束",
+    "en": "进出场位移淡入，keyed 单根约束"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": [
+      "routefade-view"
+    ]
+  },
+  "deps": [],
+  "a11y": []
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "../schema.json#",
+  "name": "CodeBox",
+  "label": {
+    "zh": "代码框",
+    "en": "CodeBox"
+  },
+  "group": "data",
+  "kind": "vue-component",
+  "source": "vue/ui/CodeBox.vue",
+  "summary": {
+    "zh": "等宽代码块 + 一键复制",
+    "en": "等宽代码块 + 一键复制"
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "wrap",
+      "type": "boolean",
+      "required": false,
+      "default": "false",
+      "description": ""
+    },
+    {
+      "name": "copy",
+      "type": "boolean",
+      "required": false,
+      "default": "true",
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-code",
+      "anx-code--plain",
+      "anx-code--wrap",
+      "anx-codeblock",
+      "anx-codeblock__copy",
+      "anx-copybtn",
+      "anx-visually-hidden"
+    ],
+    "state": [],
+    "other": [
+      "!copy",
+      "'anx-code--plain':",
+      "'anx-code--wrap':",
+      "'is-done':",
+      "done",
+      "wrap,",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "toast"
+  ],
+  "a11y": [
+    "隐藏文本用 .anx-visually-hidden"
+  ]
+}

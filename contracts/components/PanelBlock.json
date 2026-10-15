@@ -1,0 +1,66 @@
+{
+  "$schema": "../schema.json#",
+  "name": "PanelBlock",
+  "label": {
+    "zh": "面板",
+    "en": "PanelBlock"
+  },
+  "group": "layout",
+  "kind": "vue-component",
+  "source": "vue/ui/PanelBlock.vue",
+  "summary": {
+    "zh": "带标题栏的内容面板",
+    "en": "带标题栏的内容面板"
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "subtitle",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "tight",
+      "type": "boolean",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [
+    {
+      "name": "actions"
+    },
+    {
+      "name": "foot"
+    }
+  ],
+  "classes": {
+    "asset": [
+      "anx-panel",
+      "anx-panel__body",
+      "anx-panel__body--tight",
+      "anx-panel__foot",
+      "anx-panel__head",
+      "anx-panel__head-actions"
+    ],
+    "state": [],
+    "other": [
+      "'anx-panel__body--tight':",
+      "tight",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [],
+  "a11y": []
+}

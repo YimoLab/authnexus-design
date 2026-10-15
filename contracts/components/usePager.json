@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json#",
+  "name": "usePager",
+  "label": {
+    "zh": "分页逻辑",
+    "en": "usePager"
+  },
+  "group": "logic",
+  "kind": "module",
+  "source": "vue/lib/usePager.ts",
+  "summary": {
+    "zh": "分页状态机：页码 / 每页条数 / 切片 / 重置",
+    "en": "分页状态机：页码 / 每页条数 / 切片 / 重置"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": [],
+  "exports": [
+    "Pager",
+    "usePager"
+  ]
+}

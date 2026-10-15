@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json#",
+  "name": "qr",
+  "label": {
+    "zh": "二维码",
+    "en": "qr"
+  },
+  "group": "logic",
+  "kind": "module",
+  "source": "vue/lib/qr.ts",
+  "summary": {
+    "zh": "无依赖二维码生成",
+    "en": "无依赖二维码生成"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": [],
+  "exports": [
+    "QrCodeMatrix",
+    "qrMatrix"
+  ]
+}

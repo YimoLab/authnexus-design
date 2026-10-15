@@ -1,0 +1,47 @@
+{
+  "$schema": "../schema.json#",
+  "name": "TimelineList",
+  "label": {
+    "zh": "时间线",
+    "en": "TimelineList"
+  },
+  "group": "display",
+  "kind": "vue-component",
+  "source": "vue/ui/TimelineList.vue",
+  "summary": {
+    "zh": "竖向动态流",
+    "en": "竖向动态流"
+  },
+  "props": [
+    {
+      "name": "items",
+      "type": "TimelineItem[]",
+      "required": true,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-timeline",
+      "anx-timeline__dot",
+      "anx-timeline__dot--",
+      "anx-timeline__item",
+      "anx-timeline__meta",
+      "anx-timeline__title"
+    ],
+    "state": [],
+    "other": [
+      "''",
+      "'anx-timeline__dot--'",
+      "+",
+      ":",
+      "?",
+      "item.tone"
+    ]
+  },
+  "deps": [],
+  "a11y": []
+}

@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://yimolab.github.io/authnexus-design/schema.json",
+  "title": "AuthNexus Design 组件契约",
+  "description": "组件契约是本设计系统的唯一数据源：TypeScript 类型、官网 API 表、MCP 工具描述、lint 规则全部由它生成，因此不会互相漂移。本文件定义契约本身的结构。",
+  "type": "object",
+  "required": ["name", "label", "group", "kind", "source", "summary", "props", "emits", "slots", "classes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "name": {
+      "type": "string",
+      "description": "组件/模块名，与源文件同名（组件 PascalCase，逻辑模块 camelCase）",
+      "pattern": "^[A-Za-z][A-Za-z0-9]*$"
+    },
+    "label": {
+      "type": "object",
+      "description": "双语名称。zh 为官网与文档展示名，en 暂用组件名",
+      "required": ["zh", "en"],
+      "properties": {
+        "zh": { "type": "string", "description": "中文名，如「下拉选择」" },
+        "en": { "type": "string", "description": "英文名" }
+      }
+    },
+    "group": {
+      "type": "string",
+      "enum": ["form", "data", "display", "layout", "nav", "overlay", "feedback", "logic", "other"],
+      "description": "官网导航分组"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["vue-component", "module"],
+      "description": "vue-component 有 props/slots；module 是纯逻辑（composable / 状态机）"
+    },
+    "source": {
+      "type": "string",
+      "description": "源文件相对仓库根的路径",
+      "pattern": "^vue/"
+    },
+    "summary": {
+      "type": "object",
+      "description": "一句话说明这个组件/模块是干什么的",
+      "required": ["zh", "en"],
+      "properties": {
+        "zh": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    },
+    "props": {
+      "type": "array",
+      "description": "props 契约。顺序与源码一致——顺序本身是文档的一部分",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "required"],
+        "properties": {
+          "name": { "type": "string", "description": "prop 名（不含可选标记 ?）" },
+          "type": { "type": "string", "description": "TS 类型原文，如 FieldOption[] | '' | 'sm'" },
+          "required": { "type": "boolean", "description": "TS 中无 ? 即为必填" },
+          "default": {
+            "type": ["string", "null"],
+            "description": "withDefaults 里的默认值原文，如 '() => []'；无默认则为 null"
+          },
+          "description": { "type": "string", "description": "来自源码 JSDoc 注释" }
+        }
+      }
+    },
+    "emits": {
+      "type": "array",
+      "description": "事件契约",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "description": "事件名，如 update:modelValue" },
+          "payload": { "type": ["string", "null"], "description": "载荷类型原文" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": { "name": { "type": "string" } }
+      }
+    },
+    "classes": {
+      "type": "object",
+      "description": "class 契约 —— AI 拼 class 时照抄 asset 列表即可，不必猜。命名空间见 docs/ADOPT.md §5",
+      "required": ["asset", "state", "other"],
+      "properties": {
+        "asset": {
+          "type": "array",
+          "description": "资产类（anx- 前缀），来自本设计系统",
+          "items": { "type": "string", "pattern": "^anx-" }
+        },
+        "state": {
+          "type": "array",
+          "description": "状态类（is-/has- 前缀，不加命名空间）",
+          "items": { "type": "string", "pattern": "^(is|has)-" }
+        },
+        "other": {
+          "type": "array",
+          "description": "宿主项目自有类（od- 第三方层 / 页面私有），迁移工具不会给它们加前缀",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "deps": {
+      "type": "array",
+      "description": "依赖的同仓组件/模块",
+      "items": { "type": "string" }
+    },
+    "a11y": {
+      "type": "array",
+      "description": "该组件用到的无障碍约定（从源码识别的 ARIA 模式）",
+      "items": { "type": "string" }
+    },
+    "exports": {
+      "type": "array",
+      "description": "仅 kind=module：导出的符号名",
+      "items": { "type": "string" }
+    }
+  }
+}

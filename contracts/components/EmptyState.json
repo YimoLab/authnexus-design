@@ -1,0 +1,62 @@
+{
+  "$schema": "../schema.json#",
+  "name": "EmptyState",
+  "label": {
+    "zh": "空状态",
+    "en": "EmptyState"
+  },
+  "group": "display",
+  "kind": "vue-component",
+  "source": "vue/ui/EmptyState.vue",
+  "summary": {
+    "zh": "空列表占位：图标 + 文案 + 动作",
+    "en": "空列表占位：图标 + 文案 + 动作"
+  },
+  "props": [
+    {
+      "name": "icon",
+      "type": "string",
+      "required": false,
+      "default": "'file'",
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [
+    {
+      "name": "actions"
+    },
+    {
+      "name": "text"
+    }
+  ],
+  "classes": {
+    "asset": [
+      "anx-empty",
+      "anx-empty__actions",
+      "anx-empty__icon",
+      "anx-empty__text",
+      "anx-empty__title"
+    ],
+    "state": [],
+    "other": []
+  },
+  "deps": [
+    "Icon"
+  ],
+  "a11y": []
+}

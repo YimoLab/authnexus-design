@@ -1,0 +1,92 @@
+{
+  "$schema": "../schema.json#",
+  "name": "ConfirmDialog",
+  "label": {
+    "zh": "确认对话框",
+    "en": "ConfirmDialog"
+  },
+  "group": "overlay",
+  "kind": "vue-component",
+  "source": "vue/overlay/ConfirmDialog.vue",
+  "summary": {
+    "zh": "危险操作二次确认",
+    "en": "危险操作二次确认"
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "desc",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "tone",
+      "type": "'danger' | 'primary'",
+      "required": false,
+      "default": "'primary'",
+      "description": ""
+    },
+    {
+      "name": "confirmText",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "cancelText",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "confirmIcon",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "body",
+      "type": "()",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-btn",
+      "anx-btn--danger",
+      "anx-btn--ghost",
+      "anx-btn--primary"
+    ],
+    "state": [],
+    "other": [
+      "'anx-btn--danger'",
+      "'anx-btn--primary'",
+      "'danger'",
+      ":",
+      "===",
+      "?",
+      "tone"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "ModalShell",
+    "overlayState"
+  ],
+  "a11y": []
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "../schema.json#",
+  "name": "SegmentedControl",
+  "label": {
+    "zh": "分段开关",
+    "en": "SegmentedControl"
+  },
+  "group": "form",
+  "kind": "vue-component",
+  "source": "vue/ui/SegmentedControl.vue",
+  "summary": {
+    "zh": "2–4 个互斥选项，选中项以滑块平移",
+    "en": "2–4 个互斥选项，选中项以滑块平移"
+  },
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "options",
+      "type": "FieldOption[]",
+      "required": true,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [
+    {
+      "name": "update:modelValue",
+      "payload": "v: string",
+      "description": ""
+    }
+  ],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-segmented",
+      "anx-segmented__opt",
+      "anx-segmented__thumb"
+    ],
+    "state": [],
+    "other": [
+      "'is-ready':",
+      "ready",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "ui.types"
+  ],
+  "a11y": [
+    "分段/开关选中态用 aria-pressed"
+  ]
+}

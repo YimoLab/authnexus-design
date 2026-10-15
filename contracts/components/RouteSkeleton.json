@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema.json#",
+  "name": "RouteSkeleton",
+  "label": {
+    "zh": "骨架屏",
+    "en": "RouteSkeleton"
+  },
+  "group": "feedback",
+  "kind": "vue-component",
+  "source": "vue/ui/RouteSkeleton.vue",
+  "summary": {
+    "zh": "路由懒加载占位",
+    "en": "路由懒加载占位"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-sk",
+      "anx-sk--card",
+      "anx-sk--row",
+      "anx-sk--sub",
+      "anx-sk--title",
+      "anx-sk-cards",
+      "anx-sk-head",
+      "anx-sk-page",
+      "anx-sk-panel"
+    ],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": []
+}

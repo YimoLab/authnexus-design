@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema.json#",
+  "name": "TablePager",
+  "label": {
+    "zh": "分页条",
+    "en": "TablePager"
+  },
+  "group": "data",
+  "kind": "vue-component",
+  "source": "vue/ui/TablePager.vue",
+  "summary": {
+    "zh": "总数 + 每页条数 + 页码，整块滑动过渡",
+    "en": "总数 + 每页条数 + 页码，整块滑动过渡"
+  },
+  "props": [
+    {
+      "name": "total",
+      "type": "number",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "page",
+      "type": "number",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "sizes",
+      "type": "number[]",
+      "required": false,
+      "default": "() => [10, 20, 50]",
+      "description": ""
+    }
+  ],
+  "emits": [
+    {
+      "name": "update:page",
+      "payload": "v: number",
+      "description": ""
+    },
+    {
+      "name": "update:pageSize",
+      "payload": "v: number",
+      "description": ""
+    }
+  ],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-pager",
+      "anx-pager__btn",
+      "anx-pager__btn--num",
+      "anx-pager__gap",
+      "anx-pager__nav",
+      "anx-pager__select",
+      "anx-pager__size",
+      "anx-pager__total"
+    ],
+    "state": [],
+    "other": [
+      "'is-current':",
+      "===",
+      "p",
+      "page",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "SelectMenu"
+  ],
+  "a11y": []
+}

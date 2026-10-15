@@ -1,0 +1,44 @@
+{
+  "$schema": "../schema.json#",
+  "name": "KvList",
+  "label": {
+    "zh": "KV 列表",
+    "en": "KvList"
+  },
+  "group": "data",
+  "kind": "vue-component",
+  "source": "vue/ui/KvList.vue",
+  "summary": {
+    "zh": "键值对列表",
+    "en": "键值对列表"
+  },
+  "props": [
+    {
+      "name": "rows",
+      "type": "KvRow[]; tight?: boolean",
+      "required": true,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-kv",
+      "anx-kv--tight",
+      "anx-kv__row"
+    ],
+    "state": [],
+    "other": [
+      "'anx-kv--tight':",
+      "tight",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "ui.types"
+  ],
+  "a11y": []
+}

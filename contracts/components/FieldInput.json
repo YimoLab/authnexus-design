@@ -1,0 +1,174 @@
+{
+  "$schema": "../schema.json#",
+  "name": "FieldInput",
+  "label": {
+    "zh": "输入框",
+    "en": "FieldInput"
+  },
+  "group": "form",
+  "kind": "vue-component",
+  "source": "vue/ui/FieldInput.vue",
+  "summary": {
+    "zh": "输入框 / 文本域 / 下拉三态合一",
+    "en": "输入框 / 文本域 / 下拉三态合一"
+  },
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string",
+      "required": false,
+      "default": "''",
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "type",
+      "type": "'text' | 'email' | 'password' | 'search' | 'url' | 'number' | 'textarea' | 'select'",
+      "required": false,
+      "default": "'text'",
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "mono",
+      "type": "boolean",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "required": false,
+      "default": "3",
+      "description": ""
+    },
+    {
+      "name": "options",
+      "type": "FieldOption[]",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "autocomplete",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "spellcheck",
+      "type": "boolean",
+      "required": false,
+      "default": "true",
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "inputmode",
+      "type": "'text' | 'numeric' | 'email' | 'url'",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [
+    {
+      "name": "update:modelValue",
+      "payload": "v: string",
+      "description": ""
+    }
+  ],
+  "slots": [
+    {
+      "name": "hint"
+    }
+  ],
+  "classes": {
+    "asset": [
+      "anx-field",
+      "anx-field__error",
+      "anx-field__hint",
+      "anx-field__label",
+      "anx-input",
+      "anx-input--mono",
+      "anx-req",
+      "anx-textarea"
+    ],
+    "state": [],
+    "other": [
+      "'anx-input--mono':",
+      "mono",
+      "od-field",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "SelectMenu",
+    "ui.types"
+  ],
+  "a11y": []
+}

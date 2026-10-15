@@ -1,0 +1,66 @@
+{
+  "$schema": "../schema.json#",
+  "name": "AlertBox",
+  "label": {
+    "zh": "提示条",
+    "en": "AlertBox"
+  },
+  "group": "display",
+  "kind": "vue-component",
+  "source": "vue/ui/AlertBox.vue",
+  "summary": {
+    "zh": "info / ok / warn / danger 四种语气",
+    "en": "info / ok / warn / danger 四种语气"
+  },
+  "props": [
+    {
+      "name": "tone",
+      "type": "'info' | 'ok' | 'warn' | 'danger' | 'plain'",
+      "required": false,
+      "default": "'info'",
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "lines",
+      "type": "string[]",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-alert",
+      "anx-alert--",
+      "anx-alert__body",
+      "anx-alert__text",
+      "anx-alert__title"
+    ],
+    "state": [],
+    "other": [
+      "'anx-alert--'",
+      "+",
+      "tone"
+    ]
+  },
+  "deps": [
+    "Icon"
+  ],
+  "a11y": []
+}

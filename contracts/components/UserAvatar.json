@@ -1,0 +1,51 @@
+{
+  "$schema": "../schema.json#",
+  "name": "UserAvatar",
+  "label": {
+    "zh": "用户头像",
+    "en": "UserAvatar"
+  },
+  "group": "display",
+  "kind": "vue-component",
+  "source": "vue/ui/UserAvatar.vue",
+  "summary": {
+    "zh": "图片 / 首字母回退，支持三档尺寸",
+    "en": "图片 / 首字母回退，支持三档尺寸"
+  },
+  "props": [
+    {
+      "name": "user",
+      "type": "AvatarUser | null",
+      "required": false,
+      "default": "null",
+      "description": ""
+    },
+    {
+      "name": "size",
+      "type": "'' | 'sm' | 'lg'",
+      "required": false,
+      "default": "''",
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-avatar",
+      "anx-avatar--",
+      "anx-avatar__img"
+    ],
+    "state": [],
+    "other": [
+      "''",
+      "'anx-avatar--'",
+      "+",
+      ":",
+      "?",
+      "size"
+    ]
+  },
+  "deps": [],
+  "a11y": []
+}

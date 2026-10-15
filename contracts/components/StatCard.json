@@ -1,0 +1,79 @@
+{
+  "$schema": "../schema.json#",
+  "name": "StatCard",
+  "label": {
+    "zh": "统计块",
+    "en": "StatCard"
+  },
+  "group": "data",
+  "kind": "vue-component",
+  "source": "vue/ui/StatCard.vue",
+  "summary": {
+    "zh": "指标卡：标签 / 数值 / 涨跌",
+    "en": "指标卡：标签 / 数值 / 涨跌"
+  },
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "unit",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "delta",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "deltaTone",
+      "type": "'up' | 'down'",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [
+    {
+      "name": "delta"
+    }
+  ],
+  "classes": {
+    "asset": [
+      "anx-stat",
+      "anx-stat__delta",
+      "anx-stat__delta--",
+      "anx-stat__label",
+      "anx-stat__num",
+      "anx-stat__unit"
+    ],
+    "state": [],
+    "other": [
+      "''",
+      "'anx-stat__delta--'",
+      "+",
+      ":",
+      "?",
+      "deltaTone"
+    ]
+  },
+  "deps": [],
+  "a11y": []
+}

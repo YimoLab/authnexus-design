@@ -1,0 +1,56 @@
+{
+  "$schema": "../schema.json#",
+  "name": "Badge",
+  "label": {
+    "zh": "徽记",
+    "en": "Badge"
+  },
+  "group": "display",
+  "kind": "vue-component",
+  "source": "vue/ui/Badge.vue",
+  "summary": {
+    "zh": "小圆角状态标签",
+    "en": "小圆角状态标签"
+  },
+  "props": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "tone",
+      "type": "string",
+      "required": false,
+      "default": "'neutral'",
+      "description": ""
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-badge",
+      "anx-badge--"
+    ],
+    "state": [],
+    "other": [
+      "'anx-badge--'",
+      "+",
+      "tone"
+    ]
+  },
+  "deps": [
+    "Icon"
+  ],
+  "a11y": []
+}

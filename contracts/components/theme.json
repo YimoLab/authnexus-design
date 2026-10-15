@@ -1,0 +1,33 @@
+{
+  "$schema": "../schema.json#",
+  "name": "theme",
+  "label": {
+    "zh": "主题",
+    "en": "theme"
+  },
+  "group": "logic",
+  "kind": "module",
+  "source": "vue/lib/theme.ts",
+  "summary": {
+    "zh": "明暗切换 + View Transitions 涟漪兜底",
+    "en": "明暗切换 + View Transitions 涟漪兜底"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": [],
+  "exports": [
+    "Theme",
+    "ToggleThemeOptions",
+    "applyTheme",
+    "currentTheme",
+    "themeState",
+    "toggleTheme"
+  ]
+}

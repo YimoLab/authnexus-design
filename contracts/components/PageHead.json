@@ -1,0 +1,53 @@
+{
+  "$schema": "../schema.json#",
+  "name": "PageHead",
+  "label": {
+    "zh": "页面头",
+    "en": "PageHead"
+  },
+  "group": "layout",
+  "kind": "vue-component",
+  "source": "vue/ui/PageHead.vue",
+  "summary": {
+    "zh": "标题 / 描述 / 右侧动作",
+    "en": "标题 / 描述 / 右侧动作"
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "desc",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [
+    {
+      "name": "actions"
+    },
+    {
+      "name": "desc"
+    }
+  ],
+  "classes": {
+    "asset": [
+      "anx-page-head",
+      "anx-page-head__actions",
+      "anx-page-head__desc",
+      "anx-page-head__text",
+      "anx-t-h1"
+    ],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": []
+}

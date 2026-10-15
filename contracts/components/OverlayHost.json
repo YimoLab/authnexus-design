@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json#",
+  "name": "OverlayHost",
+  "label": {
+    "zh": "浮层宿主",
+    "en": "OverlayHost"
+  },
+  "group": "overlay",
+  "kind": "vue-component",
+  "source": "vue/overlay/OverlayHost.vue",
+  "summary": {
+    "zh": "把浮层 Teleport 到 #overlay-layer 的出口",
+    "en": "把浮层 Teleport 到 #overlay-layer 的出口"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [
+    "OverlaySlot",
+    "overlayState"
+  ],
+  "a11y": []
+}

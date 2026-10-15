@@ -1,0 +1,65 @@
+{
+  "$schema": "../schema.json#",
+  "name": "DrawerShell",
+  "label": {
+    "zh": "抽屉",
+    "en": "DrawerShell"
+  },
+  "group": "overlay",
+  "kind": "vue-component",
+  "source": "vue/overlay/DrawerShell.vue",
+  "summary": {
+    "zh": "右侧贴边抽屉，仅左侧圆角",
+    "en": "右侧贴边抽屉，仅左侧圆角"
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "desc",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [
+    {
+      "name": "foot"
+    }
+  ],
+  "classes": {
+    "asset": [
+      "anx-drawer",
+      "anx-drawer__body",
+      "anx-drawer__foot",
+      "anx-drawer__head",
+      "anx-drawer__title",
+      "anx-iconbtn",
+      "anx-scrim",
+      "anx-t-faint",
+      "anx-t-xs"
+    ],
+    "state": [],
+    "other": [
+      "'is-closing':",
+      "od-fill",
+      "overlay.entry.closing",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [
+    "Icon",
+    "overlayState"
+  ],
+  "a11y": [
+    "模态用 aria-modal"
+  ]
+}

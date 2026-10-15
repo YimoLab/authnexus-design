@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema.json#",
+  "name": "OverlaySlot",
+  "label": {
+    "zh": "浮层插槽",
+    "en": "OverlaySlot"
+  },
+  "group": "overlay",
+  "kind": "vue-component",
+  "source": "vue/overlay/OverlaySlot.vue",
+  "summary": {
+    "zh": "在 #overlay-layer 内声明式挂载浮层",
+    "en": "在 #overlay-layer 内声明式挂载浮层"
+  },
+  "props": [
+    {
+      "name": "entry",
+      "type": "OverlayEntry",
+      "required": true,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [
+    "overlayState"
+  ],
+  "a11y": []
+}

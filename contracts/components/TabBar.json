@@ -1,0 +1,43 @@
+{
+  "$schema": "../schema.json#",
+  "name": "TabBar",
+  "label": {
+    "zh": "标签栏容器",
+    "en": "TabBar"
+  },
+  "group": "nav",
+  "kind": "vue-component",
+  "source": "vue/ui/TabBar.vue",
+  "summary": {
+    "zh": "Tabs 的受控包装（v-model + aria 接线）",
+    "en": "Tabs 的受控包装（v-model + aria 接线）"
+  },
+  "props": [
+    {
+      "name": "active",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "description": ""
+    }
+  ],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [
+      "anx-tabs",
+      "anx-tabs__ink"
+    ],
+    "state": [],
+    "other": [
+      "'is-ready':",
+      "ready",
+      "{",
+      "}"
+    ]
+  },
+  "deps": [],
+  "a11y": [
+    "选中态用 aria-selected（同时是样式钩子）"
+  ]
+}

@@ -180,6 +180,7 @@ Design system: authnexus-design v0.1.0（复制于 2026-10-DD，三平台同名�
 | 三种 tone 的 toast 长得一样 | tone 的区分在 `.toast__icon` 的图标颜色（ok→check-circle / danger→alert-circle / info→info）——自绘 toast 必须包含 `<span class="toast__icon">` + 对应图标，漏了则三态无视觉区分 |
 | 浮层挂在玻璃祖先里，磨砂失效 | Teleport 挂 body + fixed + JS 坐标（BEHAVIOR §1.1） |
 | 下拉面板向右溢出 | 先设 min-width 再测量（§1.3） |
+| 原生 `<select>` 弹出层无法定制 | 资产只给了 `.select` 的盒样式（与 `.input` 同高同边框），**弹出层由系统绘制**——圆角/动效/玻璃全部失效，一律改用 SelectMenu（BEHAVIOR §3） |
 | 只给 tbody 加 transform → 出横向滚动条 | 整块滑动 + `.paged-clip`（§4） |
 | 路由过渡整页空白 | RouteFade 内必须包 keyed 普通 div（§6） |
 | 主题闪一下 | index.html 预置脚本与 `authnexus.theme` 同键（§7 / 本文件 §3） |

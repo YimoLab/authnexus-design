@@ -78,11 +78,10 @@ say(asset.albertLoaded, 'Albert Sans 400/700 均已加载（自托管）')
 say(asset.plexLoaded, 'IBM Plex Mono 600 已加载（自托管）')
 say(asset.w400 !== asset.w700, '可变字体按字重插值', `400=${asset.w400} 700=${asset.w700}`)
 say(!!asset.glassBlur, '玻璃配方令牌存在（--glass-blur）', asset.glassBlur)
-const unstyled = asset.selects.filter((c) => !/(^|\s)select(\s|$)/.test(c))
 say(
-  unstyled.length === 0,
-  '原生 <select> 仅作样式演示且带 .select 类（正式下拉一律用 SelectMenu）',
-  `共 ${asset.selects.length} 个，未带类 ${unstyled.length} 个`,
+  asset.selects.length === 0,
+  '无原生 <select>（弹出层由系统绘制、不可定制；正式下拉一律 SelectMenu）',
+  `found ${asset.selects.length}`,
 )
 say(external.length === 0, '无外部字体请求（Google Fonts）', external.join(', '))
 

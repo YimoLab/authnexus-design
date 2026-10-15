@@ -101,12 +101,9 @@
           <label class="field__label" for="g-in-4">等宽输入</label>
           <input class="input input--mono" id="g-in-4" value="anx_3a5e91b7c204" />
         </div>
-        <span class="g-label">textarea / select（演示样式；正式下拉用 SelectMenu）</span>
+        <span class="g-label">textarea</span>
         <textarea class="textarea" placeholder="描述这个应用的用途…"></textarea>
-        <select class="select">
-          <option>一级权限</option>
-          <option>二级权限</option>
-        </select>
+        <p class="g-note">下拉一律用 SelectMenu（见下方「下拉选择」）。原生 <code>&lt;select&gt;</code> 资产里只给了盒样式（与 .input 同高同边框），<strong>弹出层由系统绘制、无法定制</strong>（圆角、动效、玻璃都失效），因此不作为推荐控件。</p>
       </div>
       <div class="g-cell g-stack">
         <span class="g-label">带动作的输入框 + 密码强度</span>

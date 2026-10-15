@@ -176,6 +176,7 @@ Design system: authnexus-design v0.1.0（复制于 2026-10-DD，三平台同名�
 |---|---|
 | **浮层 / Toast 完全不显示且无报错** | 检查 index.html 是否有 `#overlay-layer` / `#toast-layer` 容器（§0 第 4 步） |
 | scrim 压不暗顶栏 / 抽屉顶部被顶栏盖住 | 浮层对必须包在 `.overlay-layer` 内（z-index:100；浮层自身不设 z-index，手动挂载时最容易漏；BEHAVIOR §1.2） |
+| 三种 tone 的 toast 长得一样 | tone 的区分在 `.toast__icon` 的图标颜色（ok→check-circle / danger→alert-circle / info→info）——自绘 toast 必须包含 `<span class="toast__icon">` + 对应图标，漏了则三态无视觉区分 |
 | 浮层挂在玻璃祖先里，磨砂失效 | Teleport 挂 body + fixed + JS 坐标（BEHAVIOR §1.1） |
 | 下拉面板向右溢出 | 先设 min-width 再测量（§1.3） |
 | 只给 tbody 加 transform → 出横向滚动条 | 整块滑动 + `.paged-clip`（§4） |

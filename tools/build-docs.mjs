@@ -371,45 +371,52 @@ function pageComponentsIndex() {
    少数无法嵌入的（Icon 图标网格 / theme 开关 / 纯标记组件）用内联示例，
    并在构建期用 class 守卫校验（assertClasses），防止手写示例与资产漂移。 */
 const GALLERY_SECTION = {
-  SelectMenu: 'sec-fsel',
-  SegmentedControl: 'sec-fsel',
-  FieldInput: 'sec-form',
-  TablePager: 'sec-table',
-  usePager: 'sec-table',
-  Badge: 'sec-tags',
-  UserAvatar: 'sec-avatar',
+  /* 值 = 画廊里的演示块 id：
+     - demo-* 为**组件级**演示块（详情页只展示该组件自己的示例）
+     - sec-*  为整段区块（该段就是这一个组件的多个状态时使用） */
+  SelectMenu: 'demo-selectmenu',
+  SegmentedControl: 'demo-segmented',
+  FieldInput: 'demo-fieldinput',
+  TablePager: 'demo-pager',
+  usePager: 'demo-pager',
+  Badge: 'demo-badge',
+  UserAvatar: 'demo-avatar',
   AlertBox: 'sec-alert',
-  CodeBox: 'sec-code',
-  KvList: 'sec-code',
+  CodeBox: 'demo-codebox',
+  KvList: 'demo-kvlist',
   StatCard: 'sec-stat',
   TabBar: 'sec-tabs',
-  EmptyState: 'sec-empty',
-  RouteSkeleton: 'sec-empty',
+  EmptyState: 'demo-empty',
+  RouteSkeleton: 'demo-skeleton',
   TimelineList: 'sec-timeline',
-  ModalShell: 'sec-overlay',
-  DrawerShell: 'sec-overlay',
-  ConfirmDialog: 'sec-overlay',
+  ModalShell: 'demo-modal-btn',
+  DrawerShell: 'demo-drawer-btn',
   manager: 'sec-overlay',
   overlayState: 'sec-overlay',
   toast: 'sec-toast',
   ToastHost: 'sec-toast',
 }
 const EMBED_HEIGHT = {
-  'sec-overlay': 320,
-  'sec-toast': 300,
-  'sec-fsel': 640,
-  'sec-table': 660,
-  'sec-form': 520,
-  'sec-empty': 380,
-  'sec-timeline': 460,
-  'sec-avatar': 340,
-  'sec-tags': 360,
-  'sec-alert': 420,
-  'sec-code': 560,
-  'sec-stat': 360,
-  'sec-tabs': 520,
-  'sec-type': 420,
-  'sec-btn': 480,
+  /* 初值 = 实测渲染高度 + 24（840px 宽下量得）。
+     运行时由 docs.js 的 fitEmbeds() 按同源内容高自适应校正（不依赖这份估算）。 */
+  'demo-selectmenu': 456,
+  'demo-segmented': 260,
+  'demo-fieldinput': 818,
+  'demo-pager': 276,
+  'demo-badge': 196,
+  'demo-avatar': 288,
+  'demo-codebox': 538,
+  'demo-kvlist': 572,
+  'demo-empty': 424,
+  'demo-skeleton': 640,
+  'demo-modal-btn': 276,
+  'demo-drawer-btn': 276,
+  'sec-overlay': 276,
+  'sec-alert': 650,
+  'sec-stat': 686,
+  'sec-tabs': 250,
+  'sec-timeline': 404,
+  'sec-toast': 244,
 }
 
 /** 从 vue/lib/icons.ts 提取图标（名称 + SVG 体），供 Icon 详情页渲染图标网格 */
@@ -1380,6 +1387,48 @@ function docsJs() {
     try { document.execCommand('copy'); done() } catch (e) {}
     ta.remove()
   }
+
+  /* ---- 实时示例 iframe：同源自适应高度（不靠猜，加载/缩放后自动校正） ---- */
+  function fitEmbeds() {
+    document.querySelectorAll('.ds-embed iframe').forEach(function (f) {
+      try {
+        var doc = f.contentDocument
+        if (!doc || !doc.body) return
+        var h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        if (h > 120) f.style.height = h + 8 + 'px'
+      } catch (e) {}
+    })
+  }
+  document.querySelectorAll('.ds-embed iframe').forEach(function (f) {
+    f.addEventListener('load', fitEmbeds)
+  })
+  var fitTimer = null
+  window.addEventListener('resize', function () {
+    clearTimeout(fitTimer)
+    fitTimer = setTimeout(fitEmbeds, 160)
+  })
+  fitEmbeds()
+
+  /* ---- 实时示例 iframe：同源自适应高度（不靠猜，加载/缩放后自动校正） ---- */
+  function fitEmbeds() {
+    document.querySelectorAll('.ds-embed iframe').forEach(function (f) {
+      try {
+        var doc = f.contentDocument
+        if (!doc || !doc.body) return
+        var h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        if (h > 120) f.style.height = h + 8 + 'px'
+      } catch (e) {}
+    })
+  }
+  document.querySelectorAll('.ds-embed iframe').forEach(function (f) {
+    f.addEventListener('load', fitEmbeds)
+  })
+  var fitTimer = null
+  window.addEventListener('resize', function () {
+    clearTimeout(fitTimer)
+    fitTimer = setTimeout(fitEmbeds, 160)
+  })
+  fitEmbeds()
 
   /* ---- 组件总览：客户端搜索 ---- */
   var search = document.getElementById('ds-search')

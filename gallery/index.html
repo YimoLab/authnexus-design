@@ -81,7 +81,7 @@
   <section class="g-sec" id="sec-form">
     <h2>表单<code>base.css §7</code></h2>
     <div class="g-cells g-cells--2">
-      <div class="g-cell g-stack">
+      <div class="g-cell g-stack" id="demo-fieldinput">
         <span class="g-label">.field / .input 基本与校验态</span>
         <div class="anx-field od-field">
           <label class="anx-field__label" for="g-in-1">应用名称<span class="anx-req">*</span></label>
@@ -197,7 +197,7 @@
           </tbody>
         </table>
       </div>
-      <div class="anx-pager">
+      <div class="anx-pager" id="demo-pager">
         <span class="anx-pager__total">共 128 条</span>
         <div class="anx-pager__nav">
           <span class="anx-pager__size">每页
@@ -227,7 +227,7 @@
   <section class="g-sec" id="sec-tags">
     <h2>标签 / 徽记 / 状态点<code>base.css §9</code></h2>
     <div class="g-cell g-stack">
-      <div class="g-row">
+      <div class="g-row" id="demo-badge">
         <span class="anx-badge anx-badge--ok">已上线</span>
         <span class="anx-badge anx-badge--warn">待审核</span>
         <span class="anx-badge anx-badge--danger">已拒绝</span>
@@ -254,7 +254,7 @@
   <section class="g-sec" id="sec-avatar">
     <h2>头像 / 应用图标<code>base.css §10 · components.css §28</code></h2>
     <div class="g-cell g-stack">
-      <div class="g-row">
+      <div class="g-row" id="demo-avatar">
         <span class="anx-avatar">林</span>
         <span class="anx-avatar anx-avatar--sm">何</span>
         <span class="anx-avatar anx-avatar--lg">江</span>
@@ -314,7 +314,7 @@
   <section class="g-sec" id="sec-code">
     <h2>代码 / 凭证 / KV<code>base.css §12</code></h2>
     <div class="g-cells g-cells--2">
-      <div class="g-cell g-stack">
+      <div class="g-cell g-stack" id="demo-codebox">
         <span class="g-label">.code / .codeblock + 复制按钮</span>
         <div class="anx-codeblock">
           <pre class="anx-code">GET /oauth/authorize?client_id=anx_3a5e91b7c204
@@ -326,7 +326,7 @@
         <span class="g-label">secret-reveal（隐藏 / 显示）</span>
         <div class="anx-secret-reveal is-hidden"><code>anx_secret_9f2c7b41e6d8b0a3</code><button class="anx-copybtn" type="button">显示</button></div>
       </div>
-      <div class="g-cell g-stack">
+      <div class="g-cell g-stack" id="demo-kvlist">
         <span class="g-label">.kv 描述列表</span>
         <dl class="anx-kv">
           <div class="anx-kv__row"><dt>应用 ID</dt><dd>app_yunshu</dd></div>
@@ -387,7 +387,7 @@
   <section class="g-sec" id="sec-empty">
     <h2>空状态 / 骨架<code>base.css §15 · components.css §30</code></h2>
     <div class="g-cells g-cells--2">
-      <div class="g-cell">
+      <div class="g-cell" id="demo-empty">
         <div class="anx-empty" style="padding: 32px 16px">
           <span class="anx-empty__icon">◇</span>
           <span class="anx-empty__title">还没有已授权的应用</span>
@@ -395,7 +395,7 @@
           <div class="anx-empty__actions"><button class="anx-btn anx-btn--ghost" type="button">查看接入指南</button></div>
         </div>
       </div>
-      <div class="g-cell g-stack">
+      <div class="g-cell g-stack" id="demo-skeleton">
         <span class="g-label">.skeleton（行内条）</span>
         <span class="anx-skeleton" style="display:block; width:60%; height:14px"></span>
         <span class="anx-skeleton" style="display:block; width:40%; height:14px"></span>
@@ -443,8 +443,8 @@
     <h2>浮层（弹窗 / 抽屉）<code>components.css §16</code></h2>
     <div class="g-cell g-stack">
       <div class="g-row">
-        <button class="anx-btn anx-btn--primary" data-overlay="g-modal" type="button">打开弹窗</button>
-        <button class="anx-btn anx-btn--ghost" data-overlay="g-drawer" type="button">打开抽屉</button>
+        <button class="anx-btn anx-btn--primary" data-overlay="g-modal" type="button" id="demo-modal-btn">打开弹窗</button>
+        <button class="anx-btn anx-btn--ghost" data-overlay="g-drawer" type="button" id="demo-drawer-btn">打开抽屉</button>
       </div>
       <p class="g-note">真实形态（Teleport 到 body + fixed + 液态玻璃）：打开后滚动页面可观察 backdrop 采样；关闭走 is-closing 动画。scrim 只压暗不模糊（BEHAVIOR §1.4）。</p>
     </div>
@@ -467,7 +467,7 @@
   <section class="g-sec" id="sec-fsel">
     <h2>下拉选择 / 分段开关<code>components.css §33 §20 · motion.css §32.1</code></h2>
     <div class="g-cells g-cells--2">
-      <div class="g-cell g-stack">
+      <div class="g-cell g-stack" id="demo-selectmenu">
         <span class="g-label">SelectMenu 完整形态（可展开，定位算法与组件一致）</span>
         <span class="anx-fsel g-fsel">
           <button class="anx-fsel__btn" type="button">
@@ -511,7 +511,7 @@
       </div>
       <div class="g-cell g-stack">
         <span class="g-label">分段开关（滑块平移）</span>
-        <div class="anx-segmented" data-demo role="group">
+        <div class="anx-segmented" data-demo role="group" id="demo-segmented">
           <span class="anx-segmented__thumb" aria-hidden="true"></span>
           <button class="anx-segmented__opt" type="button" aria-pressed="false">全部</button>
           <button class="anx-segmented__opt" type="button" aria-pressed="true">已上线</button>

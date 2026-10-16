@@ -13,7 +13,7 @@
    ========================================================================== */
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(HERE, '..')
@@ -236,6 +236,9 @@ async function selftest() {
   process.exit(fail ? 1 : 0)
 }
 
+/* 直接运行才执行 CLI；被 import（如官网构建器读规则表）时只导出数据 */
+const invokedDirectly = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url
+if (invokedDirectly) {
 if (process.argv.includes('--selftest')) await selftest()
 else if (process.argv.includes('--stdin')) {
   const code = fs.readFileSync(0, 'utf8')
@@ -259,3 +262,6 @@ else if (process.argv.includes('--stdin')) {
   console.log(`\n检查 ${files} 个文件：${errs ? `${errs} 个文件有 error 级违规` : '无 error 级违规'}`)
   process.exit(errs ? 1 : 0)
 }
+}
+
+export { RULES }

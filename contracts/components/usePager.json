@@ -10,7 +10,7 @@
   "source": "vue/lib/usePager.ts",
   "summary": {
     "zh": "分页状态机：页码 / 每页条数 / 切片 / 重置",
-    "en": "分页状态机：页码 / 每页条数 / 切片 / 重置"
+    "en": "Pager state machine: page, size, slice and reset"
   },
   "props": [],
   "emits": [],

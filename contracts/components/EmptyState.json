@@ -3,14 +3,14 @@
   "name": "EmptyState",
   "label": {
     "zh": "空状态",
-    "en": "EmptyState"
+    "en": "Empty State"
   },
   "group": "display",
   "kind": "vue-component",
   "source": "vue/ui/EmptyState.vue",
   "summary": {
     "zh": "空列表占位：图标 + 文案 + 动作",
-    "en": "空列表占位：图标 + 文案 + 动作"
+    "en": "Empty placeholder: icon, text and action"
   },
   "props": [
     {

@@ -3,14 +3,14 @@
   "name": "FieldInput",
   "label": {
     "zh": "输入框",
-    "en": "FieldInput"
+    "en": "Text Field"
   },
   "group": "form",
   "kind": "vue-component",
   "source": "vue/ui/FieldInput.vue",
   "summary": {
     "zh": "输入框 / 文本域 / 下拉三态合一",
-    "en": "输入框 / 文本域 / 下拉三态合一"
+    "en": "Input, textarea and select in one component"
   },
   "props": [
     {

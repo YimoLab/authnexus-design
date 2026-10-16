@@ -3,14 +3,14 @@
   "name": "KvList",
   "label": {
     "zh": "KV 列表",
-    "en": "KvList"
+    "en": "Key-Value List"
   },
   "group": "data",
   "kind": "vue-component",
   "source": "vue/ui/KvList.vue",
   "summary": {
     "zh": "键值对列表",
-    "en": "键值对列表"
+    "en": "Key-value row list"
   },
   "props": [
     {

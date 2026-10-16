@@ -3,14 +3,14 @@
   "name": "ModalShell",
   "label": {
     "zh": "弹窗",
-    "en": "ModalShell"
+    "en": "Modal"
   },
   "group": "overlay",
   "kind": "vue-component",
   "source": "vue/overlay/ModalShell.vue",
   "summary": {
     "zh": "液态玻璃弹窗；必须挂在 .anx-overlay-layer 内",
-    "en": "液态玻璃弹窗；必须挂在 .anx-overlay-layer 内"
+    "en": "Glass modal; must live inside .anx-overlay-layer"
   },
   "props": [
     {

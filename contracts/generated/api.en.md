@@ -4,9 +4,9 @@
 
 ## Data display
 
-### CodeBox · `CodeBox`
+### Code Box · `CodeBox`
 
-等宽代码块 + 一键复制
+Monospace code block with one-click copy
 
 **Props**
 
@@ -26,9 +26,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/CodeBox.vue`</sub>
 
-### KvList · `KvList`
+### Key-Value List · `KvList`
 
-键值对列表
+Key-value row list
 
 **Props**
 
@@ -46,9 +46,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/KvList.vue`</sub>
 
-### StatCard · `StatCard`
+### Stat Card · `StatCard`
 
-指标卡：标签 / 数值 / 涨跌
+Metric card: label, value and delta
 
 **Props**
 
@@ -70,9 +70,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/StatCard.vue`</sub>
 
-### TablePager · `TablePager`
+### Table Pager · `TablePager`
 
-总数 + 每页条数 + 页码，整块滑动过渡
+Total, page size and page numbers; the block slides as one
 
 **Props**
 
@@ -100,9 +100,9 @@ Asset classes (copy as-is, never invent):
 
 ## Display
 
-### AlertBox · `AlertBox`
+### Alert · `AlertBox`
 
-info / ok / warn / danger 四种语气
+Four tones: info, ok, warn, danger
 
 **Props**
 
@@ -125,7 +125,7 @@ Asset classes (copy as-is, never invent):
 
 ### Badge · `Badge`
 
-小圆角状态标签
+Small rounded status badge
 
 **Props**
 
@@ -145,9 +145,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/Badge.vue`</sub>
 
-### EmptyState · `EmptyState`
+### Empty State · `EmptyState`
 
-空列表占位：图标 + 文案 + 动作
+Empty placeholder: icon, text and action
 
 **Props**
 
@@ -171,7 +171,7 @@ Asset classes (copy as-is, never invent):
 
 ### Icon · `Icon`
 
-24 视框内联 SVG 图标组件
+Inline SVG icon component on a 24 viewBox
 
 **Props**
 
@@ -185,9 +185,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/Icon.vue`</sub>
 
-### QrCode · `QrCode`
+### QR Code · `QrCode`
 
-无依赖二维码渲染
+Dependency-free QR renderer
 
 **Props**
 
@@ -201,9 +201,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/QrCode.vue`</sub>
 
-### TimelineList · `TimelineList`
+### Timeline · `TimelineList`
 
-竖向动态流
+Vertical activity feed
 
 **Props**
 
@@ -219,9 +219,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/TimelineList.vue`</sub>
 
-### UserAvatar · `UserAvatar`
+### Avatar · `UserAvatar`
 
-图片 / 首字母回退，支持三档尺寸
+Image with initials fallback; three sizes
 
 **Props**
 
@@ -240,9 +240,9 @@ Asset classes (copy as-is, never invent):
 
 ## Feedback
 
-### RouteSkeleton · `RouteSkeleton`
+### Route Skeleton · `RouteSkeleton`
 
-路由懒加载占位
+Placeholder for lazy-loaded routes
 
 **Class contract**
 
@@ -254,9 +254,9 @@ Asset classes (copy as-is, never invent):
 
 ## Form
 
-### FieldInput · `FieldInput`
+### Text Field · `FieldInput`
 
-输入框 / 文本域 / 下拉三态合一
+Input, textarea and select in one component
 
 **Props**
 
@@ -296,9 +296,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/FieldInput.vue`</sub>
 
-### ImagePicker · `ImagePicker`
+### Image Picker · `ImagePicker`
 
-点击选图 → 中心裁剪 → dataURL
+Pick an image, center-crop it, get a data URL
 
 **Props**
 
@@ -323,9 +323,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/ImagePicker.vue`</sub>
 
-### SegmentedControl · `SegmentedControl`
+### Segmented Control · `SegmentedControl`
 
-2–4 个互斥选项，选中项以滑块平移
+2-4 mutually exclusive options with a sliding thumb
 
 **Props**
 
@@ -348,9 +348,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/SegmentedControl.vue`</sub>
 
-### SelectMenu · `SelectMenu`
+### Select Menu · `SelectMenu`
 
-自绘 listbox 取代原生 <select>；键盘/翻转/先设宽再测量
+Custom listbox replacing native <select>; keyboard, flip, measure-then-position
 
 **Props**
 
@@ -380,9 +380,9 @@ Asset classes (copy as-is, never invent):
 
 ## Layout
 
-### PageHead · `PageHead`
+### Page Header · `PageHead`
 
-标题 / 描述 / 右侧动作
+Title, description and right-side actions
 
 **Props**
 
@@ -401,9 +401,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/PageHead.vue`</sub>
 
-### PanelBlock · `PanelBlock`
+### Panel · `PanelBlock`
 
-带标题栏的内容面板
+Content panel with a title bar
 
 **Props**
 
@@ -423,65 +423,41 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/ui/PanelBlock.vue`</sub>
 
-### RouteFade · `RouteFade`
+### Route Fade · `RouteFade`
 
-进出场位移淡入，keyed 单根约束
+Enter/leave translate + fade; keyed single-root required
 
 <sub>Source: `vue/ui/RouteFade.vue`</sub>
 
 ## Logic
 
-### icons · `icons`
+### Icon Set · `icons`
 
-内联 SVG 图标表（24 视框）
+Inline SVG icon table (24 viewBox)
 
 **Exports**: `ICONS` · `iconBody`
 
 <sub>Source: `vue/lib/icons.ts`</sub>
 
-### manager · `manager`
+### QR Matrix · `qr`
 
-多层浮层的挂载与销毁
-
-**Exports**: `ConfirmOptions` · `confirmDialog`
-
-<sub>Source: `vue/overlay/manager.ts`</sub>
-
-### overlayState · `overlayState`
-
-浮层登记 / 关闭动画 / 焦点管理
-
-**Exports**: `OVERLAY_KEY` · `OverlayContext` · `OverlayEntry` · `OverlayHandle` · `closeAllOverlays` · `closeEntry` · `closeTop` · `isTopEntry` · `openDrawer` · `openModal` · `overlayState`
-
-<sub>Source: `vue/overlay/overlayState.ts`</sub>
-
-### qr · `qr`
-
-无依赖二维码生成
+Dependency-free QR generation
 
 **Exports**: `QrCodeMatrix` · `qrMatrix`
 
 <sub>Source: `vue/lib/qr.ts`</sub>
 
-### theme · `theme`
+### Theme · `theme`
 
-明暗切换 + View Transitions 涟漪兜底
+Light/dark switching with a View-Transitions ripple fallback
 
 **Exports**: `Theme` · `ToggleThemeOptions` · `applyTheme` · `currentTheme` · `themeState` · `toggleTheme`
 
 <sub>Source: `vue/lib/theme.ts`</sub>
 
-### toast · `toast`
-
-Toast 状态机与自动消失
-
-**Exports**: `ToastItem` · `ToastOptions` · `ToastTone` · `dismissToast` · `toast` · `toastState`
-
-<sub>Source: `vue/overlay/toast.ts`</sub>
-
 ### usePager · `usePager`
 
-分页状态机：页码 / 每页条数 / 切片 / 重置
+Pager state machine: page, size, slice and reset
 
 **Exports**: `Pager` · `usePager`
 
@@ -489,9 +465,9 @@ Toast 状态机与自动消失
 
 ## Navigation
 
-### TabBar · `TabBar`
+### Tab Bar · `TabBar`
 
-Tabs 的受控包装（v-model + aria 接线）
+Controlled wrapper for tabs (v-model + ARIA wiring)
 
 **Props**
 
@@ -509,9 +485,9 @@ Asset classes (copy as-is, never invent):
 
 ## Overlay
 
-### ConfirmDialog · `ConfirmDialog`
+### Confirm Dialog · `ConfirmDialog`
 
-危险操作二次确认
+Two-step confirmation for destructive actions
 
 **Props**
 
@@ -537,9 +513,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/overlay/ConfirmDialog.vue`</sub>
 
-### DrawerShell · `DrawerShell`
+### Drawer · `DrawerShell`
 
-右侧贴边抽屉，仅左侧圆角
+Edge drawer on the right, left-rounded only
 
 **Props**
 
@@ -560,9 +536,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/overlay/DrawerShell.vue`</sub>
 
-### ModalShell · `ModalShell`
+### Modal · `ModalShell`
 
-液态玻璃弹窗；必须挂在 .anx-overlay-layer 内
+Glass modal; must live inside .anx-overlay-layer
 
 **Props**
 
@@ -584,17 +560,17 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/overlay/ModalShell.vue`</sub>
 
-### OverlayHost · `OverlayHost`
+### Overlay Host · `OverlayHost`
 
-把浮层 Teleport 到 #overlay-layer 的出口
+Teleports overlays to #overlay-layer
 
 **Dependencies**: `OverlaySlot` · `overlayState`
 
 <sub>Source: `vue/overlay/OverlayHost.vue`</sub>
 
-### OverlaySlot · `OverlaySlot`
+### Overlay Slot · `OverlaySlot`
 
-在 #overlay-layer 内声明式挂载浮层
+Declarative overlay mount inside #overlay-layer
 
 **Props**
 
@@ -606,9 +582,9 @@ Asset classes (copy as-is, never invent):
 
 <sub>Source: `vue/overlay/OverlaySlot.vue`</sub>
 
-### ToastHost · `ToastHost`
+### Toast Host · `ToastHost`
 
-把 Toast Teleport 到 #toast-layer 的出口
+Teleports toasts to #toast-layer
 
 **Class contract**
 
@@ -619,3 +595,27 @@ Asset classes (copy as-is, never invent):
 **Dependencies**: `Icon` · `toast`
 
 <sub>Source: `vue/overlay/ToastHost.vue`</sub>
+
+### Overlay Manager · `manager`
+
+Unified entry: openModal, openDrawer, confirmDialog
+
+**Exports**: `ConfirmOptions` · `confirmDialog`
+
+<sub>Source: `vue/overlay/manager.ts`</sub>
+
+### Overlay State · `overlayState`
+
+Overlay stack state and handles (openModal/openDrawer/closeTop)
+
+**Exports**: `OVERLAY_KEY` · `OverlayContext` · `OverlayEntry` · `OverlayHandle` · `closeAllOverlays` · `closeEntry` · `closeTop` · `isTopEntry` · `openDrawer` · `openModal` · `overlayState`
+
+<sub>Source: `vue/overlay/overlayState.ts`</sub>
+
+### toast · `toast`
+
+Imperative toast: toast(opts) shows a message and returns a close function
+
+**Exports**: `ToastItem` · `ToastOptions` · `ToastTone` · `dismissToast` · `toast` · `toastState`
+
+<sub>Source: `vue/overlay/toast.ts`</sub>

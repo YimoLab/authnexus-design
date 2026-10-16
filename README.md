@@ -19,13 +19,18 @@
 ## 结构
 
 ```
-css/       L1-L3'  设计令牌 / 品牌覆盖 / 基础样式 / 组件配方 / 动效 / 中后台外壳（shell.css）
-fonts/     L7      自托管字体（SIL OFL 1.1）+ @font-face
-vue/       L4      A 档通用组件 + 工具（usePager / theme / appActions / 浮层管理器）
-audit/     L6      浏览器黑盒审计（组件级 + 页面级，配置驱动）
-docs/      L5      BEHAVIOR.md（交互规范与铁律）/ ADOPT.md（接入步骤）
-gallery/           纯静态样式画廊（零框架依赖，双主题）
-examples/          vue 接线示例 + react 接线骨架
+css/       设计令牌 / 品牌覆盖 / 基础样式 / 组件配方 / 动效 / 中后台外壳（单入口 css/index.css）
+fonts/     自托管字体（SIL OFL 1.1）+ @font-face
+vue/       Vue3 组件源码（ui/ + overlay/ + lib/，文件即组件）
+contracts/ 组件契约（唯一数据源）：生成 TS 类型 / API 文档 / MCP 工具描述，四端不漂移
+mcp/       面向 AI 的 MCP Server（list_components / get_component / get_tokens / search_patterns）
+tools/     构建与校验（契约提取、类型生成、官网构建、lint、前缀迁移、CSS 校验）
+audit/     浏览器黑盒审计（组件级 + 页面级，配置驱动）
+docs/      BEHAVIOR.md（交互规范与铁律）/ ADOPT.md（接入步骤）/ NAMESPACE-MIGRATION.md
+gallery/   纯静态样式画廊（零框架依赖，双主题）
+demo/      中后台演示（官网首页内嵌的实时预览）
+_site/     官网构建产物：`node tools/build-docs.mjs` → 中英双语文档站 + 33 个组件详情页
+examples/  vue 接线示例 + react 接线骨架
 ```
 
 ## 用法

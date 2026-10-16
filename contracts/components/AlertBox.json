@@ -3,14 +3,14 @@
   "name": "AlertBox",
   "label": {
     "zh": "提示条",
-    "en": "AlertBox"
+    "en": "Alert"
   },
   "group": "display",
   "kind": "vue-component",
   "source": "vue/ui/AlertBox.vue",
   "summary": {
     "zh": "info / ok / warn / danger 四种语气",
-    "en": "info / ok / warn / danger 四种语气"
+    "en": "Four tones: info, ok, warn, danger"
   },
   "props": [
     {

@@ -3,14 +3,14 @@
   "name": "ConfirmDialog",
   "label": {
     "zh": "确认对话框",
-    "en": "ConfirmDialog"
+    "en": "Confirm Dialog"
   },
   "group": "overlay",
   "kind": "vue-component",
   "source": "vue/overlay/ConfirmDialog.vue",
   "summary": {
     "zh": "危险操作二次确认",
-    "en": "危险操作二次确认"
+    "en": "Two-step confirmation for destructive actions"
   },
   "props": [
     {

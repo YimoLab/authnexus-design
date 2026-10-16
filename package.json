@@ -64,7 +64,7 @@
   "scripts": {
     "verify:css": "python tools/verify-css.py",
     "scan:classes": "python tools/scan-classes.py",
-    "build:site": "bash tools/build-site.sh",
+    "build:site": "node tools/build-docs.mjs",
     "push:all": "bash tools/push-all.sh",
     "audit:gallery": "node audit/audit-gallery.mjs"
   },

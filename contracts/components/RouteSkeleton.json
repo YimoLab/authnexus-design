@@ -3,14 +3,14 @@
   "name": "RouteSkeleton",
   "label": {
     "zh": "骨架屏",
-    "en": "RouteSkeleton"
+    "en": "Route Skeleton"
   },
   "group": "feedback",
   "kind": "vue-component",
   "source": "vue/ui/RouteSkeleton.vue",
   "summary": {
     "zh": "路由懒加载占位",
-    "en": "路由懒加载占位"
+    "en": "Placeholder for lazy-loaded routes"
   },
   "props": [],
   "emits": [],

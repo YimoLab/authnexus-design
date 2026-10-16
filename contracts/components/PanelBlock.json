@@ -3,14 +3,14 @@
   "name": "PanelBlock",
   "label": {
     "zh": "面板",
-    "en": "PanelBlock"
+    "en": "Panel"
   },
   "group": "layout",
   "kind": "vue-component",
   "source": "vue/ui/PanelBlock.vue",
   "summary": {
     "zh": "带标题栏的内容面板",
-    "en": "带标题栏的内容面板"
+    "en": "Content panel with a title bar"
   },
   "props": [
     {

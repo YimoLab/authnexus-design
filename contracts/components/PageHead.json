@@ -3,14 +3,14 @@
   "name": "PageHead",
   "label": {
     "zh": "页面头",
-    "en": "PageHead"
+    "en": "Page Header"
   },
   "group": "layout",
   "kind": "vue-component",
   "source": "vue/ui/PageHead.vue",
   "summary": {
     "zh": "标题 / 描述 / 右侧动作",
-    "en": "标题 / 描述 / 右侧动作"
+    "en": "Title, description and right-side actions"
   },
   "props": [
     {

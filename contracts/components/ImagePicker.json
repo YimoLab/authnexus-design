@@ -3,14 +3,14 @@
   "name": "ImagePicker",
   "label": {
     "zh": "图片选择器",
-    "en": "ImagePicker"
+    "en": "Image Picker"
   },
   "group": "form",
   "kind": "vue-component",
   "source": "vue/ui/ImagePicker.vue",
   "summary": {
     "zh": "点击选图 → 中心裁剪 → dataURL",
-    "en": "点击选图 → 中心裁剪 → dataURL"
+    "en": "Pick an image, center-crop it, get a data URL"
   },
   "props": [
     {

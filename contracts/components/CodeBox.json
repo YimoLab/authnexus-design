@@ -3,14 +3,14 @@
   "name": "CodeBox",
   "label": {
     "zh": "代码框",
-    "en": "CodeBox"
+    "en": "Code Box"
   },
   "group": "data",
   "kind": "vue-component",
   "source": "vue/ui/CodeBox.vue",
   "summary": {
     "zh": "等宽代码块 + 一键复制",
-    "en": "等宽代码块 + 一键复制"
+    "en": "Monospace code block with one-click copy"
   },
   "props": [
     {

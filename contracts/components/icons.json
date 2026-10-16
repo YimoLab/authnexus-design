@@ -2,15 +2,15 @@
   "$schema": "../schema.json#",
   "name": "icons",
   "label": {
-    "zh": "图标",
-    "en": "icons"
+    "zh": "图标集",
+    "en": "Icon Set"
   },
   "group": "logic",
   "kind": "module",
   "source": "vue/lib/icons.ts",
   "summary": {
     "zh": "内联 SVG 图标表（24 视框）",
-    "en": "内联 SVG 图标表（24 视框）"
+    "en": "Inline SVG icon table (24 viewBox)"
   },
   "props": [],
   "emits": [],

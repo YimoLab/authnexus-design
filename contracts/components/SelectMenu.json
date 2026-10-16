@@ -3,14 +3,14 @@
   "name": "SelectMenu",
   "label": {
     "zh": "下拉选择",
-    "en": "SelectMenu"
+    "en": "Select Menu"
   },
   "group": "form",
   "kind": "vue-component",
   "source": "vue/ui/SelectMenu.vue",
   "summary": {
     "zh": "自绘 listbox 取代原生 <select>；键盘/翻转/先设宽再测量",
-    "en": "自绘 listbox 取代原生 <select>；键盘/翻转/先设宽再测量"
+    "en": "Custom listbox replacing native <select>; keyboard, flip, measure-then-position"
   },
   "props": [
     {

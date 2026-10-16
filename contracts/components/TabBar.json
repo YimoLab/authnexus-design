@@ -3,14 +3,14 @@
   "name": "TabBar",
   "label": {
     "zh": "标签栏容器",
-    "en": "TabBar"
+    "en": "Tab Bar"
   },
   "group": "nav",
   "kind": "vue-component",
   "source": "vue/ui/TabBar.vue",
   "summary": {
     "zh": "Tabs 的受控包装（v-model + aria 接线）",
-    "en": "Tabs 的受控包装（v-model + aria 接线）"
+    "en": "Controlled wrapper for tabs (v-model + ARIA wiring)"
   },
   "props": [
     {

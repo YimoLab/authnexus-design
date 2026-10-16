@@ -2,15 +2,15 @@
   "$schema": "../schema.json#",
   "name": "manager",
   "label": {
-    "zh": "浮层管理",
-    "en": "manager"
+    "zh": "浮层命令 API",
+    "en": "Overlay Manager"
   },
-  "group": "logic",
+  "group": "overlay",
   "kind": "module",
   "source": "vue/overlay/manager.ts",
   "summary": {
-    "zh": "多层浮层的挂载与销毁",
-    "en": "多层浮层的挂载与销毁"
+    "zh": "openModal / openDrawer / confirmDialog 统一入口",
+    "en": "Unified entry: openModal, openDrawer, confirmDialog"
   },
   "props": [],
   "emits": [],

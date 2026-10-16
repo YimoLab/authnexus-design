@@ -21,7 +21,7 @@
    ========================================================================== */
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(HERE, '..')
@@ -444,7 +444,7 @@ async function selftest() {
   const all = handle({ id: 3, method: 'tools/call', params: { name: 'list_components', arguments: {} } })
   const allText = all.result.content[0].text
   check(allText.includes('SelectMenu'), 'list_components 列出 SelectMenu')
-  check(allText.includes('共 30 个'), '契约数量为 30', allText.split('\n')[0])
+  check(allText.includes('共 33 个'), '契约数量为 33（30 组件 + 7 模块）', allText.split('\n')[0])
 
   const byGroup = handle({ id: 4, method: 'tools/call', params: { name: 'list_components', arguments: { group: 'overlay' } } })
   check(byGroup.result.content[0].text.includes('ModalShell'), '按分组过滤生效（overlay → ModalShell）')
@@ -474,5 +474,11 @@ async function selftest() {
   process.exit(fail ? 1 : 0)
 }
 
-if (process.argv.includes('--selftest')) await selftest()
-else runStdio()
+/* 直接运行才起 stdio 服务；被 import（如官网构建器读工具表）时只导出数据 */
+const invokedDirectly = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url
+if (invokedDirectly) {
+  if (process.argv.includes('--selftest')) await selftest()
+  else runStdio()
+}
+
+export { TOOLS }

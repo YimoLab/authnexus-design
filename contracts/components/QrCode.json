@@ -3,14 +3,14 @@
   "name": "QrCode",
   "label": {
     "zh": "二维码",
-    "en": "QrCode"
+    "en": "QR Code"
   },
   "group": "display",
   "kind": "vue-component",
   "source": "vue/ui/QrCode.vue",
   "summary": {
     "zh": "无依赖二维码渲染",
-    "en": "无依赖二维码渲染"
+    "en": "Dependency-free QR renderer"
   },
   "props": [
     {

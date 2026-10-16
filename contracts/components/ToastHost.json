@@ -3,14 +3,14 @@
   "name": "ToastHost",
   "label": {
     "zh": "通知宿主",
-    "en": "ToastHost"
+    "en": "Toast Host"
   },
   "group": "overlay",
   "kind": "vue-component",
   "source": "vue/overlay/ToastHost.vue",
   "summary": {
     "zh": "把 Toast Teleport 到 #toast-layer 的出口",
-    "en": "把 Toast Teleport 到 #toast-layer 的出口"
+    "en": "Teleports toasts to #toast-layer"
   },
   "props": [],
   "emits": [],

@@ -3,14 +3,14 @@
   "name": "TablePager",
   "label": {
     "zh": "分页条",
-    "en": "TablePager"
+    "en": "Table Pager"
   },
   "group": "data",
   "kind": "vue-component",
   "source": "vue/ui/TablePager.vue",
   "summary": {
     "zh": "总数 + 每页条数 + 页码，整块滑动过渡",
-    "en": "总数 + 每页条数 + 页码，整块滑动过渡"
+    "en": "Total, page size and page numbers; the block slides as one"
   },
   "props": [
     {

@@ -2,15 +2,15 @@
   "$schema": "../schema.json#",
   "name": "qr",
   "label": {
-    "zh": "二维码",
-    "en": "qr"
+    "zh": "二维码矩阵",
+    "en": "QR Matrix"
   },
   "group": "logic",
   "kind": "module",
   "source": "vue/lib/qr.ts",
   "summary": {
     "zh": "无依赖二维码生成",
-    "en": "无依赖二维码生成"
+    "en": "Dependency-free QR generation"
   },
   "props": [],
   "emits": [],

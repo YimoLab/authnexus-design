@@ -10,7 +10,7 @@
   "source": "vue/ui/Badge.vue",
   "summary": {
     "zh": "小圆角状态标签",
-    "en": "小圆角状态标签"
+    "en": "Small rounded status badge"
   },
   "props": [
     {

@@ -3,14 +3,14 @@
   "name": "UserAvatar",
   "label": {
     "zh": "用户头像",
-    "en": "UserAvatar"
+    "en": "Avatar"
   },
   "group": "display",
   "kind": "vue-component",
   "source": "vue/ui/UserAvatar.vue",
   "summary": {
     "zh": "图片 / 首字母回退，支持三档尺寸",
-    "en": "图片 / 首字母回退，支持三档尺寸"
+    "en": "Image with initials fallback; three sizes"
   },
   "props": [
     {

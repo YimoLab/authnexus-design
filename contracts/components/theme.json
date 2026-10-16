@@ -3,14 +3,14 @@
   "name": "theme",
   "label": {
     "zh": "主题",
-    "en": "theme"
+    "en": "Theme"
   },
   "group": "logic",
   "kind": "module",
   "source": "vue/lib/theme.ts",
   "summary": {
     "zh": "明暗切换 + View Transitions 涟漪兜底",
-    "en": "明暗切换 + View Transitions 涟漪兜底"
+    "en": "Light/dark switching with a View-Transitions ripple fallback"
   },
   "props": [],
   "emits": [],

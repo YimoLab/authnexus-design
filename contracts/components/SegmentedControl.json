@@ -3,14 +3,14 @@
   "name": "SegmentedControl",
   "label": {
     "zh": "分段开关",
-    "en": "SegmentedControl"
+    "en": "Segmented Control"
   },
   "group": "form",
   "kind": "vue-component",
   "source": "vue/ui/SegmentedControl.vue",
   "summary": {
     "zh": "2–4 个互斥选项，选中项以滑块平移",
-    "en": "2–4 个互斥选项，选中项以滑块平移"
+    "en": "2-4 mutually exclusive options with a sliding thumb"
   },
   "props": [
     {

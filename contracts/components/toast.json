@@ -2,15 +2,15 @@
   "$schema": "../schema.json#",
   "name": "toast",
   "label": {
-    "zh": "通知队列",
+    "zh": "轻提示",
     "en": "toast"
   },
-  "group": "logic",
+  "group": "overlay",
   "kind": "module",
   "source": "vue/overlay/toast.ts",
   "summary": {
-    "zh": "Toast 状态机与自动消失",
-    "en": "Toast 状态机与自动消失"
+    "zh": "命令式 toast：toast(opts) 显示，返回关闭函数",
+    "en": "Imperative toast: toast(opts) shows a message and returns a close function"
   },
   "props": [],
   "emits": [],

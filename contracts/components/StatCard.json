@@ -3,14 +3,14 @@
   "name": "StatCard",
   "label": {
     "zh": "统计块",
-    "en": "StatCard"
+    "en": "Stat Card"
   },
   "group": "data",
   "kind": "vue-component",
   "source": "vue/ui/StatCard.vue",
   "summary": {
     "zh": "指标卡：标签 / 数值 / 涨跌",
-    "en": "指标卡：标签 / 数值 / 涨跌"
+    "en": "Metric card: label, value and delta"
   },
   "props": [
     {

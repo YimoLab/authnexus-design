@@ -3,14 +3,14 @@
   "name": "OverlaySlot",
   "label": {
     "zh": "浮层插槽",
-    "en": "OverlaySlot"
+    "en": "Overlay Slot"
   },
   "group": "overlay",
   "kind": "vue-component",
   "source": "vue/overlay/OverlaySlot.vue",
   "summary": {
     "zh": "在 #overlay-layer 内声明式挂载浮层",
-    "en": "在 #overlay-layer 内声明式挂载浮层"
+    "en": "Declarative overlay mount inside #overlay-layer"
   },
   "props": [
     {

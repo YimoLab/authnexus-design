@@ -11,7 +11,10 @@ desktop.ini
 
 # Node（examples / audit 用）
 node_modules/
-dist/
+# 包产物：dist 只提交类型声明（consume 方需要；由 gen-types 生成）
+dist/*
+!dist/vue.d.ts
+!dist/index.d.ts
 *.log
 
 # 审计产物

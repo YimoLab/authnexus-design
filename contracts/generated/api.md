@@ -437,7 +437,7 @@ info / ok / warn / danger 四种语气
 
 ## 逻辑
 
-### 图标 · `icons`
+### 图标集 · `icons`
 
 内联 SVG 图标表（24 视框）
 
@@ -445,23 +445,7 @@ info / ok / warn / danger 四种语气
 
 <sub>源码: `vue/lib/icons.ts`</sub>
 
-### 浮层管理 · `manager`
-
-多层浮层的挂载与销毁
-
-**导出**: `ConfirmOptions` · `confirmDialog`
-
-<sub>源码: `vue/overlay/manager.ts`</sub>
-
-### 浮层栈 · `overlayState`
-
-浮层登记 / 关闭动画 / 焦点管理
-
-**导出**: `OVERLAY_KEY` · `OverlayContext` · `OverlayEntry` · `OverlayHandle` · `closeAllOverlays` · `closeEntry` · `closeTop` · `isTopEntry` · `openDrawer` · `openModal` · `overlayState`
-
-<sub>源码: `vue/overlay/overlayState.ts`</sub>
-
-### 二维码 · `qr`
+### 二维码矩阵 · `qr`
 
 无依赖二维码生成
 
@@ -476,14 +460,6 @@ info / ok / warn / danger 四种语气
 **导出**: `Theme` · `ToggleThemeOptions` · `applyTheme` · `currentTheme` · `themeState` · `toggleTheme`
 
 <sub>源码: `vue/lib/theme.ts`</sub>
-
-### 通知队列 · `toast`
-
-Toast 状态机与自动消失
-
-**导出**: `ToastItem` · `ToastOptions` · `ToastTone` · `dismissToast` · `toast` · `toastState`
-
-<sub>源码: `vue/overlay/toast.ts`</sub>
 
 ### 分页逻辑 · `usePager`
 
@@ -631,3 +607,27 @@ Tabs 的受控包装（v-model + aria 接线）
 **依赖**: `Icon` · `toast`
 
 <sub>源码: `vue/overlay/ToastHost.vue`</sub>
+
+### 浮层命令 API · `manager`
+
+openModal / openDrawer / confirmDialog 统一入口
+
+**导出**: `ConfirmOptions` · `confirmDialog`
+
+<sub>源码: `vue/overlay/manager.ts`</sub>
+
+### 浮层状态 · `overlayState`
+
+浮层栈状态与句柄（openModal/openDrawer/closeTop）
+
+**导出**: `OVERLAY_KEY` · `OverlayContext` · `OverlayEntry` · `OverlayHandle` · `closeAllOverlays` · `closeEntry` · `closeTop` · `isTopEntry` · `openDrawer` · `openModal` · `overlayState`
+
+<sub>源码: `vue/overlay/overlayState.ts`</sub>
+
+### 轻提示 · `toast`
+
+命令式 toast：toast(opts) 显示，返回关闭函数
+
+**导出**: `ToastItem` · `ToastOptions` · `ToastTone` · `dismissToast` · `toast` · `toastState`
+
+<sub>源码: `vue/overlay/toast.ts`</sub>

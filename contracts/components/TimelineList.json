@@ -3,14 +3,14 @@
   "name": "TimelineList",
   "label": {
     "zh": "时间线",
-    "en": "TimelineList"
+    "en": "Timeline"
   },
   "group": "display",
   "kind": "vue-component",
   "source": "vue/ui/TimelineList.vue",
   "summary": {
     "zh": "竖向动态流",
-    "en": "竖向动态流"
+    "en": "Vertical activity feed"
   },
   "props": [
     {

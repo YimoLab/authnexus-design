@@ -3,14 +3,14 @@
   "name": "RouteFade",
   "label": {
     "zh": "路由过渡",
-    "en": "RouteFade"
+    "en": "Route Fade"
   },
   "group": "layout",
   "kind": "vue-component",
   "source": "vue/ui/RouteFade.vue",
   "summary": {
     "zh": "进出场位移淡入，keyed 单根约束",
-    "en": "进出场位移淡入，keyed 单根约束"
+    "en": "Enter/leave translate + fade; keyed single-root required"
   },
   "props": [],
   "emits": [],

@@ -3,14 +3,14 @@
   "name": "OverlayHost",
   "label": {
     "zh": "浮层宿主",
-    "en": "OverlayHost"
+    "en": "Overlay Host"
   },
   "group": "overlay",
   "kind": "vue-component",
   "source": "vue/overlay/OverlayHost.vue",
   "summary": {
     "zh": "把浮层 Teleport 到 #overlay-layer 的出口",
-    "en": "把浮层 Teleport 到 #overlay-layer 的出口"
+    "en": "Teleports overlays to #overlay-layer"
   },
   "props": [],
   "emits": [],

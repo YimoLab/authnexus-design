@@ -10,7 +10,7 @@
   "source": "vue/ui/Icon.vue",
   "summary": {
     "zh": "24 视框内联 SVG 图标组件",
-    "en": "24 视框内联 SVG 图标组件"
+    "en": "Inline SVG icon component on a 24 viewBox"
   },
   "props": [
     {

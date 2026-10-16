@@ -3,14 +3,14 @@
   "name": "DrawerShell",
   "label": {
     "zh": "抽屉",
-    "en": "DrawerShell"
+    "en": "Drawer"
   },
   "group": "overlay",
   "kind": "vue-component",
   "source": "vue/overlay/DrawerShell.vue",
   "summary": {
     "zh": "右侧贴边抽屉，仅左侧圆角",
-    "en": "右侧贴边抽屉，仅左侧圆角"
+    "en": "Edge drawer on the right, left-rounded only"
   },
   "props": [
     {

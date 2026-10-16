@@ -29,3 +29,6 @@ _site/
 .env.*.local
 # 验证临时产物
 .tmp-check/
+
+# 工具临时文件
+.tmp-*

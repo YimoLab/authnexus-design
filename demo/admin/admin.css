@@ -5,9 +5,8 @@
 /* 浮层默认隐藏（与 gallery 同一约定） */
 .g-hidden { display: none !important; }
 
-/* 侧栏遮罩：仅窄屏（≤1023px）侧栏打开时显示；桌面上隐藏 */
-.shell__scrim { display: none; border: 0; padding: 0; }
-.shell.is-side-open .shell__scrim { display: block; }
+/* 侧栏遮罩的显隐由 css/shell.css 统一管理（.anx-shell__scrim：基态隐藏，
+   ≤1023px 且侧栏 .is-open 时显示）——demo 侧不再维护第二套规则 */
 
 /* 视图切换 */
 .view { display: none; }
@@ -16,9 +15,9 @@
 
 /* 顶栏搜索 / 列表搜索 */
 .topbar-search { width: 220px; }
-.topbar-search .input { height: 38px; font-size: 14px; }
+.topbar-search .anx-input { height: 38px; font-size: 14px; }
 .list-search { width: 180px; }
-.list-search .input { height: 36px; font-size: 13px; }
+.list-search .anx-input { height: 36px; font-size: 13px; }
 @media (max-width: 1023px) { .topbar-search { display: none; } }
 @media (max-width: 640px) { .list-search { display: none; } }
 

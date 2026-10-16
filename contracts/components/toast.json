@@ -1,0 +1,33 @@
+{
+  "$schema": "../schema.json#",
+  "name": "toast",
+  "label": {
+    "zh": "通知队列",
+    "en": "toast"
+  },
+  "group": "logic",
+  "kind": "module",
+  "source": "vue/overlay/toast.ts",
+  "summary": {
+    "zh": "Toast 状态机与自动消失",
+    "en": "Toast 状态机与自动消失"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": [],
+  "exports": [
+    "ToastItem",
+    "ToastOptions",
+    "ToastTone",
+    "dismissToast",
+    "toast",
+    "toastState"
+  ]
+}

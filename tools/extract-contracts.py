@@ -69,6 +69,9 @@ META = {
     # lib —— 逻辑
     "usePager":        ("分页逻辑", "logic", "分页状态机：页码 / 每页条数 / 切片 / 重置"),
     "theme":           ("主题", "logic", "明暗切换 + View Transitions 涟漪兜底"),
+    "toast":           ("轻提示", "overlay", "命令式 toast：toast(opts) 显示，返回关闭函数"),
+    "manager":         ("浮层命令 API", "overlay", "openModal / openDrawer / confirmDialog 统一入口"),
+    "overlayState":    ("浮层状态", "overlay", "浮层栈状态与句柄（openModal/openDrawer/closeTop）"),
     "icons":           ("图标", "logic", "内联 SVG 图标表（24 视框）"),
     "qr":              ("二维码", "logic", "无依赖二维码生成"),
     "overlayState":    ("浮层栈", "logic", "浮层登记 / 关闭动画 / 焦点管理"),
@@ -93,33 +96,45 @@ def split_top_level(body: str) -> list:
 
 
 def split_fields(body: str) -> list:
-    """按顶层**换行或分号**切分 TS 类型体里的字段。
+    """按顶层换行切分 TS 类型体里的字段。
 
-    注意：TS 接口成员之间**通常没有逗号**（`modelValue?: string` 换行 `id?: string`），
-    所以字段切分不能靠逗号，必须靠行首缩进（顶层成员顶格，嵌套成员缩进）。
+    两个坑：
+      1. TS 接口成员**无逗号**（`modelValue?: string` 换行 `id?: string`）→ 不能按逗号切；
+      2. 字段类型里可能有**箭头函数**（`body?: () => VNodeChild`）与泛型（`Array<{a:1}>`），
+         里面的 `>` / `(` / `)` 会让括号深度算错，把后续内容误切成新字段。
+    做法：把 `=>` 当普通字符（不参与深度），只对 `<{` 与 `(` 计深度、对 `}>` `)` 减深度。
     """
     parts, buf, depth, quote = [], [], 0, None
-    for ch in body:
+    i, n = 0, len(body)
+    while i < n:
+        ch = body[i]
+        # 字符串
         if quote:
             buf.append(ch)
+            if ch == "\\" and i + 1 < n:
+                buf.append(body[i + 1]); i += 2; continue
             if ch == quote:
                 quote = None
+            i += 1
             continue
         if ch in "\"'`":
-            quote = ch
-            buf.append(ch)
-            continue
-        if ch in "<{[(":
+            quote = ch; buf.append(ch); i += 1; continue
+        # 箭头函数：整体跳过，=> 不参与深度
+        if ch == "=" and i + 1 < n and body[i + 1] == ">":
+            buf.append("=>"); i += 2; continue
+        # 深度控制：< { ( 加深，> } ) 变浅
+        if ch in "<{(":
             depth += 1
-        elif ch in ">]})":
-            depth -= 1
-        if ch == "\n" and depth == 0:
+        elif ch in ">})":
+            depth = max(0, depth - 1)
+        if ch == "\n" and depth <= 0:
             seg = "".join(buf)
             if seg.strip():
                 parts.append(seg)
             buf = []
         else:
             buf.append(ch)
+        i += 1
     if buf and "".join(buf).strip():
         parts.append("".join(buf))
     return [p.strip() for p in parts if p.strip()]
@@ -254,14 +269,28 @@ def extract_props(script: str) -> list:
                 field = field[dm.end():]
             if not field or ":" not in field:
                 continue
-            name, rest = field.split(":", 1)
+            # 只在**顶层**第一个冒号处切分：`body?: () => VNodeChild` 里没有冒号问题，
+            # 但 `onConfirm?: (ctx: {...}) => void` 的类型里含冒号——按顶层切才安全。
+            depth, cut = 0, None
+            for idx, ch in enumerate(field):
+                if ch in "<{(":
+                    depth += 1
+                elif ch in ">})":
+                    depth = max(0, depth - 1)
+                elif ch == ":" and depth == 0:
+                    cut = idx
+                    break
+            if cut is None:
+                continue
+            name, rest = field[:cut], field[cut + 1:]
             name = name.strip()
             # TS 可选标记在名字**末尾**（modelValue?: string），要用 rstrip 而非 lstrip
             optional_marker = name.endswith("?")
             name = name.rstrip("?").strip()
             # TS 里 name? 表示可选；除 ? 外都视为必填
             required = not optional_marker
-            ptype = rest.split("=")[0].strip().rstrip("?").strip()
+            # 类型本体：去掉可选的 `= 默认值` 尾巴（箭头函数里的 => 不能当赋值）
+            ptype = re.split(r"=(?!>)", rest, 1)[0].strip().rstrip("?").strip()
             props.append({
                 "name": name,
                 "type": ptype or "unknown",
@@ -416,8 +445,11 @@ def build() -> dict:
             "deps": extract_deps(script),
             "a11y": extract_a11y(text),
         }
-    # 逻辑模块（.ts）
-    for p in sorted((VUE_DIR / "lib").rglob("*.ts")):
+    # 逻辑模块（.ts）：lib/ 通用逻辑 + overlay/ 浮层命令式 API（toast / manager / overlayState）
+    module_files = []
+    for d in ("lib", "overlay"):
+        module_files += [q for q in sorted((VUE_DIR / d).rglob("*.ts"))]
+    for p in module_files:
         if p.name.endswith(".test.ts"):
             continue
         name = p.stem

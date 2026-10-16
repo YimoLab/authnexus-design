@@ -57,7 +57,21 @@
     },
     {
       "name": "body",
-      "type": "()",
+      "type": "() => VNodeChild",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "infoOnly",
+      "type": "boolean",
+      "required": false,
+      "default": null,
+      "description": ""
+    },
+    {
+      "name": "onConfirm",
+      "type": "(ctx: { close: () => void }) => void",
       "required": false,
       "default": null,
       "description": ""

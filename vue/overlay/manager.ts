@@ -5,7 +5,7 @@
 
 import type { VNodeChild } from 'vue'
 import ConfirmDialog from './ConfirmDialog.vue'
-import { openModal } from './overlayState'
+import { openModal, type OverlayHandle } from './overlayState'
 
 export * from './overlayState'
 
@@ -26,7 +26,7 @@ export interface ConfirmOptions {
 }
 
 /** 通用二次确认对话框 */
-export function confirmDialog(opts: ConfirmOptions) {
+export function confirmDialog(opts: ConfirmOptions): OverlayHandle {
   return openModal(ConfirmDialog, opts as unknown as Record<string, unknown>, {
     dismissible: opts.dismissible !== false,
   })

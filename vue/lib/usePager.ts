@@ -23,7 +23,7 @@ export interface Pager<T> {
   reset: () => void
 }
 
-export function usePager<T>(source: ComputedRef<T[]>, defaultSize = 10): Pager<T> {
+export function usePager<T>(source: ComputedRef<T[]>, defaultSize: number = 10): Pager<T> {
   const page = ref(1)
   const pageSize = ref(defaultSize)
   const direction = ref<1 | -1>(1)

@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json#",
+  "name": "manager",
+  "label": {
+    "zh": "浮层管理",
+    "en": "manager"
+  },
+  "group": "logic",
+  "kind": "module",
+  "source": "vue/overlay/manager.ts",
+  "summary": {
+    "zh": "多层浮层的挂载与销毁",
+    "en": "多层浮层的挂载与销毁"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": [],
+  "exports": [
+    "ConfirmOptions",
+    "confirmDialog"
+  ]
+}

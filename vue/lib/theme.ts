@@ -25,7 +25,7 @@ export function currentTheme(): Theme {
   return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
 }
 
-export function applyTheme(theme: Theme) {
+export function applyTheme(theme: Theme): void {
   document.documentElement.setAttribute('data-theme', theme)
   themeState.value = theme
   try {

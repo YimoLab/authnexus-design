@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-15",
+  "generatedAt": "2026-10-16",
   "source": "vue/（Vue SFC + lib 模块）",
-  "count": 30,
+  "count": 33,
   "groups": [
     "data",
     "display",
@@ -40,8 +40,11 @@
     "ToastHost",
     "UserAvatar",
     "icons",
+    "manager",
+    "overlayState",
     "qr",
     "theme",
+    "toast",
     "usePager"
   ]
 }

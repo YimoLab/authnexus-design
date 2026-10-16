@@ -62,7 +62,7 @@ export function openDrawer(
   return push('drawer', component, props, options)
 }
 
-export function closeEntry(entry: OverlayEntry) {
+export function closeEntry(entry: OverlayEntry): void {
   if (entry.closing) return
   entry.closing = true
   setTimeout(() => {
@@ -71,13 +71,13 @@ export function closeEntry(entry: OverlayEntry) {
   }, 190)
 }
 
-export function closeTop() {
+export function closeTop(): boolean {
   const top = overlayState.entries[overlayState.entries.length - 1]
   if (top && top.dismissible) closeEntry(top)
   return !!top
 }
 
-export function isTopEntry(entry: OverlayEntry) {
+export function isTopEntry(entry: OverlayEntry): boolean {
   return overlayState.entries[overlayState.entries.length - 1] === entry
 }
 
@@ -110,6 +110,6 @@ if (typeof document !== 'undefined') {
    -------------------------------------------------------------------------- */
 
 /** 清空全部浮层（路由切换时兜底） */
-export function closeAllOverlays() {
+export function closeAllOverlays(): void {
   overlayState.entries.slice().forEach((entry) => closeEntry(entry))
 }

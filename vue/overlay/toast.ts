@@ -26,7 +26,7 @@ export const toastState = reactive<{ items: ToastItem[] }>({ items: [] })
 
 let seq = 0
 
-export function dismissToast(id: number) {
+export function dismissToast(id: number): void {
   const item = toastState.items.find((t) => t.id === id)
   if (!item || item.closing) return
   item.closing = true

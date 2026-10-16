@@ -1,0 +1,38 @@
+{
+  "$schema": "../schema.json#",
+  "name": "overlayState",
+  "label": {
+    "zh": "浮层栈",
+    "en": "overlayState"
+  },
+  "group": "logic",
+  "kind": "module",
+  "source": "vue/overlay/overlayState.ts",
+  "summary": {
+    "zh": "浮层登记 / 关闭动画 / 焦点管理",
+    "en": "浮层登记 / 关闭动画 / 焦点管理"
+  },
+  "props": [],
+  "emits": [],
+  "slots": [],
+  "classes": {
+    "asset": [],
+    "state": [],
+    "other": []
+  },
+  "deps": [],
+  "a11y": [],
+  "exports": [
+    "OVERLAY_KEY",
+    "OverlayContext",
+    "OverlayEntry",
+    "OverlayHandle",
+    "closeAllOverlays",
+    "closeEntry",
+    "closeTop",
+    "isTopEntry",
+    "openDrawer",
+    "openModal",
+    "overlayState"
+  ]
+}

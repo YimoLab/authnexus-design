@@ -25,7 +25,7 @@ const viewKey = computed(() => {
 
 <template>
   <RouterView v-slot="{ Component }">
-    <Transition name="routefade" mode="out-in">
+    <Transition name="anx-routefade" mode="out-in">
       <div :key="viewKey" class="routefade-view">
         <component :is="Component" />
       </div>

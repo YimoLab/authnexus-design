@@ -189,7 +189,7 @@ info / ok / warn / danger 四种语气
 
 ### 二维码 · `QrCode`
 
-无依赖二维码渲染
+本地二维码渲染（qrcode-generator，密钥不出网）
 
 **Props**
 
@@ -433,6 +433,8 @@ info / ok / warn / danger 四种语气
 
 进出场位移淡入，keyed 单根约束
 
+**依赖**: `vue-router`
+
 <sub>源码: `vue/ui/RouteFade.vue`</sub>
 
 ## 逻辑
@@ -447,7 +449,9 @@ info / ok / warn / danger 四种语气
 
 ### 二维码矩阵 · `qr`
 
-无依赖二维码生成
+本地二维码生成（qrcode-generator，密钥不出网）
+
+**依赖**: `qrcode-generator`
 
 **导出**: `QrCodeMatrix` · `qrMatrix`
 
@@ -456,6 +460,8 @@ info / ok / warn / danger 四种语气
 ### 主题 · `theme`
 
 明暗切换 + View Transitions 涟漪兜底
+
+**依赖**: `toast`
 
 **导出**: `Theme` · `ToggleThemeOptions` · `applyTheme` · `currentTheme` · `themeState` · `toggleTheme`
 
@@ -611,6 +617,8 @@ Tabs 的受控包装（v-model + aria 接线）
 ### 浮层命令 API · `manager`
 
 openModal / openDrawer / confirmDialog 统一入口
+
+**依赖**: `ConfirmDialog` · `overlayState`
 
 **导出**: `ConfirmOptions` · `confirmDialog`
 

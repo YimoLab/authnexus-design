@@ -197,8 +197,8 @@ function pageHome() {
       en: ['Token-driven', 'Change one <code>--acid</code> to rebrand. Light and dark share the same component code.'],
     },
     {
-      zh: ['零依赖', '没有 UI 框架、没有运行时库——只有 CSS 七件套与 33 个自绘组件。'],
-      en: ['Zero dependencies', 'No UI framework, no runtime library — just seven CSS files and 33 hand-built components.'],
+      zh: ['零 UI 框架', '没有 UI 框架、没有运行时 UI 库——CSS 七件套 + 33 个自绘组件；唯一的工具依赖 qrcode-generator 只在本地编码二维码。'],
+      en: ['No UI framework', 'No UI framework, no runtime UI library — seven CSS files and 33 hand-built components. The only utility dependency, qrcode-generator, encodes QR codes locally.'],
     },
     {
       zh: ['契约即真相', '组件契约同时生成 TS 类型、API 文档与 MCP 工具描述，四端永不漂移。'],
@@ -229,13 +229,13 @@ function pageHome() {
 <section class="ds-hero">
   <div class="ds-hero__glow" aria-hidden="true"></div>
   <p class="ds-hero__badge">v${VERSION} · ${components.length} ${bi('组件', 'components')} + ${modules.length} ${bi('模块', 'modules')} · ${bi(
-    '零依赖',
-    'zero-dependency'
+    '零 UI 框架',
+    'no UI framework'
   )}</p>
   <h1>${bi('鉴枢设计系统', 'AuthNexus Design')}</h1>
   <p class="ds-hero__sub">${bi(
-    '令牌驱动 · 零依赖 · 明暗双主题的中后台设计系统。<br/>契约即真相：同一份组件契约，同时生成类型、文档与 AI 工具。',
-    'A token-driven, dependency-free design system for admin consoles.<br/>Contracts are the single source of truth — generating types, docs and AI tools alike.'
+    '令牌驱动 · 零 UI 框架 · 明暗双主题的中后台设计系统。<br/>契约即真相：同一份组件契约，同时生成类型、文档与 AI 工具。',
+    'A token-driven design system (no UI framework) for admin consoles.<br/>Contracts are the single source of truth — generating types, docs and AI tools alike.'
   )}</p>
   <div class="ds-hero__actions">
     <a class="anx-btn anx-btn--primary anx-btn--lg" href="./components/">${bi('浏览组件', 'Browse components')}</a>
@@ -246,7 +246,7 @@ function pageHome() {
     <div><dt>${components.length + modules.length}</dt><dd>${bi('组件与模块', 'components & modules')}</dd></div>
     <div><dt>54</dt><dd>${bi('黑盒审计', 'browser audits')}</dd></div>
     <div><dt>2</dt><dd>${bi('明暗主题', 'themes')}</dd></div>
-    <div><dt>0</dt><dd>${bi('运行时依赖', 'runtime deps')}</dd></div>
+    <div><dt>0</dt><dd>${bi('UI 框架依赖', 'UI-framework deps')}</dd></div>
   </dl>
 </section>
 
@@ -381,6 +381,7 @@ const GALLERY_SECTION = {
   usePager: 'demo-pager',
   Badge: 'demo-badge',
   UserAvatar: 'demo-avatar',
+  ImagePicker: 'demo-imgpick',
   AlertBox: 'sec-alert',
   CodeBox: 'demo-codebox',
   KvList: 'demo-kvlist',
@@ -388,30 +389,41 @@ const GALLERY_SECTION = {
   TabBar: 'sec-tabs',
   EmptyState: 'demo-empty',
   RouteSkeleton: 'demo-skeleton',
+  RouteFade: 'demo-routefade',
   TimelineList: 'sec-timeline',
+  QrCode: 'demo-qr',
+  qr: 'demo-qr',
   ModalShell: 'demo-modal-btn',
   DrawerShell: 'demo-drawer-btn',
-  manager: 'sec-overlay',
-  overlayState: 'sec-overlay',
+  ConfirmDialog: 'demo-confirm-btn',
+  OverlaySlot: 'demo-slot-btn',
+  OverlayHost: 'demo-host-btn',
+  manager: 'demo-manager',
+  overlayState: 'demo-manager',
   toast: 'sec-toast',
   ToastHost: 'sec-toast',
 }
 const EMBED_HEIGHT = {
-  /* 初值 = 实测渲染高度 + 24（840px 宽下量得）。
-     运行时由 docs.js 的 fitEmbeds() 按同源内容高自适应校正（不依赖这份估算）。 */
+  /* 初值 = 粗估；运行时由 docs.js 的 fitEmbeds() 按同源内容高自适应校正。 */
   'demo-selectmenu': 456,
   'demo-segmented': 260,
   'demo-fieldinput': 818,
   'demo-pager': 276,
   'demo-badge': 196,
   'demo-avatar': 288,
+  'demo-imgpick': 430,
   'demo-codebox': 538,
   'demo-kvlist': 572,
   'demo-empty': 424,
   'demo-skeleton': 640,
+  'demo-routefade': 330,
+  'demo-qr': 430,
   'demo-modal-btn': 276,
   'demo-drawer-btn': 276,
-  'sec-overlay': 276,
+  'demo-confirm-btn': 276,
+  'demo-slot-btn': 276,
+  'demo-host-btn': 276,
+  'demo-manager': 276,
   'sec-alert': 650,
   'sec-stat': 686,
   'sec-tabs': 250,

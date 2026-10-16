@@ -245,7 +245,7 @@ watch(
     </button>
 
     <Teleport to="body">
-      <Transition name="fsel-pop">
+      <Transition name="anx-fsel-pop">
         <div
           v-if="open"
           ref="panelEl"

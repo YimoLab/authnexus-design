@@ -96,7 +96,7 @@ export interface IconProps {
 }
 export declare const Icon: DefineComponent<IconProps>
 
-/** 二维码 —— 无依赖二维码渲染 */
+/** 二维码 —— 本地二维码渲染（qrcode-generator，密钥不出网） */
 export interface QrCodeProps {
   text: string
   label?: string

@@ -77,6 +77,15 @@ document.addEventListener('click', (e) => {
   if (scrim) hideOverlay(scrim.dataset.closeSelf)
 })
 
+/* ---------- 路由过渡演示：重播入场动画（与 RouteFade 的 enter 类同名，motion.css 提供样式） ---------- */
+const fadeCard = document.getElementById('routefade-card')
+document.getElementById('replay-routefade')?.addEventListener('click', () => {
+  if (!fadeCard) return
+  fadeCard.classList.add('anx-routefade-enter-from')
+  void fadeCard.offsetWidth            /* 强制回流，让 from 态先生效 */
+  fadeCard.classList.remove('anx-routefade-enter-from')
+})
+
 /* ---------- 下拉选择演示：定位算法与 SelectMenu.vue 一致 ---------- */
 const GAP = 6
 const MARGIN = 8

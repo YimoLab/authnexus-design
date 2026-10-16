@@ -93,7 +93,7 @@
 ## 6. 路由过渡（RouteFade）
 
 - 过渡必须包一个 **keyed 普通 div**：多根节点会导致 leave 卡死、整页空白。
-- `<RouteFade><div :key="route.fullPath">…</div></RouteFade>`；类名 `routefade-*`
+- `<RouteFade><div :key="route.fullPath">…</div></RouteFade>`；过渡类名 `anx-routefade-*`（Transition 的 name 必须带 anx- 前缀）
  （enter 为 opacity + translateY(10px)，leave 只留 opacity 且更快）。
 
 ## 7. 主题切换（lib/theme.ts）

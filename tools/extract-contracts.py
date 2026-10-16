@@ -95,8 +95,8 @@ META = {
                         "24 视框内联 SVG 图标组件",
                         "Inline SVG icon component on a 24 viewBox"),
     "QrCode":          ("二维码", "QR Code", "display",
-                        "无依赖二维码渲染",
-                        "Dependency-free QR renderer"),
+                        "本地二维码渲染（qrcode-generator，密钥不出网）",
+                        "Local QR renderer (qrcode-generator; secrets never leave the page)"),
     "OverlaySlot":     ("浮层插槽", "Overlay Slot", "overlay",
                         "在 #overlay-layer 内声明式挂载浮层",
                         "Declarative overlay mount inside #overlay-layer"),
@@ -136,8 +136,8 @@ META = {
                         "内联 SVG 图标表（24 视框）",
                         "Inline SVG icon table (24 viewBox)"),
     "qr":              ("二维码矩阵", "QR Matrix", "logic",
-                        "无依赖二维码生成",
-                        "Dependency-free QR generation"),
+                        "本地二维码生成（qrcode-generator，密钥不出网）",
+                        "Local QR generation (qrcode-generator; secrets never leave the page)"),
 }
 
 
@@ -440,16 +440,18 @@ def extract_classes(template: str) -> dict:
 
 # ------------------------------------------------------------------ 依赖与注释
 def extract_deps(script: str) -> list:
+    """依赖 = 相对导入（组件/工具）+ 外部包（vue 是宿主框架，不计；
+    qrcode-generator 这类真实运行时依赖要如实列出）。"""
     deps = []
-    for m in re.finditer(r"from\s+['\"](\.[^'\"]+)['\"]", script):
-        p = m.group(1)
-        name = pathlib.PurePosixPath(p).name
-        if name.endswith(".vue"):
-            name = name[:-4]
-        deps.append(name)
-    # Icon 等模板里用到的组件
-    for m in re.finditer(r"<([A-Z][A-Za-z0-9]+)[\s/>]", script + ""):
-        pass
+    for mm in re.finditer(r"(?:from|import)\s+['\"]([^'\"\s]+)['\"]", script):
+        p = mm.group(1)
+        if p.startswith("."):
+            name = pathlib.PurePosixPath(p).name
+            if name.endswith(".vue"):
+                name = name[:-4]
+            deps.append(name)
+        elif not (p == "vue" or p.startswith("vue/")):
+            deps.append(p)
     return sorted(set(deps))
 
 
@@ -529,7 +531,7 @@ def build() -> dict:
             "emits": [],
             "slots": [],
             "classes": extract_classes(text),
-            "deps": [],
+            "deps": extract_deps(text),
             "a11y": extract_a11y(text),
             "exports": sorted(set(exports)),
         }

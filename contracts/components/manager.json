@@ -20,7 +20,10 @@
     "state": [],
     "other": []
   },
-  "deps": [],
+  "deps": [
+    "ConfirmDialog",
+    "overlayState"
+  ],
   "a11y": [],
   "exports": [
     "ConfirmOptions",

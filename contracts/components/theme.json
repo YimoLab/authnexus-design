@@ -20,7 +20,9 @@
     "state": [],
     "other": []
   },
-  "deps": [],
+  "deps": [
+    "toast"
+  ],
   "a11y": [],
   "exports": [
     "Theme",

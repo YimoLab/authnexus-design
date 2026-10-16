@@ -187,7 +187,7 @@ Inline SVG icon component on a 24 viewBox
 
 ### QR Code · `QrCode`
 
-Dependency-free QR renderer
+Local QR renderer (qrcode-generator; secrets never leave the page)
 
 **Props**
 
@@ -427,6 +427,8 @@ Asset classes (copy as-is, never invent):
 
 Enter/leave translate + fade; keyed single-root required
 
+**Dependencies**: `vue-router`
+
 <sub>Source: `vue/ui/RouteFade.vue`</sub>
 
 ## Logic
@@ -441,7 +443,9 @@ Inline SVG icon table (24 viewBox)
 
 ### QR Matrix · `qr`
 
-Dependency-free QR generation
+Local QR generation (qrcode-generator; secrets never leave the page)
+
+**Dependencies**: `qrcode-generator`
 
 **Exports**: `QrCodeMatrix` · `qrMatrix`
 
@@ -450,6 +454,8 @@ Dependency-free QR generation
 ### Theme · `theme`
 
 Light/dark switching with a View-Transitions ripple fallback
+
+**Dependencies**: `toast`
 
 **Exports**: `Theme` · `ToggleThemeOptions` · `applyTheme` · `currentTheme` · `themeState` · `toggleTheme`
 
@@ -599,6 +605,8 @@ Asset classes (copy as-is, never invent):
 ### Overlay Manager · `manager`
 
 Unified entry: openModal, openDrawer, confirmDialog
+
+**Dependencies**: `ConfirmDialog` · `overlayState`
 
 **Exports**: `ConfirmOptions` · `confirmDialog`
 

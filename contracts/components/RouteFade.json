@@ -22,6 +22,8 @@
       "routefade-view"
     ]
   },
-  "deps": [],
+  "deps": [
+    "vue-router"
+  ],
   "a11y": []
 }

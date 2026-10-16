@@ -49,8 +49,33 @@
 /* 浮层演示：默认隐藏，由 gallery.js 打开 */
 .g-hidden { display: none !important; }
 
-/* ---------- 嵌入模式（组件详情页 iframe）---------- */
+/* ---------- 嵌入模式（组件详情页 iframe）----------
+   只留「组件自己的演示」：区块标题栏（h2）、虚线演示格（g-cell 的边框/底色）、
+   页头与引言全部去壳，避免详情页里多出一块无关内容。 */
 body.is-embed .g-head { display: none; }
 body.is-embed .g-wrap { padding: 4px 18px 22px; }
 body.is-embed .g-sec { margin-top: 10px; }
+body.is-embed .g-sec > h2 { display: none; }
+body.is-embed .g-cell { border-color: transparent; background: transparent; }
 body.is-embed > .g-wrap > .g-note { display: none; }
+
+/* ---------- 挂载机制演示（OverlaySlot / OverlayHost）：画廊私有卡片 ---------- */
+.g-probe {
+  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
+  width: min(340px, 86vw); display: grid; gap: 10px; justify-items: start;
+  padding: 20px; border: 1px solid var(--hairline-hover); border-radius: var(--r);
+  background: var(--paper); box-shadow: 0 14px 40px rgba(0, 0, 0, .16);
+  transition: opacity .18s var(--ease), transform .18s var(--ease);
+}
+.g-probe.is-closing { opacity: 0; transform: translate(-50%, -50%) scale(.98); }
+.g-probe strong { font-size: 14.5px; }
+.g-probe span { font-size: 12.5px; color: var(--muted-text); line-height: 1.7; }
+
+/* ---------- 路由过渡演示卡片 ---------- */
+.g-fade-stage { padding: 6px 0 2px; }
+.g-fade-card {
+  display: grid; gap: 3px; padding: 16px 18px;
+  border: 1px solid var(--border); border-radius: var(--r); background: var(--paper);
+}
+.g-fade-card strong { font-size: 14px; }
+.g-fade-card span { font-size: 12.5px; color: var(--muted-text); }

@@ -9,8 +9,8 @@
   "kind": "module",
   "source": "vue/lib/qr.ts",
   "summary": {
-    "zh": "无依赖二维码生成",
-    "en": "Dependency-free QR generation"
+    "zh": "本地二维码生成（qrcode-generator，密钥不出网）",
+    "en": "Local QR generation (qrcode-generator; secrets never leave the page)"
   },
   "props": [],
   "emits": [],
@@ -20,7 +20,9 @@
     "state": [],
     "other": []
   },
-  "deps": [],
+  "deps": [
+    "qrcode-generator"
+  ],
   "a11y": [],
   "exports": [
     "QrCodeMatrix",

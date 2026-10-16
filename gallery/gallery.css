@@ -48,3 +48,10 @@
 
 /* 浮层演示：默认隐藏，由 gallery.js 打开 */
 .g-hidden { display: none !important; }
+
+/* ---------- 嵌入模式（组件详情页 iframe）---------- */
+body.is-embed .g-head { display: none; }
+body.is-embed .g-head { display: none; }
+body.is-embed .g-wrap { padding: 4px 18px 40px; }
+body.is-embed .g-sec { margin-top: 10px; }
+body.is-embed > .g-wrap > .g-note { display: none; }

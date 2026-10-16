@@ -8,7 +8,8 @@
          .anx-shell（控制台，中后台主用）· .anx-plain（简洁居中）· .anx-userbar（用户中心顶栏）。
          依赖 tokens.css（--glass-* / --nav-* 等令牌）与 components.css（fade-in 动画）。
    用法：引入顺序 fonts → tokens → brand → base → components → motion → shell；
-         侧栏在 ≤1023px 变为抽屉，用 .anx-shell__side.is-open 与 .anx-shell__scrim 开合（JS 控制），
+         侧栏在 ≤1023px 变为抽屉：JS 只切 .anx-shell__side.is-open，
+         .anx-shell__scrim 必须是 side 的**后续兄弟**（打开态用 ~ 选择器自动显示），
          .anx-mobile-nav-toggle 为窄屏汉堡按钮。
    ========================================================================== */
 
@@ -92,6 +93,11 @@
   padding-left: calc(var(--sidebar-w) + var(--gutter) * 2);
   transition: padding-left var(--t) var(--ease);
 }
+
+/* scrim 基态不可见——桌面端不命中移动媒体查询时，裸 <button> 会露出成一块
+   默认控件（2026-10-16 在 demo 里实测：左上角多出一小块）；移动端由
+   .anx-shell__side.is-open 驱动显示（见文末响应式块） */
+.anx-shell__scrim { display: none; }
 
 .anx-topbar {
   position: sticky; top: var(--nav-gap); z-index: 30;
@@ -197,12 +203,14 @@
 
   .anx-shell__main { padding-left: 0; }
 
-  .anx-shell__scrim {
+  /* 抽屉打开时 scrim 自动出现（无需 JS 单独控制） */
+  .anx-shell__side.is-open ~ .anx-shell__scrim {
+    display: block;
     position: fixed; inset: 0; z-index: 79;
     background: rgba(38, 38, 38, .32);
     animation: fade-in var(--t) var(--ease);
   }
-  [data-theme="dark"] .anx-shell__scrim { background: rgba(0, 0, 0, .58); }
+  [data-theme="dark"] .anx-shell__side.is-open ~ .anx-shell__scrim { background: rgba(0, 0, 0, .58); }
 
   .anx-topbar { margin: var(--nav-gap) 16px 0; padding: 0 12px; }
   .anx-shell__body { padding: calc(var(--nav-total) + 24px) 16px 80px; }

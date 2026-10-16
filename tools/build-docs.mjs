@@ -365,6 +365,182 @@ function pageComponentsIndex() {
   })
 }
 
+/* ------------------------------------------- 实时示例（详情页内嵌）
+   单一来源原则：详情页的「实时示例」不另写一套标记，直接内嵌画廊的区块
+   （gallery/index.html?embed=sec-xxx）——官网示例 = 画廊示例 = 被审计的同一份。
+   少数无法嵌入的（Icon 图标网格 / theme 开关 / 纯标记组件）用内联示例，
+   并在构建期用 class 守卫校验（assertClasses），防止手写示例与资产漂移。 */
+const GALLERY_SECTION = {
+  SelectMenu: 'sec-fsel',
+  SegmentedControl: 'sec-fsel',
+  FieldInput: 'sec-form',
+  TablePager: 'sec-table',
+  usePager: 'sec-table',
+  Badge: 'sec-tags',
+  UserAvatar: 'sec-avatar',
+  AlertBox: 'sec-alert',
+  CodeBox: 'sec-code',
+  KvList: 'sec-code',
+  StatCard: 'sec-stat',
+  TabBar: 'sec-tabs',
+  EmptyState: 'sec-empty',
+  RouteSkeleton: 'sec-empty',
+  TimelineList: 'sec-timeline',
+  ModalShell: 'sec-overlay',
+  DrawerShell: 'sec-overlay',
+  ConfirmDialog: 'sec-overlay',
+  manager: 'sec-overlay',
+  overlayState: 'sec-overlay',
+  toast: 'sec-toast',
+  ToastHost: 'sec-toast',
+}
+const EMBED_HEIGHT = {
+  'sec-overlay': 320,
+  'sec-toast': 300,
+  'sec-fsel': 640,
+  'sec-table': 660,
+  'sec-form': 520,
+  'sec-empty': 380,
+  'sec-timeline': 460,
+  'sec-avatar': 340,
+  'sec-tags': 360,
+  'sec-alert': 420,
+  'sec-code': 560,
+  'sec-stat': 360,
+  'sec-tabs': 520,
+  'sec-type': 420,
+  'sec-btn': 480,
+}
+
+/** 从 vue/lib/icons.ts 提取图标（名称 + SVG 体），供 Icon 详情页渲染图标网格 */
+function loadIcons() {
+  const src = fs.readFileSync(path.join(ROOT, 'vue', 'lib', 'icons.ts'), 'utf8')
+  const block = src.slice(src.indexOf('export const ICONS'), src.indexOf('export function iconBody'))
+  const out = []
+  const re = /^\s{2}(?:'([\w-]+)'|([\w]+)):\s*'((?:[^'\\]|\\.)*)',\s*$/gm
+  let m
+  while ((m = re.exec(block)) !== null) out.push([m[1] || m[2], m[3]])
+  if (out.length < 50) throw new Error(`icons.ts 解析异常：只提取到 ${out.length} 个图标`)
+  return out
+}
+
+/** 内联示例的 class 守卫：所有 anx- 类必须能在资产登记表里找到根名 */
+function assertClasses(html, where) {
+  const map = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'class-map.json'), 'utf8'))
+  const known = new Set(Object.values(map))
+  const used = new Set()
+  for (const m of html.matchAll(/\bclass="([^"]+)"/g)) m[1].split(/\s+/).forEach((x) => used.add(x))
+  const bad = [...used].filter(
+    (cls) =>
+      cls.startsWith('anx-') && !known.has('anx-' + cls.slice(4).split('__')[0].split('--')[0])
+  )
+  if (bad.length) throw new Error(`${where} 使用了未登记的资产类：${bad.join(', ')}`)
+}
+
+function iconGridBlock() {
+  const icons = loadIcons()
+  const items = icons
+    .map(
+      ([name, body]) =>
+        `<figure class="ds-icon" title="${esc(name)}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg><figcaption>${esc(name)}</figcaption></figure>`
+    )
+    .join('')
+  return `<section class="ds-block">
+  <h2>${bi('实时示例', 'Live example')}<span class="ds-block__n">${icons.length}</span></h2>
+  <p class="ds-dim">${bi(
+    '全部图标（从 <code>vue/lib/icons.ts</code> 直接提取，与组件渲染的是同一份 SVG 数据）。',
+    'All icons, extracted straight from <code>vue/lib/icons.ts</code> — the same SVG data the component renders.'
+  )}</p>
+  <div class="ds-icongrid">${items}</div>
+</section>`
+}
+
+function themeDemoBlock() {
+  return `<section class="ds-block">
+  <h2>${bi('实时示例', 'Live example')}</h2>
+  <p class="ds-dim">${bi(
+    '右上角的主题开关就是它（<code>toggleTheme</code> 的简化版）——这里也可以直接试，同样写入 <code>authnexus.theme</code>。',
+    'The switch in the top bar is this module (a simplified <code>toggleTheme</code>). Try it here — it writes the same <code>authnexus.theme</code> key.'
+  )}</p>
+  <div class="ds-demo-surface ds-demo-bar">
+    <button class="anx-btn anx-btn--ghost" id="demo-theme-toggle" type="button">${bi('切换明暗主题', 'Toggle theme')}</button>
+  </div>
+</section>`
+}
+
+function staticDemoBlock(html, height) {
+  return `<section class="ds-block">
+  <h2>${bi('样式预览', 'Preview')}</h2>
+  <div class="ds-demo-surface"${height ? ` style="min-height:${height}px"` : ''}>${html}</div>
+</section>`
+}
+
+function pageHeadDemo() {
+  return `<header class="anx-page-head">
+    <div class="anx-page-head__text">
+      <h1 class="anx-t-h1">应用管理</h1>
+      <p class="anx-page-head__desc">管理接入应用、回调地址与权限申请。</p>
+    </div>
+    <div class="anx-page-head__actions">
+      <button class="anx-btn anx-btn--ghost" type="button">导入</button>
+      <button class="anx-btn anx-btn--primary" type="button">新建应用</button>
+    </div>
+  </header>`
+}
+
+function panelBlockDemo() {
+  return `<section class="anx-panel" style="margin:0">
+    <div class="anx-panel__head">
+      <div>
+        <h2>回调地址</h2>
+        <p>授权码将发送到下列地址（仅 https）</p>
+      </div>
+      <div class="anx-panel__head-actions">
+        <button class="anx-btn anx-btn--ghost anx-btn--sm" type="button">编辑</button>
+      </div>
+    </div>
+    <div class="anx-panel__body">
+      <p style="margin:0">https://your-app.com/oauth/callback</p>
+    </div>
+  </section>`
+}
+
+function liveBlock(c, isModule) {
+  const sec = GALLERY_SECTION[c.name]
+  if (sec) {
+    const h = EMBED_HEIGHT[sec] || 460
+    return `<section class="ds-block">
+  <h2>${bi('实时示例', 'Live example')}</h2>
+  <div class="ds-embed"><iframe src="../gallery/index.html?embed=${sec}" style="height:${h}px" loading="lazy" title="${esc(c.label.zh)} / ${esc(c.label.en)} — live example"></iframe></div>
+  <p class="ds-dim ds-dim--sm">${bi(
+    '活体样例，可直接交互（点开浮层 / 下拉 / 试试键盘）——与组件画廊同源，切主题会同步。',
+    'Interactive sample straight from the gallery (open overlays, dropdowns, try the keyboard); the theme stays in sync.'
+  )}
+    <a href="../gallery/index.html?embed=${sec}" target="_blank" rel="noopener">${bi('新标签打开 ↗', 'Open in new tab ↗')}</a>
+    · <a href="../gallery/">${bi('看完整画廊', 'Full gallery')}</a>
+  </p>
+</section>`
+  }
+  if (c.name === 'Icon' || c.name === 'icons') return iconGridBlock()
+  if (c.name === 'theme') return themeDemoBlock()
+  if (c.name === 'PageHead') return staticDemoBlock(pageHeadDemo())
+  if (c.name === 'PanelBlock') return staticDemoBlock(panelBlockDemo())
+  if (isModule) return ''
+  return `<section class="ds-block">
+  <h2>${bi('实时示例', 'Live example')}</h2>
+  <div class="ds-preview">
+    <p class="ds-preview__hint">${bi(
+      '该组件的交互形态请移步组件画廊与演示页查看（含浮层 / 下拉 / 键盘操作）。',
+      'See this component in action in the gallery and the demo site — overlays, dropdowns and keyboard included.'
+    )}</p>
+    <p class="ds-preview__actions">
+      <a class="anx-btn anx-btn--primary" href="../gallery/" target="_blank" rel="noopener">${bi('在画廊中试用 →', 'Try in gallery →')}</a>
+      <a class="anx-btn anx-btn--ghost" href="../demo/admin/" target="_blank" rel="noopener">${bi('看它在真实页面里', 'See it in a real page')}</a>
+    </p>
+  </div>
+</section>`
+}
+
 /* ---------------------------------------------------------------- 组件详情 */
 function pageComponent(c) {
   const g = groupOf(c.group)
@@ -454,20 +630,7 @@ function pageComponent(c) {
   </section>`
     : ''
 
-  const preview = !isModule
-    ? `<div class="ds-preview">
-    <div class="ds-preview__pad">
-      <p class="ds-preview__hint">${bi(
-        '想看它的真实运行效果？组件画廊里每个组件都有可交互的活体样例（含浮层 / 下拉 / 键盘操作）。',
-        'Want to see it live? The gallery has interactive samples for every component — overlays, dropdowns and keyboard included.'
-      )}</p>
-      <p class="ds-preview__actions">
-        <a class="anx-btn anx-btn--primary" href="../gallery/" target="_blank" rel="noopener">${bi('在画廊中试用 →', 'Try in gallery →')}</a>
-        <a class="anx-btn anx-btn--ghost" href="../demo/admin/" target="_blank" rel="noopener">${bi('看它在真实页面里', 'See it in a real page')}</a>
-      </p>
-    </div>
-  </div>`
-    : ''
+  const live = liveBlock(c, isModule)
 
   const body = `
 <div class="ds-wrap ds-wrap--doc">
@@ -486,7 +649,7 @@ function pageComponent(c) {
       <span class="ds-tag ds-tag--ghost">${isModule ? bi('逻辑模块', 'Logic module') : bi('Vue 组件', 'Vue component')}</span>
     </div>
   </header>
-  ${preview}
+  ${live}
   ${props}
   ${emits}
   ${slots}
@@ -1113,6 +1276,20 @@ html[data-theme='dark'] .ds-lv--warn { color: #FDB022; }
 .ds-foot__links a:hover { color: var(--ink); }
 .ds-foot__note { margin: 6px 0 0; color: var(--muted-text); font-size: 12px; line-height: 1.7; max-width: 720px; }
 
+/* ---------------------------------------------------------------- 实时示例 */
+.ds-embed { border: 1px solid var(--hairline); border-radius: var(--r); overflow: hidden; background: var(--paper); }
+.ds-embed iframe { display: block; width: 100%; border: 0; background: var(--paper); }
+.ds-demo-surface { border: 1px solid var(--hairline); border-radius: var(--r); padding: 22px; background: var(--paper); }
+.ds-demo-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.ds-icongrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 4px; }
+.ds-icon {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  margin: 0; padding: 13px 4px 10px; border: 1px solid transparent; border-radius: var(--r-sm);
+  color: var(--ink); transition: border-color var(--t), background var(--t);
+}
+.ds-icon:hover { border-color: var(--hairline); background: var(--bone); }
+.ds-icon figcaption { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10.5px; color: var(--muted-text); }
+
 /* ---------------------------------------------------------------- 响应式 */
 @media (max-width: 960px) {
   .ds-fgrid, .ds-cgrid, .ds-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1137,19 +1314,20 @@ function docsJs() {
   var KEY_THEME = 'authnexus.theme'
   var KEY_LANG = 'authnexus.docs.lang'
 
-  /* ---- 主题切换 ---- */
-  var themeBtn = document.getElementById('theme-toggle')
-  if (themeBtn) {
-    themeBtn.addEventListener('click', function () {
-      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
-      root.setAttribute('data-theme', next)
-      try { localStorage.setItem(KEY_THEME, next) } catch (e) {}
-      /* 同源演示 iframe 有自己的主题预置：切换后重载让它跟上 */
-      document.querySelectorAll('iframe').forEach(function (f) {
-        try { f.contentWindow.location.reload() } catch (e) {}
-      })
+  /* ---- 主题切换（顶栏按钮 + 组件详情页的演示按钮共用） ---- */
+  function toggleTheme() {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+    root.setAttribute('data-theme', next)
+    try { localStorage.setItem(KEY_THEME, next) } catch (e) {}
+    /* 同源演示 iframe 有自己的主题预置：切换后重载让它跟上 */
+    document.querySelectorAll('iframe').forEach(function (f) {
+      try { f.contentWindow.location.reload() } catch (e) {}
     })
   }
+  var themeBtn = document.getElementById('theme-toggle')
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme)
+  var themeDemoBtn = document.getElementById('demo-theme-toggle')
+  if (themeDemoBtn) themeDemoBtn.addEventListener('click', toggleTheme)
 
   /* ---- 语言切换：html[data-lang] + 标题 + 按钮文字 ---- */
   var langBtn = document.getElementById('lang-toggle')
@@ -1258,6 +1436,7 @@ function main() {
   }
 
   for (const [rel, html] of Object.entries(pages)) {
+    assertClasses(html, rel)                      // 构建期守卫：页面上的 anx- 类必须都有登记
     const p = path.join(SITE, rel)
     fs.mkdirSync(path.dirname(p), { recursive: true })
     fs.writeFileSync(p, html, 'utf8')

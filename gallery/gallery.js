@@ -5,6 +5,18 @@
    以 vue/ 实现与 docs/BEHAVIOR.md 为准，本页只对齐「视觉与几何算法」。
    ========================================================================== */
 
+/* ---------- 嵌入模式（组件详情页 iframe：?embed=sec-xxx 只显示该区块） ---------- */
+/* 详情页直接引画廊的活体样例，保证「官网示例 = 画廊示例」永不漂移 */
+const EMBED_ID = new URLSearchParams(location.search).get('embed')
+if (EMBED_ID) {
+  document.body.classList.add('is-embed')
+  document.querySelectorAll('.g-sec').forEach((sec) => {
+    if (sec.id !== EMBED_ID) sec.classList.add('g-hidden')
+  })
+  const note = document.querySelector('.g-wrap > .g-note')
+  if (note) note.classList.add('g-hidden')
+}
+
 /* ---------- 主题切换（与 lib/theme.ts 同键；简化版不做涟漪） ---------- */
 const THEME_KEY = 'authnexus.theme'
 const themeBtn = document.getElementById('theme-toggle')

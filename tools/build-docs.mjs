@@ -12,6 +12,8 @@
      guide/spec.html           交互规范（BEHAVIOR.md 渲染）
      ai/index.html             AI 专区（MCP 工具 / lint 规则，从源码派生）
      assets/docs.css / docs.js 站点样式与脚本
+     assets/og.png / apple-touch-icon.png  品牌图（来自 brand/，分享图由 gen-site-images.py 生成）
+     404.html / robots.txt / sitemap.xml / favicon.svg / _headers  站点级文件
      css|fonts|demo|gallery/   直接复制
 
    数据来源（单一数据源，不手抄）：
@@ -69,7 +71,13 @@ const REPO = {
   codeberg: 'https://codeberg.org/YimoLab/authnexus-design',
   gitee: 'https://gitee.com/YimoLab/authnexus-design',
 }
-const LIVE_SITE = 'https://authnexus-design.app.workbuddy.host/'
+const SITE_URL = 'https://authnexus-design.casuainess.cn'
+const LIVE_SITE = `${SITE_URL}/demo/admin/`
+const OG_IMAGE = `${SITE_URL}/assets/og.png`
+const DEFAULT_DESC_ZH =
+  '鉴枢设计系统（AuthNexus Design）：令牌驱动、零 UI 框架的 Vue 3 中后台设计系统，明暗双主题、液态玻璃浮层；组件契约自动生成类型、文档与 AI 工具。'
+const DEFAULT_DESC_EN =
+  'AuthNexus Design: a token-driven, UI-framework-free design system for admin consoles. Light and dark themes, liquid-glass overlays, and contracts that generate types, docs and AI tools.'
 
 /* ---------------------------------------------------------------- 小工具 */
 const esc = (s) =>
@@ -78,6 +86,12 @@ const esc = (s) =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
+
+/** 压缩空白并截断到 n 个字符（meta description 用） */
+const clip = (s, n = 160) => {
+  const t = String(s ?? '').replace(/\s+/g, ' ').trim()
+  return t.length > n ? t.slice(0, n - 1) + '…' : t
+}
 
 /** 双语内联：zh / en 两份内容，由 html[data-lang] 控制显隐 */
 const bi = (zh, en) => `<span class="t-zh">${zh}</span><span class="t-en">${en}</span>`
@@ -93,6 +107,32 @@ const codeBlock = (lang, code, { copy = true } = {}) =>
 /* ---------------------------------------------------------------- 页面壳 */
 const FAVICON =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23262626'/%3E%3Cpath d='M11 21.5V10.5L21 21.5V10.5' stroke='%23fff' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E"
+const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#262626"/><path d="M11 21.5V10.5L21 21.5V10.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+`
+
+const ROBOTS_TXT = `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`
+
+/* Cloudflare Pages 的 _headers：字体长缓存；CSS/JS 短缓存（文件名不带 hash），HTML 走默认 */
+const HEADERS = `# Cloudflare Pages：缓存与安全头
+/fonts/*
+  Cache-Control: public, max-age=2592000
+
+/css/*
+  Cache-Control: public, max-age=3600
+
+/assets/*
+  Cache-Control: public, max-age=3600
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+`
 
 const NAV = [
   { id: 'home', href: 'index.html', zh: '首页', en: 'Home' },
@@ -102,7 +142,21 @@ const NAV = [
   { id: 'ai', href: 'ai/index.html', zh: 'AI 专区', en: 'For AI' },
 ]
 
-function shell({ titleZh, titleEn, base, active, body, page }) {
+function shell({
+  titleZh,
+  titleEn,
+  base,
+  active,
+  body,
+  page,
+  rel = 'index.html',
+  descZh = DEFAULT_DESC_ZH,
+  descEn = DEFAULT_DESC_EN,
+  noindex = false,
+}) {
+  const canonical = rel === 'index.html' ? `${SITE_URL}/` : `${SITE_URL}/${rel}`
+  const description = clip(descZh, 160)
+  const descriptionEn = clip(descEn, 200)
   const nav = NAV.map(
     (n) =>
       `<a href="${base}${n.href}"${n.id === active ? ' class="is-active" aria-current="page"' : ''}>${bi(n.zh, n.en)}</a>`
@@ -113,7 +167,26 @@ function shell({ titleZh, titleEn, base, active, body, page }) {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${esc(titleZh)}</title>
-<link rel="icon" href="${FAVICON}" />
+<meta name="description" content="${esc(description)}" />
+${noindex ? '<meta name="robots" content="noindex" />' : ''}
+<link rel="canonical" href="${esc(canonical)}" />
+<meta name="theme-color" content="#262626" />
+<link rel="icon" type="image/svg+xml" href="${base}favicon.svg" />
+<link rel="apple-touch-icon" href="${base}assets/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AuthNexus Design" />
+<meta property="og:title" content="${esc(titleZh)}" />
+<meta property="og:description" content="${esc(description)}" />
+<meta property="og:url" content="${esc(canonical)}" />
+<meta property="og:image" content="${OG_IMAGE}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${esc(titleZh)}" />
+<meta name="twitter:description" content="${esc(description)}" />
+<meta name="twitter:image" content="${OG_IMAGE}" />
 <link rel="preload" href="${base}fonts/albert-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="${base}fonts/fonts.css" />
 <link rel="stylesheet" href="${base}css/index.css" />
@@ -133,7 +206,7 @@ function shell({ titleZh, titleEn, base, active, body, page }) {
   })()
 </script>
 </head>
-<body data-page="${esc(page)}" data-title-zh="${esc(titleZh)}" data-title-en="${esc(titleEn)}">
+<body data-page="${esc(page)}" data-title-zh="${esc(titleZh)}" data-title-en="${esc(titleEn)}" data-desc-zh="${esc(description)}" data-desc-en="${esc(descriptionEn)}">
 <a class="ds-skip" href="#main">${bi('跳到正文', 'Skip to content')}</a>
 <header class="ds-topbar">
   <div class="ds-topbar__in">
@@ -361,6 +434,9 @@ function pageComponentsIndex() {
     base: '../',
     active: 'components',
     page: 'components',
+    rel: 'components/index.html',
+    descZh: `鉴枢设计系统组件总览：${components.length} 个 Vue 组件与 ${modules.length} 个逻辑模块，每个都有 props / emits / slots / class 契约与实时示例。`,
+    descEn: `${components.length} Vue components and ${modules.length} logic modules, each with props, emits, slots and class contracts plus live examples.`,
     body,
   })
 }
@@ -689,6 +765,9 @@ function pageComponent(c) {
     base: '../',
     active: 'components',
     page: 'component',
+    rel: `components/${c.name}.html`,
+    descZh: `${c.label.zh}（${c.name}）：${c.summary.zh}。鉴枢设计系统组件 API 与实时示例。`,
+    descEn: `${c.label.en} (${c.name}): ${c.summary.en}. AuthNexus Design component API and live example.`,
     body,
   })
 }
@@ -825,6 +904,11 @@ node audit/audit-gallery.mjs`
     base: '../',
     active: 'guide',
     page: 'guide',
+    rel: 'guide/index.html',
+    descZh:
+      '鉴枢设计系统快速开始：五步接入 Vue 3 项目，复制 CSS 令牌与组件源码，含引入顺序、Teleport 容器与验收命令。',
+    descEn:
+      'Get started with AuthNexus Design: five steps to adopt the CSS tokens and Vue 3 components, including import order, Teleport targets and verification commands.',
     body,
   })
 }
@@ -857,6 +941,11 @@ function pageSpec() {
     base: '../',
     active: 'spec',
     page: 'spec',
+    rel: 'guide/spec.html',
+    descZh:
+      '鉴枢设计系统交互规范：浮层承载层、玻璃、下拉、分页、标签栏、路由过渡与主题切换的铁律，逐条由浏览器黑盒审计验收。',
+    descEn:
+      'The AuthNexus Design behavior spec: hard-won rules for overlays, glass, dropdowns, pagination, tabs, route transitions and theming, verified by browser audits.',
     body,
   })
 }
@@ -971,6 +1060,40 @@ node mcp/server.mjs --selftest      # 契约 → MCP 工具（自检 ${TOOLS.len
     base: '../',
     active: 'ai',
     page: 'ai',
+    rel: 'ai/index.html',
+    descZh:
+      '鉴枢设计系统 AI 专区：MCP 工具提供真实令牌值与组件契约，lint 把交互铁律变成可执行检查，让模型一次做对。',
+    descEn:
+      'AuthNexus Design for AI: MCP tools expose real token values and component contracts, while lint turns behavior rules into executable checks.',
+    body,
+  })
+}
+
+/* ---------------------------------------------------------------- 404 */
+function page404() {
+  const body = `
+<div class="ds-wrap ds-404">
+  <p class="ds-404__code" aria-hidden="true">404</p>
+  <h1>${bi('页面不存在', 'Page not found')}</h1>
+  <p class="ds-404__text">${bi(
+    '你访问的地址不存在，可能已经移动或删除。',
+    'The page you requested does not exist. It may have moved or been removed.'
+  )}</p>
+  <div class="ds-404__actions">
+    <a class="anx-btn anx-btn--primary" href="./index.html">${bi('回到首页', 'Back home')}</a>
+    <a class="anx-btn anx-btn--ghost" href="./components/index.html">${bi('浏览组件', 'Browse components')}</a>
+  </div>
+</div>`
+  return shell({
+    titleZh: '页面不存在 · AuthNexus Design',
+    titleEn: 'Page not found · AuthNexus Design',
+    base: './',
+    active: '',
+    page: '404',
+    rel: '404.html',
+    noindex: true,
+    descZh: '页面不存在。',
+    descEn: 'Page not found.',
     body,
   })
 }
@@ -1309,6 +1432,13 @@ html[data-theme='dark'] .ds-lv--warn { color: #FDB022; }
 .ds-icon:hover { border-color: var(--hairline); background: var(--bone); }
 .ds-icon figcaption { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10.5px; color: var(--muted-text); }
 
+/* ---------------------------------------------------------------- 404 */
+.ds-404 { text-align: center; padding-block: 96px 120px; }
+.ds-404__code { margin: 0; font-size: clamp(88px, 18vw, 160px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--hairline); }
+.ds-404 h1 { margin: 14px 0 0; }
+.ds-404__text { max-width: 46ch; margin: 12px auto 0; color: var(--muted-text); }
+.ds-404__actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+
 /* ---------------------------------------------------------------- 响应式 */
 @media (max-width: 960px) {
   .ds-fgrid, .ds-cgrid, .ds-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1357,6 +1487,12 @@ function docsJs() {
     var zh = document.body.getAttribute('data-title-zh')
     var en = document.body.getAttribute('data-title-en')
     document.title = (lang === 'en' && en) ? en : (zh || document.title)
+    var desc = document.querySelector('meta[name="description"]')
+    if (desc) {
+      var dz = document.body.getAttribute('data-desc-zh')
+      var de = document.body.getAttribute('data-desc-en')
+      desc.setAttribute('content', (lang === 'en' ? (de || dz) : (dz || de)) || desc.getAttribute('content'))
+    }
     /* 带双语 placeholder 的输入框 */
     document.querySelectorAll('[data-ph-zh]').forEach(function (el) {
       var ph = lang === 'en' ? el.getAttribute('data-ph-en') : el.getAttribute('data-ph-zh')
@@ -1505,6 +1641,51 @@ function main() {
   fs.mkdirSync(path.join(SITE, 'assets'), { recursive: true })
   fs.writeFileSync(path.join(SITE, 'assets', 'docs.css'), docsCss(), 'utf8')
   fs.writeFileSync(path.join(SITE, 'assets', 'docs.js'), docsJs(), 'utf8')
+
+  /* 站点级文件：404 / favicon / robots / sitemap / Cloudflare _headers */
+  fs.writeFileSync(path.join(SITE, '404.html'), page404(), 'utf8')
+  fs.writeFileSync(path.join(SITE, 'favicon.svg'), FAVICON_SVG, 'utf8')
+  fs.writeFileSync(path.join(SITE, 'robots.txt'), ROBOTS_TXT, 'utf8')
+
+  const today = new Date().toISOString().slice(0, 10)
+  const sitemapUrls = [
+    { loc: '/', priority: '1.0', changefreq: 'weekly' },
+    ...Object.keys(pages)
+      .filter((rel) => rel !== 'index.html')
+      .map((rel) => ({
+        loc: '/' + rel.replace(/\\/g, '/'),
+        priority: rel.startsWith('components/') && rel !== 'components/index.html' ? '0.6' : '0.8',
+        changefreq: 'monthly',
+      })),
+    { loc: '/gallery/', priority: '0.5', changefreq: 'monthly' },
+    { loc: '/demo/admin/', priority: '0.5', changefreq: 'monthly' },
+  ]
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls
+  .map(
+    (u) => `  <url>
+    <loc>${SITE_URL}${u.loc}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`
+  )
+  .join('\n')}
+</urlset>
+`
+  fs.writeFileSync(path.join(SITE, 'sitemap.xml'), sitemap, 'utf8')
+  fs.writeFileSync(path.join(SITE, '_headers'), HEADERS, 'utf8')
+
+  /* 品牌图：OG 分享图与 iOS 主屏图标（由 tools/gen-site-images.py 生成） */
+  for (const [src, dest] of [
+    ['brand/og.png', 'assets/og.png'],
+    ['brand/apple-touch-icon.png', 'assets/apple-touch-icon.png'],
+  ]) {
+    const from = path.join(ROOT, src)
+    if (fs.existsSync(from)) fs.copyFileSync(from, path.join(SITE, dest))
+    else console.warn(`warn: 缺少 ${src}，跳过（先运行 python tools/gen-site-images.py）`)
+  }
 
   const n = Object.keys(pages).length
   console.log(`built: _site/（${n} 个页面 = 5 个栏目页 + ${contracts.length} 个组件详情）`)

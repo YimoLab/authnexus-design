@@ -10,6 +10,8 @@ SVG 完全一致（`viewBox="0 0 32 32"`、`rx="8"`、线宽 `2.8`、圆头圆�
 | `logo.svg` | 独立使用（`<img>` / CSS background / favicon）。跟随系统 `prefers-color-scheme` 自动切换深浅色 |
 | `logo-light.svg` | 固定浅色主题配色：深底 `#262626` + 白线 `#FFFFFF` |
 | `logo-dark.svg` | 固定深色主题配色：浅底 `#F5F5F5` + 墨线 `#1A1A1A` |
+| `og.png` | Open Graph / Twitter 分享图（1200×630），由 `tools/gen-site-images.py` 生成 |
+| `apple-touch-icon.png` | iOS 主屏图标（180×180），由 `tools/gen-site-images.py` 生成 |
 
 颜色取值对应 `css/brand.css` 的 `--logo-bg` / `--logo-fg`（浅色下深底白线，深色下浅底墨线）。
 

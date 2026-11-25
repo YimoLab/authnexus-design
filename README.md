@@ -8,6 +8,10 @@
 - **技术**：纯 CSS 令牌 + 自绘组件（零 UI 库依赖）；Vue3 项目直接复用组件源码，React 项目复用 CSS 资产 + 按规范实现组件
 - **保真**：跨框架一致性由 `docs/BEHAVIOR.md`（交互规范）+ `audit/`（浏览器黑盒审计）保障
 
+## 官网
+
+<https://authnexus-design.casuainess.cn>（Cloudflare Pages 构建，`_site/` 为产物）
+
 ## 仓库地址（三平台同权）
 
 | 平台 | 地址 |

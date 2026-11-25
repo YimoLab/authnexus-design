@@ -15,12 +15,12 @@ python -m http.server 8123
 ## 在线预览 / 发布
 
 ```bash
-bash tools/build-site.sh     # 组装自包含站点 _site/（落地页 + demo + gallery + css + fonts）
+npm run build:site           # 组装自包含站点 _site/（落地页 + demo + gallery + css + fonts）
 ```
 
-`_site/` 可直接静态托管（GitHub Pages / 静态服务器 / 任意 hosting）。
+`_site/` 可直接静态托管（Cloudflare Pages / GitHub Pages / 任意静态服务器）。
 
-> 当前在线：<https://authnexus-design.app.workbuddy.host/>（随时可下线）
+> 当前在线：<https://authnexus-design.casuainess.cn/demo/admin/>
 
 ## 说明
 

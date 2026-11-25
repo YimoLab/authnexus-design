@@ -20,6 +20,12 @@
 ### Added
 
 - 补建本 `CHANGELOG.md`（`ADOPT.md` 已引用但此前缺失）。
+- 官网站点级文件：404 页、`robots.txt`、`sitemap.xml`（40 条 URL）、
+  `description` / canonical / Open Graph / Twitter 元数据、独立 `favicon.svg`，
+  以及 Cloudflare Pages 的 `_headers`（缓存与安全头）。
+- `brand/og.png`（1200×630 分享图）与 `brand/apple-touch-icon.png`（180×180），
+  由 `tools/gen-site-images.py` 生成。
+- 官网域名切换为 `https://authnexus-design.casuainess.cn`，同步 `homepage`、README 与演示说明。
 
 ## [0.1.0] - 2026-10-14
 

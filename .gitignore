@@ -35,3 +35,16 @@ _site/
 
 # 工具临时文件
 .tmp-*
+
+# 平台 / 会话记忆（本地保留，不入库）
+.workbuddy/
+.ccgui/
+.claude/
+
+# 示例构建产物（node_modules 已被上方 node_modules/ 覆盖）
+examples/*/dist/
+*.tsbuildinfo
+.vite/
+coverage/
+playwright-report/
+test-results/

@@ -186,9 +186,9 @@ const PATTERNS = [
     need: '保存成功/失败等轻反馈',
     parts: ['toast（lib）', 'ToastHost'],
     code: `import { toast } from './overlay/toast'
-toast('ok', '已保存', '偏好设置已更新。')
-toast('danger', '保存失败', '回调地址必须为 https。')
-toast('info', '已切换到深色主题')`,
+toast('已保存')
+toast({ tone: 'danger', title: '保存失败', text: '回调地址必须为 https。' })
+toast({ tone: 'info', title: '已切换到深色主题' })`,
     notes: [
       '三态视觉区分在 .anx-toast__icon 的图标颜色上——自绘 toast 必须包含该元素，否则三态看起来一样。',
       'danger 用 role="alert"，其余 role="status"。',

@@ -17,6 +17,11 @@
 - 同步修正 `audit/audit-select.mjs`、`demo/admin/index.html`、`gallery/index.html`
   中的旧类名引用。
 
+### Changed
+
+- 重写 `README.md`：居中 Logo（明暗自适应）、官网/演示徽章、浅色与深色首页预览、
+  快速开始、组件分组表、契约管线与验收命令；新增 `LICENSE`（MIT）。
+
 ### Added
 
 - 补建本 `CHANGELOG.md`（`ADOPT.md` 已引用但此前缺失）。

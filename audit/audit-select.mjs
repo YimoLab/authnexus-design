@@ -282,7 +282,7 @@ await page.waitForTimeout(500)
       hit: hit ? hit.className || hit.tagName : null,
     }
   })
-  check(over.z === '160', '面板 z-index 160（高于 .overlay-layer 100、低于 toast 200）')
+  check(over.z === '160', '面板 z-index 160（高于 .anx-overlay-layer 100、低于 toast 200）')
   check(over.above, '面板盖在弹窗之上（命中 ' + over.hit + '）')
   /* 等入场过渡走完再截图：waitForSelector 在元素挂载瞬间就会返回，
      那时 opacity 还是 0，拍出来会是一张「没有面板」的图 */

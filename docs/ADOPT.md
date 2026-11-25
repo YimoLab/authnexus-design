@@ -27,13 +27,13 @@
    a. `index.html` 的 `<body>` 里提供两个 **Teleport 目标容器**（缺了浮层与 Toast 不会显示，且无报错）：
 
       ```html
-      <div id="overlay-layer" class="overlay-layer"></div>
-      <div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
+      <div id="overlay-layer" class="anx-overlay-layer"></div>
+      <div id="toast-layer" class="anx-toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
       ```
 
-      `#overlay-layer` 的 `z-index: 100` 是浮层压住顶栏(30) / 侧栏(40) 的关键（浮层组件自身
+      `.anx-overlay-layer` 的 `z-index: 100` 是浮层压住顶栏(30) / 侧栏(40) 的关键（浮层组件自身
       不设 z-index）；不经 OverlayHost 手动挂浮层（静态页 / 原生 JS）时，要把每组
-      scrim + 面板同样包进 `<div class="overlay-layer">`。
+      scrim + 面板同样包进 `<div class="anx-overlay-layer">`。
 
    b. 应用根挂载 `<OverlayHost />` 与 `<ToastHost />` 各一次；
    复制需要的组件，改 import 别名（组件间引用全部是相对路径，同结构复制可零改动）；
@@ -91,8 +91,8 @@
 
 ```html
 <!-- 浮层与通知的 Teleport 目标容器（必需） -->
-<div id="overlay-layer" class="overlay-layer"></div>
-<div id="toast-layer" class="toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
+<div id="overlay-layer" class="anx-overlay-layer"></div>
+<div id="toast-layer" class="anx-toast-layer" role="region" aria-live="polite" aria-label="操作通知"></div>
 ```
 
 ## 4. Vue 用法示例

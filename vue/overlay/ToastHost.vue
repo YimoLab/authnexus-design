@@ -14,7 +14,7 @@ function iconFor(tone: ToastTone): string {
       v-for="t in toastState.items"
       :key="t.id"
       class="anx-toast"
-      :class="['toast--' + t.tone, { 'is-closing': t.closing }]"
+      :class="['anx-toast--' + t.tone, { 'is-closing': t.closing }]"
       :role="t.tone === 'danger' ? 'alert' : 'status'"
     >
       <span class="anx-toast__icon"><Icon :name="iconFor(t.tone)" :size="17" /></span>

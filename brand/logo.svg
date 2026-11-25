@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-labelledby="anx-logo-title">
+  <title id="anx-logo-title">AuthNexus Design · 鉴枢设计系统</title>
+  <style>
+    /* 独立文件用法：跟随系统深浅色。内联到页面时请改用 var(--logo-bg) / var(--logo-fg)，
+       以跟随页面的 data-theme 手动切换（见 brand/README.md）。 */
+    .anx-logo-bg { fill: #262626; }
+    .anx-logo-fg { stroke: #FFFFFF; }
+    @media (prefers-color-scheme: dark) {
+      .anx-logo-bg { fill: #F5F5F5; }
+      .anx-logo-fg { stroke: #1A1A1A; }
+    }
+  </style>
+  <rect class="anx-logo-bg" width="32" height="32" rx="8"/>
+  <path class="anx-logo-fg" d="M11 21.5V10.5L21 21.5V10.5" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

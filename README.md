@@ -20,6 +20,7 @@
 
 ```
 css/       设计令牌 / 品牌覆盖 / 基础样式 / 组件配方 / 动效 / 中后台外壳（单入口 css/index.css）
+brand/     品牌标识（SVG：自适应深浅色 / 固定浅色 / 固定深色）
 fonts/     自托管字体（SIL OFL 1.1）+ @font-face
 vue/       Vue3 组件源码（ui/ + overlay/ + lib/，文件即组件）
 contracts/ 组件契约（唯一数据源）：生成 TS 类型 / API 文档 / MCP 工具描述，四端不漂移
